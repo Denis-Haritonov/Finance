@@ -1,0 +1,76 @@
+08.11.2015 21:02:37	This log contains information about the import schema operation into project 'DBProject' on computer 'ДУНИС-ПК' by user 'дунис'.
+08.11.2015 21:02:37	Import of database schema has started.
+08.11.2015 21:02:40	Gathering database options
+08.11.2015 21:02:40	Gathering users
+08.11.2015 21:02:40	Gathering roles
+08.11.2015 21:02:40	Gathering application roles
+08.11.2015 21:02:40	Gathering role memberships
+08.11.2015 21:02:40	Gathering filegroups
+08.11.2015 21:02:40	Gathering files
+08.11.2015 21:02:40	Gathering full-text catalogs
+08.11.2015 21:02:40	Gathering assemblies
+08.11.2015 21:02:40	Gathering certificates
+08.11.2015 21:02:40	Gathering asymmetric keys
+08.11.2015 21:02:40	Gathering symmetric keys
+08.11.2015 21:02:40	Gathering encrypted symmetric keys
+08.11.2015 21:02:40	Gathering database encryption keys
+08.11.2015 21:02:40	Gathering schemas
+08.11.2015 21:02:40	Gathering XML schema collections
+08.11.2015 21:02:40	Gathering user-defined data types
+08.11.2015 21:02:40	Gathering user-defined types
+08.11.2015 21:02:40	Gathering table types
+08.11.2015 21:02:40	Gathering unique keys for table types
+08.11.2015 21:02:40	Gathering primary keys for table types
+08.11.2015 21:02:40	Gathering check constraints for table types
+08.11.2015 21:02:40	Gathering default constraints for table types
+08.11.2015 21:02:40	Gathering partition functions
+08.11.2015 21:02:40	Gathering partition schemes
+08.11.2015 21:02:40	Gathering functions
+08.11.2015 21:02:40	Gathering encrypted functions
+08.11.2015 21:02:40	Gathering aggregates
+08.11.2015 21:02:40	Gathering procedures
+08.11.2015 21:02:40	Gathering encrypted procedures
+08.11.2015 21:02:40	Gathering tables
+08.11.2015 21:02:40	Gathering primary keys
+08.11.2015 21:02:40	Gathering unique constraints
+08.11.2015 21:02:40	Gathering foreign keys
+08.11.2015 21:02:40	Gathering default constraints
+08.11.2015 21:02:40	Gathering check constraints
+08.11.2015 21:02:40	Gathering views
+08.11.2015 21:02:40	Gathering encrypted views
+08.11.2015 21:02:40	Gathering indexes
+08.11.2015 21:02:40	Gathering statistics
+08.11.2015 21:02:40	Gathering full-text index stoplists
+08.11.2015 21:02:40	Gathering search property lists
+08.11.2015 21:02:40	Gathering search properties
+08.11.2015 21:02:40	Gathering full-text indexes
+08.11.2015 21:02:40	Gathering column store indexes
+08.11.2015 21:02:40	Gathering spatial indexes
+08.11.2015 21:02:40	Gathering XML indexes
+08.11.2015 21:02:40	Gathering encrypted triggers
+08.11.2015 21:02:40	Gathering triggers
+08.11.2015 21:02:40	Gathering encrypted and clr ddl triggers
+08.11.2015 21:02:40	Gathering ddl triggers
+08.11.2015 21:02:40	Gathering synonyms
+08.11.2015 21:02:40	Gathering defaults
+08.11.2015 21:02:40	Gathering data constraint uddt bindings
+08.11.2015 21:02:40	Gathering rules
+08.11.2015 21:02:40	Gathering data constraint uddt bindings
+08.11.2015 21:02:40	Gathering message types
+08.11.2015 21:02:40	Gathering queues
+08.11.2015 21:02:40	Gathering contracts
+08.11.2015 21:02:40	Gathering services
+08.11.2015 21:02:40	Gathering routes
+08.11.2015 21:02:40	Gathering event notifications
+08.11.2015 21:02:40	Gathering remote service bindings
+08.11.2015 21:02:40	Gathering broker priorities
+08.11.2015 21:02:40	Gathering database audit specifications
+08.11.2015 21:02:40	Gathering signatures
+08.11.2015 21:02:40	Gathering data compression options
+08.11.2015 21:02:40	Gathering sequence types
+08.11.2015 21:02:40	Gathering extended properties
+08.11.2015 21:02:40	Scanning project for duplicate elements
+08.11.2015 21:02:40	Finished duplicate element processing
+08.11.2015 21:02:41	Finished importing database.
+08.11.2015 21:02:41	A summary of the import was saved to the following location: C:\Projects\Finance\BankSystem\DBProject\Import Schema Logs\DBProject_20151108060237.log
+08.11.2015 21:02:41	Click Finish to continue...
