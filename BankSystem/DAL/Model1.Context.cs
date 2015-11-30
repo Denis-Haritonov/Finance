@@ -34,11 +34,11 @@ namespace DAL
         public virtual DbSet<DepositType> DepositType { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<EmployeeType> EmployeeType { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<OAuthMembership> OAuthMembership { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
     }
 }

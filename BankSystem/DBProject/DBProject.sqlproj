@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{81824bbd-8d37-4a7f-a6b1-6db7a02252f6}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -62,7 +62,6 @@
     <Folder Include="dbo\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Account.sql" />
     <Build Include="dbo\Client.sql" />
     <Build Include="dbo\ClientCredit.sql" />
     <Build Include="dbo\ClientDeposit.sql" />
@@ -75,11 +74,12 @@
     <Build Include="dbo\EmployeeType.sql" />
     <Build Include="dbo\Transaction.sql" />
     <Build Include="dbo\UserProfile.sql" />
-    <Build Include="dbo\webpages_OAuthMembership.sql" />
-    <Build Include="dbo\webpages_Membership.sql" />
-    <Build Include="dbo\webpages_Roles.sql" />
-    <Build Include="dbo\webpages_UsersInRoles.sql" />
-    <Build Include="Finance.sql" />
-    <Build Include="RoleMemberships.sql" />
+    <Build Include="dbo\OAuthMembership.sql" />
+    <Build Include="dbo\Membership.sql" />
+    <Build Include="dbo\Roles.sql" />
+    <Build Include="dbo\UsersInRoles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="DBProject.refactorlog" />
   </ItemGroup>
 </Project>

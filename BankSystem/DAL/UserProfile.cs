@@ -21,6 +21,10 @@ namespace DAL
     
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string UserSurname { get; set; }
+        public string UserLastName { get; set; }
+        public Nullable<System.DateTime> UserBirthDate { get; set; }
+        public string UserPassportSerialNumber { get; set; }
     
         public virtual ICollection<Roles> Roles { get; set; }
     }

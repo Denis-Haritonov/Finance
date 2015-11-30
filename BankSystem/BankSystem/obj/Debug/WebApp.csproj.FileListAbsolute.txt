@@ -84,3 +84,11 @@ C:\Projects\Finance\BankSystem\BankSystem\bin\zh-Hant\System.Spatial.resources.d
 C:\Projects\Finance\BankSystem\BankSystem\obj\Debug\WebApp.csprojResolveAssemblyReference.cache
 C:\Projects\Finance\BankSystem\BankSystem\obj\Debug\BankSystem.dll
 C:\Projects\Finance\BankSystem\BankSystem\obj\Debug\BankSystem.pdb
+C:\Projects\Finance\BankSystem\BankSystem\bin\BLL.dll
+C:\Projects\Finance\BankSystem\BankSystem\bin\DAL.dll
+C:\Projects\Finance\BankSystem\BankSystem\bin\EntityFramework.SqlServer.dll
+C:\Projects\Finance\BankSystem\BankSystem\bin\BLL.pdb
+C:\Projects\Finance\BankSystem\BankSystem\bin\DAL.pdb
+C:\Projects\Finance\BankSystem\BankSystem\bin\EntityFramework.SqlServer.xml
+C:\Projects\Finance\banksystem\BankSystem\bin\Common.dll
+C:\Projects\Finance\banksystem\BankSystem\bin\Common.pdb
