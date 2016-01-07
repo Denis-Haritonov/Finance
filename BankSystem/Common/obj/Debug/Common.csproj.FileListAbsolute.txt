@@ -1,0 +1,4 @@
+C:\Projects\Finance\banksystem\Common\bin\Debug\Common.dll
+C:\Projects\Finance\banksystem\Common\bin\Debug\Common.pdb
+C:\Projects\Finance\banksystem\Common\obj\Debug\Common.dll
+C:\Projects\Finance\banksystem\Common\obj\Debug\Common.pdb

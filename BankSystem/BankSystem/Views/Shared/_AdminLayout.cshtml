@@ -1,0 +1,42 @@
+﻿@using Pl.Web.Portal.Menu
+@using Roles = Common.Enum.Roles
+@{
+    ViewBag.Title = "_AdminLayout";
+}
+@Styles.Render("~/BotThemeStyle")
+@Scripts.Render("~/BotThemeScript")
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <div class="nav-no-collapse header-nav">
+                <ul class="nav pull-right">
+                    <li class="dropdown">@WebSecurity.CurrentUserName</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid-full">
+    <div class="row-fluid">
+        <div id="sidebar-left" class="span2">
+            <div class="nav-collapse sidebar-nav">
+                <ul>
+                    @{
+                        var currUrl = Request.Url.LocalPath;
+                        var role = System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() ?? "Client";
+                    }
+                    <!-- Sidebar -->
+                    <div id="sidebar" class="sidebar responsive" data-sidebar-hover="true" data-sidebar-scroll="true" data-sidebar="true">
+                        <ul class="nav nav-tabs nav-stacked main-menu">
+                            @Html.Raw(Menu.Render(currUrl, (Common.Enum.Roles)(Enum.Parse(typeof(Roles), role))))
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        @RenderBody()
+    </div>
+
+</div>

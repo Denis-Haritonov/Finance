@@ -1,0 +1,5 @@
+C:\Projects\Finance\BankSystem\DBProject\bin\Debug\DBProject.dacpac
+C:\Projects\Finance\BankSystem\DBProject\obj\Debug\DBProject.dll
+C:\Projects\Finance\BankSystem\DBProject\obj\Debug\DBProject.pdb
+C:\Projects\Finance\BankSystem\DBProject\bin\Debug\DBProject.dll
+C:\Projects\Finance\BankSystem\DBProject\bin\Debug\DBProject.pdb
