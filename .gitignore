@@ -1,0 +1,5 @@
+bin
+obj
+/BankSystem/*.suo
+*.user
+/BankSystem/DBProject/*.user
