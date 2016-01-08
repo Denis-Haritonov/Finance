@@ -196,7 +196,8 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuPoint.cs" />
     <Compile Include="Menu\MenuPointRenderTemplates.cs" />
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CreditRequestVM.cs" />
+    <Compile Include="Models\DepositRequestVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -380,6 +381,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Request\Create.cshtml" />
+    <Content Include="Views\Request\CreateDepositRequest.cshtml" />
+    <None Include="Views\Request\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

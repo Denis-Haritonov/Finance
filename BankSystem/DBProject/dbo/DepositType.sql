@@ -5,6 +5,7 @@
     [Percent]    FLOAT (53)     NOT NULL,
     [TermInfo]   NVARCHAR (MAX) NULL,
     [RulesInfo]  NVARCHAR (MAX) NULL,
+    [IsActive] BIT NOT NULL, 
     CONSTRAINT [PK_DepositType] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

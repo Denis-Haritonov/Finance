@@ -11,23 +11,12 @@
           </Key>
           <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <EntityType Name="Account">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="OtherName" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
           <Property Name="IdentityNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PassportSerialNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -54,6 +43,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="IsInternal" Type="bit" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Credit">
           <Key>
@@ -102,7 +101,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
           <Property Name="EmployeeTypeId" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -138,6 +137,17 @@
           <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="RequestType" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -175,15 +185,15 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Client_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+        <Association Name="FK_Client_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="Id" />
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Client">
-              <PropertyRef Name="AccountId" />
+              <PropertyRef Name="UserProfileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -247,15 +257,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+        <Association Name="FK_Comment_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
+            <Principal Role="Request">
               <PropertyRef Name="Id" />
             </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Account">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="AccountId" />
+              <PropertyRef Name="UserProfileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -268,6 +302,18 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="EmployeeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -321,11 +367,11 @@
         </Association>
         <EntityContainer Name="FinanceModelStoreContainer">
           <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientCredit" EntityType="Self.ClientCredit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientDeposit" EntityType="Self.ClientDeposit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientInfo" EntityType="Self.ClientInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Credit" EntityType="Self.Credit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CreditType" EntityType="Self.CreditType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deposit" EntityType="Self.Deposit" Schema="dbo" store:Type="Tables" />
@@ -334,12 +380,13 @@
           <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OAuthMembership" EntityType="Self.OAuthMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Client_Account" Association="Self.FK_Client_Account">
-            <End Role="Account" EntitySet="Account" />
+          <AssociationSet Name="FK_Client_UserProfile" Association="Self.FK_Client_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientCredit_Client" Association="Self.FK_ClientCredit_Client">
@@ -362,13 +409,25 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="ClientInfo" EntitySet="ClientInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comment_Request" Association="Self.FK_Comment_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_UserProfile" Association="Self.FK_Comment_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_Account" Association="Self.FK_Employee_Account">
-            <End Role="Account" EntitySet="Account" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_EmployeeType" Association="Self.FK_Employee_EmployeeType">
             <End Role="EmployeeType" EntitySet="EmployeeType" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_UserProfile" Association="Self.FK_Request_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Request" EntitySet="Request" />
           </AssociationSet>
           <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
             <End Role="Roles" EntitySet="Roles" />
@@ -391,40 +450,112 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FinanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Account">
+        <EntityContainer Name="FinanceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__RefactorLog" EntityType="FinanceModel.C__RefactorLog" />
+          <EntitySet Name="Client" EntityType="FinanceModel.Client" />
+          <EntitySet Name="ClientInfo" EntityType="FinanceModel.ClientInfo" />
+          <EntitySet Name="Comment" EntityType="FinanceModel.Comment" />
+          <EntitySet Name="Credit" EntityType="FinanceModel.Credit" />
+          <EntitySet Name="CreditType" EntityType="FinanceModel.CreditType" />
+          <EntitySet Name="Deposit" EntityType="FinanceModel.Deposit" />
+          <EntitySet Name="DepositType" EntityType="FinanceModel.DepositType" />
+          <EntitySet Name="Employee" EntityType="FinanceModel.Employee" />
+          <EntitySet Name="EmployeeType" EntityType="FinanceModel.EmployeeType" />
+          <EntitySet Name="Membership" EntityType="FinanceModel.Membership" />
+          <EntitySet Name="OAuthMembership" EntityType="FinanceModel.OAuthMembership" />
+          <EntitySet Name="Request" EntityType="FinanceModel.Request" />
+          <EntitySet Name="Roles" EntityType="FinanceModel.Roles" />
+          <EntitySet Name="Transaction" EntityType="FinanceModel.Transaction" />
+          <EntitySet Name="UserProfile" EntityType="FinanceModel.UserProfile" />
+          <AssociationSet Name="FK_Client_UserProfile" Association="FinanceModel.FK_Client_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientInfo_Client" Association="FinanceModel.FK_ClientInfo_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientInfo" EntitySet="ClientInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Request" Association="FinanceModel.FK_Comment_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_UserProfile" Association="FinanceModel.FK_Comment_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Credit" Association="FinanceModel.FK_Transaction_Credit">
+            <End Role="Credit" EntitySet="Credit" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Deposit" Association="FinanceModel.FK_Transaction_Deposit">
+            <End Role="Deposit" EntitySet="Deposit" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Account" Association="FinanceModel.FK_Employee_Account">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_EmployeeType" Association="FinanceModel.FK_Employee_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_UserProfile" Association="FinanceModel.FK_Request_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="ClientCredit" Association="FinanceModel.ClientCredit">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
+          <AssociationSet Name="ClientDeposit" Association="FinanceModel.ClientDeposit">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
+          <AssociationSet Name="UsersInRoles" Association="FinanceModel.UsersInRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+        <EnumType Name="RequestState" />
+        <EntityType Name="C__RefactorLog">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="OperationKey" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="OtherName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Client_Account" FromRole="Account" ToRole="Client" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Account" FromRole="Account" ToRole="Employee" />
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
           <Property Name="IdentityNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PassportSerialNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_Client_Account" FromRole="Client" ToRole="Account" />
-          <NavigationProperty Name="ClientInfo" Relationship="Self.FK_ClientInfo_Client" FromRole="Client" ToRole="ClientInfo" />
-          <NavigationProperty Name="Credit" Relationship="Self.ClientCredit" FromRole="Client" ToRole="Credit" />
-          <NavigationProperty Name="Deposit" Relationship="Self.ClientDeposit" FromRole="Client" ToRole="Deposit" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Client_UserProfile" FromRole="Client" ToRole="UserProfile" />
+          <NavigationProperty Name="ClientInfo" Relationship="FinanceModel.FK_ClientInfo_Client" FromRole="Client" ToRole="ClientInfo" />
+          <NavigationProperty Name="Credit" Relationship="FinanceModel.ClientCredit" FromRole="Client" ToRole="Credit" />
+          <NavigationProperty Name="Deposit" Relationship="FinanceModel.ClientDeposit" FromRole="Client" ToRole="Deposit" />
         </EntityType>
         <EntityType Name="ClientInfo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_ClientInfo_Client" FromRole="ClientInfo" ToRole="Client" />
+          <NavigationProperty Name="Client" Relationship="FinanceModel.FK_ClientInfo_Client" FromRole="ClientInfo" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="IsInternal" Type="Boolean" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Comment_Request" FromRole="Comment" ToRole="Request" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="Comment" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="Credit">
           <Key>
@@ -432,23 +563,24 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="StartAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Debt" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="StartAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Debt" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="CreditTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Transaction" Relationship="Self.FK_Transaction_Credit" FromRole="Credit" ToRole="Transaction" />
-          <NavigationProperty Name="Client" Relationship="Self.ClientCredit" FromRole="Credit" ToRole="Client" />
+          <NavigationProperty Name="Transaction" Relationship="FinanceModel.FK_Transaction_Credit" FromRole="Credit" ToRole="Transaction" />
+          <NavigationProperty Name="Client" Relationship="FinanceModel.ClientCredit" FromRole="Credit" ToRole="Client" />
         </EntityType>
         <EntityType Name="CreditType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Percent" Type="Double" Nullable="false" />
           <Property Name="OverduePercent" Type="Double" Nullable="false" />
           <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
           <Property Name="StartAmountInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Deposit">
           <Key>
@@ -456,200 +588,43 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Balance" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="DepositTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Transaction" Relationship="Self.FK_Transaction_Deposit" FromRole="Deposit" ToRole="Transaction" />
-          <NavigationProperty Name="Client" Relationship="Self.ClientDeposit" FromRole="Deposit" ToRole="Client" />
+          <NavigationProperty Name="Transaction" Relationship="FinanceModel.FK_Transaction_Deposit" FromRole="Deposit" ToRole="Transaction" />
+          <NavigationProperty Name="Client" Relationship="FinanceModel.ClientDeposit" FromRole="Deposit" ToRole="Client" />
         </EntityType>
         <EntityType Name="DepositType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
           <Property Name="Percent" Type="Double" Nullable="false" />
           <Property Name="TermInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeTypeId" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_Employee_Account" FromRole="Employee" ToRole="Account" />
-          <NavigationProperty Name="EmployeeType" Relationship="Self.FK_Employee_EmployeeType" FromRole="Employee" ToRole="EmployeeType" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Employee_Account" FromRole="Employee" ToRole="UserProfile" />
+          <NavigationProperty Name="EmployeeType" Relationship="FinanceModel.FK_Employee_EmployeeType" FromRole="Employee" ToRole="EmployeeType" />
         </EntityType>
         <EntityType Name="EmployeeType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
         </EntityType>
-        <EntityType Name="Transaction">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Recipient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepositId" Type="Int32" />
-          <Property Name="CreditId" Type="Int32" />
-          <NavigationProperty Name="Credit" Relationship="Self.FK_Transaction_Credit" FromRole="Transaction" ToRole="Credit" />
-          <NavigationProperty Name="Deposit" Relationship="Self.FK_Transaction_Deposit" FromRole="Transaction" ToRole="Deposit" />
-        </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Roles" Relationship="FinanceModel.UsersInRoles" FromRole="UserProfile" ToRole="Roles" />
-          <Property Name="UserSurname" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
-          <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
-          <Property Name="UserBirthDate" Type="DateTime" Precision="0" />
-          <Property Name="UserPassportSerialNumber" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_Client_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="AccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="AccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientInfo_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="ClientInfo" Type="Self.ClientInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClientInfo">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Transaction_Credit">
-          <End Role="Credit" Type="Self.Credit" Multiplicity="0..1" />
-          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Credit">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Transaction">
-              <PropertyRef Name="CreditId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Transaction_Deposit">
-          <End Role="Deposit" Type="Self.Deposit" Multiplicity="0..1" />
-          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Deposit">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Transaction">
-              <PropertyRef Name="DepositId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_EmployeeType">
-          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="EmployeeTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ClientCredit">
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <End Role="Credit" Type="Self.Credit" Multiplicity="*" />
-        </Association>
-        <Association Name="ClientDeposit">
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <End Role="Deposit" Type="Self.Deposit" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="FinanceEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Account" EntityType="Self.Account" />
-          <EntitySet Name="Client" EntityType="Self.Client" />
-          <EntitySet Name="ClientInfo" EntityType="Self.ClientInfo" />
-          <EntitySet Name="Credit" EntityType="Self.Credit" />
-          <EntitySet Name="CreditType" EntityType="Self.CreditType" />
-          <EntitySet Name="Deposit" EntityType="Self.Deposit" />
-          <EntitySet Name="DepositType" EntityType="Self.DepositType" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" />
-          <EntitySet Name="Transaction" EntityType="Self.Transaction" />
-          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" />
-          <AssociationSet Name="FK_Client_Account" Association="Self.FK_Client_Account">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Account" Association="Self.FK_Employee_Account">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClientInfo_Client" Association="Self.FK_ClientInfo_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ClientInfo" EntitySet="ClientInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Transaction_Credit" Association="Self.FK_Transaction_Credit">
-            <End Role="Credit" EntitySet="Credit" />
-            <End Role="Transaction" EntitySet="Transaction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Transaction_Deposit" Association="Self.FK_Transaction_Deposit">
-            <End Role="Deposit" EntitySet="Deposit" />
-            <End Role="Transaction" EntitySet="Transaction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_EmployeeType" Association="Self.FK_Employee_EmployeeType">
-            <End Role="EmployeeType" EntitySet="EmployeeType" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="ClientCredit" Association="Self.ClientCredit">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Credit" EntitySet="Credit" />
-          </AssociationSet>
-          <AssociationSet Name="ClientDeposit" Association="Self.ClientDeposit">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Deposit" EntitySet="Deposit" />
-          </AssociationSet>
-          <EntitySet Name="Membership" EntityType="FinanceModel.Membership" />
-          <EntitySet Name="OAuthMembership" EntityType="FinanceModel.OAuthMembership" />
-          <EntitySet Name="Roles" EntityType="FinanceModel.Roles" />
-          <AssociationSet Name="UsersInRoles" Association="FinanceModel.UsersInRoles">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
-          </AssociationSet>
-          <EntitySet Name="C__RefactorLog" EntityType="FinanceModel.C__RefactorLog" />
-          <EntitySet Name="RequestSet" EntityType="FinanceModel.Request" />
-        </EntityContainer>
         <EntityType Name="Membership">
           <Key>
             <PropertyRef Name="UserId" />
@@ -675,6 +650,19 @@
           <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="RequestType" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_Request" FromRole="Request" ToRole="Comment" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="Request" ToRole="UserProfile" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -683,166 +671,262 @@
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserProfile" Relationship="FinanceModel.UsersInRoles" FromRole="Roles" ToRole="UserProfile" />
         </EntityType>
-        <Association Name="UsersInRoles">
-          <End Type="FinanceModel.Roles" Role="Roles" Multiplicity="*" />
-          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="*" />
-        </Association>
-        <EntityType Name="C__RefactorLog">
-          <Key>
-            <PropertyRef Name="OperationKey" />
-          </Key>
-          <Property Name="OperationKey" Type="Guid" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Request">
+        <EntityType Name="Transaction">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="State" Type="FinanceModel.RequestState" Nullable="false" />
-          <NavigationProperty Name="Client" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Recipient" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepositId" Type="Int32" />
+          <Property Name="CreditId" Type="Int32" />
+          <NavigationProperty Name="Credit" Relationship="FinanceModel.FK_Transaction_Credit" FromRole="Transaction" ToRole="Credit" />
+          <NavigationProperty Name="Deposit" Relationship="FinanceModel.FK_Transaction_Deposit" FromRole="Transaction" ToRole="Deposit" />
         </EntityType>
-        <EnumType Name="RequestState" />
-      </Schema>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Name="UserSurname" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Name="UserBirthDate" Type="DateTime" Precision="0" />
+          <Property Name="UserPassportSerialNumber" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="FinanceModel.FK_Client_UserProfile" FromRole="UserProfile" ToRole="Client" />
+          <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="UserProfile" ToRole="Comment" />
+          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK_Employee_Account" FromRole="UserProfile" ToRole="Employee" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="UserProfile" ToRole="Request" />
+          <NavigationProperty Name="Roles" Relationship="FinanceModel.UsersInRoles" FromRole="UserProfile" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_Client_UserProfile">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="FinanceModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientInfo_Client">
+          <End Type="FinanceModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="FinanceModel.ClientInfo" Role="ClientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientInfo">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Request">
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="FinanceModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_UserProfile">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="FinanceModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Credit">
+          <End Type="FinanceModel.Credit" Role="Credit" Multiplicity="0..1" />
+          <End Type="FinanceModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Credit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CreditId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Deposit">
+          <End Type="FinanceModel.Deposit" Role="Deposit" Multiplicity="0..1" />
+          <End Type="FinanceModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deposit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="DepositId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Account">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="FinanceModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_EmployeeType">
+          <End Type="FinanceModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
+          <End Type="FinanceModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_UserProfile">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClientCredit">
+          <End Type="FinanceModel.Client" Role="Client" Multiplicity="*" />
+          <End Type="FinanceModel.Credit" Role="Credit" Multiplicity="*" />
+        </Association>
+        <Association Name="ClientDeposit">
+          <End Type="FinanceModel.Client" Role="Client" Multiplicity="*" />
+          <End Type="FinanceModel.Deposit" Role="Deposit" Multiplicity="*" />
+        </Association>
+        <Association Name="UsersInRoles">
+          <End Type="FinanceModel.Roles" Role="Roles" Multiplicity="*" />
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="FinanceModelStoreContainer" CdmEntityContainer="FinanceEntities">
-          <EntitySetMapping Name="Account">
-            <EntityTypeMapping TypeName="FinanceModel.Account">
-              <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="OtherName" ColumnName="OtherName" />
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="FinanceModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="FinanceModel.Client">
               <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-                <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
                 <ScalarProperty Name="PassportSerialNumber" ColumnName="PassportSerialNumber" />
+                <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ClientInfo">
             <EntityTypeMapping TypeName="FinanceModel.ClientInfo">
               <MappingFragment StoreEntitySet="ClientInfo">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="FinanceModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Credit">
             <EntityTypeMapping TypeName="FinanceModel.Credit">
               <MappingFragment StoreEntitySet="Credit">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="StartAmount" ColumnName="StartAmount" />
-                <ScalarProperty Name="Debt" ColumnName="Debt" />
                 <ScalarProperty Name="CreditTypeId" ColumnName="CreditTypeId" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="StartAmount" ColumnName="StartAmount" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CreditType">
             <EntityTypeMapping TypeName="FinanceModel.CreditType">
               <MappingFragment StoreEntitySet="CreditType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Percent" ColumnName="Percent" />
-                <ScalarProperty Name="OverduePercent" ColumnName="OverduePercent" />
-                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
-                <ScalarProperty Name="StartAmountInfo" ColumnName="StartAmountInfo" />
                 <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
+                <ScalarProperty Name="StartAmountInfo" ColumnName="StartAmountInfo" />
+                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
+                <ScalarProperty Name="OverduePercent" ColumnName="OverduePercent" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Deposit">
             <EntityTypeMapping TypeName="FinanceModel.Deposit">
               <MappingFragment StoreEntitySet="Deposit">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="DepositTypeId" ColumnName="DepositTypeId" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DepositType">
             <EntityTypeMapping TypeName="FinanceModel.DepositType">
               <MappingFragment StoreEntitySet="DepositType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
-                <ScalarProperty Name="Percent" ColumnName="Percent" />
-                <ScalarProperty Name="TermInfo" ColumnName="TermInfo" />
                 <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
+                <ScalarProperty Name="TermInfo" ColumnName="TermInfo" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="FinanceModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeType">
             <EntityTypeMapping TypeName="FinanceModel.EmployeeType">
               <MappingFragment StoreEntitySet="EmployeeType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Transaction">
-            <EntityTypeMapping TypeName="FinanceModel.Transaction">
-              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Recipient" ColumnName="Recipient" />
-                <ScalarProperty Name="DepositId" ColumnName="DepositId" />
-                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserProfile">
-            <EntityTypeMapping TypeName="FinanceModel.UserProfile">
-              <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="UserPassportSerialNumber" ColumnName="UserPassportSerialNumber" />
-                <ScalarProperty Name="UserBirthDate" ColumnName="UserBirthDate" />
-                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
-                <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="ClientCredit" TypeName="FinanceModel.ClientCredit" StoreEntitySet="ClientCredit">
-            <EndProperty Name="Client">
-              <ScalarProperty Name="Id" ColumnName="ClientId" />
-            </EndProperty>
-            <EndProperty Name="Credit">
-              <ScalarProperty Name="Id" ColumnName="CreditId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="ClientDeposit" TypeName="FinanceModel.ClientDeposit" StoreEntitySet="ClientDeposit">
-            <EndProperty Name="Client">
-              <ScalarProperty Name="Id" ColumnName="ClientId" />
-            </EndProperty>
-            <EndProperty Name="Deposit">
-              <ScalarProperty Name="Id" ColumnName="DepositId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Membership">
             <EntityTypeMapping TypeName="FinanceModel.Membership">
               <MappingFragment StoreEntitySet="Membership">
@@ -869,6 +953,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="FinanceModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="FinanceModel.Roles">
               <MappingFragment StoreEntitySet="Roles">
@@ -877,6 +973,45 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Transaction">
+            <EntityTypeMapping TypeName="FinanceModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
+                <ScalarProperty Name="DepositId" ColumnName="DepositId" />
+                <ScalarProperty Name="Recipient" ColumnName="Recipient" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="FinanceModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserPassportSerialNumber" ColumnName="UserPassportSerialNumber" />
+                <ScalarProperty Name="UserBirthDate" ColumnName="UserBirthDate" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ClientCredit" TypeName="FinanceModel.ClientCredit" StoreEntitySet="ClientCredit">
+            <EndProperty Name="Credit">
+              <ScalarProperty Name="Id" ColumnName="CreditId" />
+            </EndProperty>
+            <EndProperty Name="Client">
+              <ScalarProperty Name="Id" ColumnName="ClientId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ClientDeposit" TypeName="FinanceModel.ClientDeposit" StoreEntitySet="ClientDeposit">
+            <EndProperty Name="Deposit">
+              <ScalarProperty Name="Id" ColumnName="DepositId" />
+            </EndProperty>
+            <EndProperty Name="Client">
+              <ScalarProperty Name="Id" ColumnName="ClientId" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="UsersInRoles" TypeName="FinanceModel.UsersInRoles" StoreEntitySet="UsersInRoles">
             <EndProperty Name="UserProfile">
               <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -885,13 +1020,6 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="C__RefactorLog">
-            <EntityTypeMapping TypeName="FinanceModel.C__RefactorLog">
-              <MappingFragment StoreEntitySet="__RefactorLog">
-                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

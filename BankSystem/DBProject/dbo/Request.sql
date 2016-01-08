@@ -5,5 +5,6 @@
     [RequestType] INT NOT NULL, 
     [Amount] MONEY NOT NULL, 
     [Status] INT NOT NULL, 
-    CONSTRAINT [FK_Request_Client] FOREIGN KEY ([ClientId]) REFERENCES [Client]([Id])
+    [Type] INT NOT NULL, 
+    CONSTRAINT [FK_Request_UserProfile] FOREIGN KEY ([ClientId]) REFERENCES [UserProfile]([UserId])
 )
