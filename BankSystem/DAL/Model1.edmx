@@ -648,6 +648,7 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
           <EntitySet Name="C__RefactorLog" EntityType="FinanceModel.C__RefactorLog" />
+          <EntitySet Name="RequestSet" EntityType="FinanceModel.Request" />
         </EntityContainer>
         <EntityType Name="Membership">
           <Key>
@@ -692,6 +693,15 @@
           </Key>
           <Property Name="OperationKey" Type="Guid" Nullable="false" />
         </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="FinanceModel.RequestState" Nullable="false" />
+          <NavigationProperty Name="Client" />
+        </EntityType>
+        <EnumType Name="RequestState" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
