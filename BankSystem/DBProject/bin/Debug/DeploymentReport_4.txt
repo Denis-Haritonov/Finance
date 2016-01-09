@@ -1,0 +1,44 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Client] (Table)
+       [dbo].[ClientCredit] (Table)
+       [dbo].[ClientDeposit] (Table)
+       [dbo].[ClientInfo] (Table)
+       [dbo].[Credit] (Table)
+       [dbo].[CreditType] (Table)
+       [dbo].[Deposit] (Table)
+       [dbo].[DepositType] (Table)
+       [dbo].[Membership] (Table)
+       [dbo].[OAuthMembership] (Table)
+       [dbo].[Roles] (Table)
+       [dbo].[Transaction] (Table)
+       [dbo].[UserProfile] (Table)
+       [dbo].[UsersInRoles] (Table)
+       Default Constraint: unnamed constraint on [dbo].[Membership] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Membership] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[UserProfile] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[UserProfile] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[UserProfile] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[UserProfile] (Default Constraint)
+       [dbo].[FK_Client_UserProfile] (Foreign Key)
+       [dbo].[FK_ClientCredit_Client] (Foreign Key)
+       [dbo].[FK_ClientCredit_Credit] (Foreign Key)
+       [dbo].[FK_ClientDeposit_Client] (Foreign Key)
+       [dbo].[FK_ClientDeposit_Deposit] (Foreign Key)
+       [dbo].[FK_ClientInfo_Client] (Foreign Key)
+       [dbo].[FK_Transaction_Credit] (Foreign Key)
+       [dbo].[FK_Transaction_Deposit] (Foreign Key)
+       [dbo].[fk_RoleId] (Foreign Key)
+       [dbo].[fk_UserId] (Foreign Key)
+
+** Supporting actions

@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BLL.Interfaces;
 
 namespace BankSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private IUserService service;
+
+        public HomeController(IUserService _userService)
+        {
+            this.service = _userService;
+        }
+
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
+            var users = this.service.GetUserViewModels();
             return View();
         }
 

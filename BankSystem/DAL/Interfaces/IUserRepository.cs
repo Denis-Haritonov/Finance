@@ -10,5 +10,7 @@ namespace DAL.Interfaces
         UserProfile GetUserByPassportNumber(String passportNumber);
 
         UserProfile GetUserByLogin(String login);
+
+        void AddOrUpdateUser(UserProfile user);
     }
 }

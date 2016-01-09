@@ -1,6 +1,4 @@
-﻿using Common.Enum;
-
-namespace Pl.Web.Portal.Menu
+﻿namespace Pl.Web.Portal.Menu
 {
     using System;
     using System.Collections.Generic;
@@ -15,17 +13,9 @@ namespace Pl.Web.Portal.Menu
         /// Initializes a new instance of the <see cref="MenuPoint"/> class.
         /// </summary>
         /// <param name="visibleFor">List of roles that can see that menu point</param>
-        public MenuPoint(List<Roles> visibleFor = null)
+        public MenuPoint(List<string> visibleFor = null)
         {
-            if (visibleFor == null)
-            {
-                this.VisibleForRoles = Enum.GetValues(typeof(Roles)).Cast<Roles>().ToList();
-            }
-            else
-            {
-                this.VisibleForRoles = visibleFor;
-            }
-
+            this.VisibleForRoles = visibleFor;
             this.ChildPoints = new List<MenuPoint>();
         }
 
@@ -52,7 +42,7 @@ namespace Pl.Web.Portal.Menu
         /// <summary>
         /// User roles that can see this item
         /// </summary>
-        private List<Roles> VisibleForRoles { get; set; }
+        private List<String> VisibleForRoles { get; set; }
 
         /// <summary>
         /// Is link should be marked as active
@@ -74,7 +64,7 @@ namespace Pl.Web.Portal.Menu
         /// </summary>
         /// <param name="currentRole">Current user role</param>
         /// <returns>Is link rendered</returns>
-        public bool IsVisible(Roles currentRole)
+        public bool IsVisible(String currentRole)
         {
             return this.VisibleForRoles.Contains(currentRole);
         }
@@ -85,7 +75,7 @@ namespace Pl.Web.Portal.Menu
         /// <param name="currentUrl">Current request url</param>
         /// <param name="currentRole">Current user role</param>
         /// <returns>Menu item rendered in string</returns>
-        public string Render(string currentUrl, Roles currentRole)
+        public string Render(string currentUrl, String currentRole)
         {
             if (this.IsVisible(currentRole))
             {
@@ -132,7 +122,7 @@ namespace Pl.Web.Portal.Menu
         /// <param name="currentUrl">Current request url</param>
         /// <param name="currentRole">Current user url</param>
         /// <returns>Menu item stored in string</returns>
-        private string RenderChildPoints(string currentUrl, Roles currentRole)
+        private string RenderChildPoints(string currentUrl, String currentRole)
         {
             var result = string.Empty;
             this.ChildPoints.ForEach(mp => result += mp.Render(currentUrl, currentRole));
