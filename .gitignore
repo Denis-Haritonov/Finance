@@ -1,1 +1,8 @@
+bin
+obj
+/BankSystem/*.suo
+*.user
+/BankSystem/DBProject/*.user
 *.pdb
+/BankSystem/DBProject/DBProject.dbmdl
+*.cache

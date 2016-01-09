@@ -14,11 +14,19 @@ namespace DAL
     
     public partial class DepositType
     {
+        public DepositType()
+        {
+            this.Request = new HashSet<Request>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public long ReturnTerm { get; set; }
         public double Percent { get; set; }
         public string TermInfo { get; set; }
         public string RulesInfo { get; set; }
+        public bool IsActive { get; set; }
+    
+        public virtual ICollection<Request> Request { get; set; }
     }
 }

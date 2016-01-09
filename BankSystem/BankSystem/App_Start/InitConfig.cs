@@ -16,8 +16,6 @@ namespace BankSystem
 
         public static void Config()
         {
-            WebSecurity.CreateUserAndAccount("Admin", "Admin");
-            Roles.AddUserToRole("Admin", "Admin");
         }
     }
 }

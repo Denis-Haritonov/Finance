@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interfaces;
 
 namespace DAL.Implementation
@@ -12,19 +10,19 @@ namespace DAL.Implementation
     {
         public List<UserProfile> GetUsers()
         {
-            using (var context = new FinanceEntity())
+            using (var context = new FinanceEntities())
             {
-                return context.UserProfiles.ToList();
+                return context.UserProfile.ToList();
             }
         }
 
         public void AddOrUpdateUser(UserProfile user)
         {
-            using (var context = new FinanceEntity())
+            using (var context = new FinanceEntities())
             {
                 if (user.UserId == 0)
                 {
-                    context.UserProfiles.Add(user);
+                    context.UserProfile.Add(user);
                 }
                 else
                 {
@@ -32,6 +30,22 @@ namespace DAL.Implementation
                 }
 
                 context.SaveChanges();
+            }
+        }
+
+        public UserProfile GetUserByLogin(String login)
+        {
+            using (var context = new FinanceEntities())
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public UserProfile GetUserByPassportNumber(String passportNumber)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return context.UserProfile.FirstOrDefault(user => user.UserPassportSerialNumber == passportNumber);
             }
         }
     }

@@ -16,8 +16,8 @@ namespace DAL
     {
         public Deposit()
         {
-            this.Transactions = new HashSet<Transaction>();
-            this.Clients = new HashSet<Client>();
+            this.Transaction = new HashSet<Transaction>();
+            this.Client = new HashSet<Client>();
         }
     
         public int Id { get; set; }
@@ -25,7 +25,7 @@ namespace DAL
         public decimal Balance { get; set; }
         public int DepositTypeId { get; set; }
     
-        public virtual ICollection<Transaction> Transactions { get; set; }
-        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<Transaction> Transaction { get; set; }
+        public virtual ICollection<Client> Client { get; set; }
     }
 }

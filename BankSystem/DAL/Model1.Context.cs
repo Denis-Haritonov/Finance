@@ -13,24 +13,31 @@ namespace DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FinanceEntity : DbContext
+    public partial class FinanceEntities : DbContext
     {
-        public FinanceEntity()
+        public FinanceEntities()
             : base("name=FinanceEntity")
         {
         }
     
-        public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<ClientInfo> ClientInfoes { get; set; }
-        public virtual DbSet<Credit> Credits { get; set; }
-        public virtual DbSet<CreditType> CreditTypes { get; set; }
-        public virtual DbSet<Deposit> Deposits { get; set; }
-        public virtual DbSet<DepositType> DepositTypes { get; set; }
-        public virtual DbSet<Membership> Memberships { get; set; }
-        public virtual DbSet<OAuthMembership> OAuthMemberships { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Transaction> Transactions { get; set; }
-        public virtual DbSet<UserProfile> UserProfiles { get; set; }
-        public virtual DbSet<UsersInRole> UsersInRoles { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
+    
+        public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<ClientInfo> ClientInfo { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<Credit> Credit { get; set; }
+        public virtual DbSet<CreditType> CreditType { get; set; }
+        public virtual DbSet<Deposit> Deposit { get; set; }
+        public virtual DbSet<DepositType> DepositType { get; set; }
+        public virtual DbSet<Request> Request { get; set; }
+        public virtual DbSet<Transaction> Transaction { get; set; }
+        public virtual DbSet<UserProfile> UserProfile { get; set; }
+        public virtual DbSet<UsersInRoles> UsersInRoles { get; set; }
+        public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
     }
 }

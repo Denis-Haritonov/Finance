@@ -14,4 +14,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="UserPassportSerialNumber" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="2ebb89d7-b844-4c85-ab8d-3ff3a2150134" ChangeDateTime="01/08/2016 16:52:48">
+    <Property Name="ElementName" Value="[dbo].[Comment].[AuthorId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Comment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserProfileId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="602d6fd6-d2ae-49e1-bec1-77cb3601c1d8" ChangeDateTime="01/09/2016 09:19:02">
+    <Property Name="ElementName" Value="[dbo].[Request].[Status]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Request]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="State" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="de74c11c-8235-47c2-a9a3-b9bf2e368469" ChangeDateTime="01/09/2016 11:15:33">
+    <Property Name="ElementName" Value="[dbo].[Request].[date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Request]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Date" />
+  </Operation>
 </Operations>

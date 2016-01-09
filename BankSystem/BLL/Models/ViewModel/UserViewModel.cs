@@ -11,7 +11,7 @@ namespace BLL.Models.ViewModel
     {
         public UserViewModel()
         {
-            this.UserInRoles = new List<UsersInRole>();
+            this.UserInRoles = new List<UsersInRoles>();
         }
 
         public int UserId { get; set; }
@@ -20,7 +20,6 @@ namespace BLL.Models.ViewModel
         public string UserLastName { get; set; }
         public DateTime? UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
-
-        public List<UsersInRole> UserInRoles { get; set; } 
+        public List<UsersInRoles> UserInRoles { get; set; } 
     }
 }

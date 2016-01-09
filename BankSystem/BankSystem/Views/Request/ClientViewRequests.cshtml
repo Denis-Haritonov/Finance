@@ -1,0 +1,64 @@
+﻿@using BLL.Models.Enums
+@using GridMvc.Html
+
+@model IEnumerable<BLL.Models.RequestModel>
+
+@{
+    ViewBag.Title = "Заявки";
+}
+
+@helper RenderRequestType(RequestType type)
+{
+    switch (type)
+    {
+        case RequestType.Credit:
+            <span>Кредит</span>
+            break;
+        case RequestType.Deposit:
+            <span>Депозит</span>
+            break;
+    }
+}
+
+@helper RenderRequestState(RequestState state)
+{
+    switch (state)
+    {
+        case RequestState.Pending:
+            <span>Рассматривается</span>
+            break;
+        case RequestState.Approved:
+            <span>Подтверждена</span>
+            break;
+        case RequestState.Rejected:
+            <span>Отклонена</span>
+            break;
+    }
+}
+
+<h2>Мои заявки</h2>
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(item => item.Date)
+        .Titled("Дата");
+
+    columns.Add()
+        .Titled("Тип")
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderRequestType(item.Type));
+
+    columns.Add()
+        .Titled("Статус")
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderRequestState(item.State));
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item =>
+            @<b>
+                @Html.Action("Details", new {Id = item.Id})
+            </b>);
+})

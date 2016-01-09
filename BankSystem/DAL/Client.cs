@@ -16,9 +16,9 @@ namespace DAL
     {
         public Client()
         {
-            this.ClientInfoes = new HashSet<ClientInfo>();
-            this.Credits = new HashSet<Credit>();
-            this.Deposits = new HashSet<Deposit>();
+            this.ClientInfo = new HashSet<ClientInfo>();
+            this.Credit = new HashSet<Credit>();
+            this.Deposit = new HashSet<Deposit>();
         }
     
         public int Id { get; set; }
@@ -27,8 +27,8 @@ namespace DAL
         public string PassportSerialNumber { get; set; }
     
         public virtual UserProfile UserProfile { get; set; }
-        public virtual ICollection<ClientInfo> ClientInfoes { get; set; }
-        public virtual ICollection<Credit> Credits { get; set; }
-        public virtual ICollection<Deposit> Deposits { get; set; }
+        public virtual ICollection<ClientInfo> ClientInfo { get; set; }
+        public virtual ICollection<Credit> Credit { get; set; }
+        public virtual ICollection<Deposit> Deposit { get; set; }
     }
 }

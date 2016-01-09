@@ -53,18 +53,6 @@ namespace BankSystem.Models
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Фамилия пользователя")]
-        public string SurName { get; set; }
-
-        [Required]
-        [Display(Name = "Фамилия пользователя")]
-        public string ThirdName { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime BirthDateTime { get; set; }
-
-        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
@@ -78,6 +66,18 @@ namespace BankSystem.Models
         [Required]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Фамилия пользователя")]
+        public string SurName { get; set; }
+
+        [Required]
+        [Display(Name = "Фамилия пользователя")]
+        public string ThirdName { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime BirthDateTime { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Пароль {0} должен быть не меньше {2} символов.", MinimumLength = 8)]
