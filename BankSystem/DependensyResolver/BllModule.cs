@@ -12,6 +12,7 @@ namespace DependensyResolver
             this.Bind<ICreditTypeService>().To<CreditTypeService>().InSingletonScope();
             this.Bind<IDepositTypeService>().To<DepositTypeService>().InSingletonScope();
             this.Bind<IRequestService>().To<RequestService>().InSingletonScope();
+            this.Bind<ICommentService>().To<CommentService>().InSingletonScope();
         }
     }
 }
