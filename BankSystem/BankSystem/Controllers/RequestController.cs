@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using BankSystem.Models;
-using BLL;
+using BLL.Implementations;
+using BLL.Interfaces;
 using BLL.Models;
 using BLL.Models.Enums;
 
@@ -10,6 +11,23 @@ namespace BankSystem.Controllers
 {
     public class RequestController : Controller
     {
+        private IRequestService requestService;
+
+        private IDepositTypeService depositTypeService;
+
+        private ICreditTypeService creditTypeService;
+
+        private IUserService userService;
+
+        public RequestController(IRequestService requestService, IDepositTypeService depositTypeService,
+            ICreditTypeService creditTypeService, IUserService userService)
+        {
+            this.requestService = requestService;
+            this.depositTypeService = depositTypeService;
+            this.creditTypeService = creditTypeService;
+            this.userService = userService;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -17,7 +35,6 @@ namespace BankSystem.Controllers
 
         public ActionResult CreateCreditRequest()
         {
-            var creditTypeService = new CreditTypeService();
             var creditTypes = creditTypeService.GetCreditTypes();
             var creditRequestModel = new CreditRequestVM
             {
@@ -41,7 +58,6 @@ namespace BankSystem.Controllers
             if (ModelState.IsValid)
             {
                 var userName = User.Identity.Name;
-                var requestService = new RequestService();
                 model.RequestModel.State = RequestState.Pending;
                 model.RequestModel.Type = RequestType.Credit;
                 var message = requestService.CreateRequest(model.RequestModel, userName);
@@ -56,7 +72,6 @@ namespace BankSystem.Controllers
 
         public ActionResult CreateDepositRequest()
         {
-            var depositTypeService = new DepositTypeService();
             var depositTypes = depositTypeService.GetDepositTypes();
             var depositRequestModel = new DepositRequestVM
             {
@@ -80,7 +95,6 @@ namespace BankSystem.Controllers
             if (ModelState.IsValid)
             {
                 var userName = User.Identity.Name;
-                var requestService = new RequestService();
                 model.RequestModel.State = RequestState.Pending;
                 model.RequestModel.Type = RequestType.Deposit;
                 var message = requestService.CreateRequest(model.RequestModel, userName);
@@ -95,16 +109,13 @@ namespace BankSystem.Controllers
 
         public ActionResult ClientViewRequests()
         {
-            var requestService = new RequestService();
-            var userService = new UserService();
             var user = userService.GetUserByLogin(User.Identity.Name);
-            var clientRequests = requestService.GetRequestsByClient(user.Id);
+            var clientRequests = requestService.GetRequestsByClient(user.UserId);
             return View(clientRequests);
         }
 
         public ActionResult ClientDetails(int requestId)
         {
-            var requsetService = new RequestService();
             return View();
         }
     }

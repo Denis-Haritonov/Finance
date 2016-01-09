@@ -8,14 +8,6 @@ namespace BLL
     {
         private IUserRepository userRepository;
 
-        public UserModel GetUserByLogin(String login)
-        {
-            var user = userRepository.GetUserByLogin(login);
-            if (user != null)
-            {
-                return new UserModel(user);
-            }
-            return null;
-        }
+        
     }
 }

@@ -1,16 +1,18 @@
 ﻿using DAL.Implementation;
 using DAL.Interfaces;
+using Ninject.Modules;
 
-namespace DependencyResolver
+namespace DependensyResolver
 {
-    using Ninject.Modules;
-
     public class DalLayerModule : NinjectModule
     {
 
         public override void Load()
         {
             this.Bind<IUserRepository>().To<UserRepository>().InSingletonScope();
+            this.Bind<IRequestRepository>().To<RequestRepository>().InSingletonScope();
+            this.Bind<ICreditTypeReporsitory>().To<CreditTypeRepository>().InSingletonScope();
+            this.Bind<IDepositTypeRepository>().To<DepositTypeRepository>().InSingletonScope();
         }
     }
 }

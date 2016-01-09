@@ -1,17 +1,17 @@
 ﻿using BLL.Implementations;
 using BLL.Interfaces;
-using DAL.Implementation;
-using DAL.Interfaces;
 using Ninject.Modules;
 
 namespace DependensyResolver
 {
-        public class BllLayerModule : NinjectModule
+    public class BllLayerModule : NinjectModule
+    {
+        public override void Load()
         {
-            public override void Load()
-            {
-                this.Bind<IUserService>().To<UserService>().InSingletonScope();
-            }
+            this.Bind<IUserService>().To<UserService>().InSingletonScope();
+            this.Bind<ICreditTypeService>().To<CreditTypeService>().InSingletonScope();
+            this.Bind<IDepositTypeService>().To<DepositTypeService>().InSingletonScope();
+            this.Bind<IRequestService>().To<RequestService>().InSingletonScope();
         }
-
+    }
 }

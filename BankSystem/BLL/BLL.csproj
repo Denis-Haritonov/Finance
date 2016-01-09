@@ -52,10 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreditTypeService.cs" />
-    <Compile Include="DepositTypeService.cs" />
+    <Compile Include="Implementations\CreditTypeService.cs" />
+    <Compile Include="Implementations\DepositTypeService.cs" />
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Implementations\UserService.cs" />
+    <Compile Include="Interfaces\ICreditTypeService.cs" />
+    <Compile Include="Interfaces\IDepositTypeService.cs" />
+    <Compile Include="Interfaces\IRequestService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CreditTypeModel.cs" />
@@ -63,10 +66,9 @@
     <Compile Include="Models\Enums\RequestState.cs" />
     <Compile Include="Models\Enums\RequestType.cs" />
     <Compile Include="Models\RequestModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\ViewModel\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestService.cs" />
+    <Compile Include="Implementations\RequestService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>

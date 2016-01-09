@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using DAL.Interfaces;
 
 namespace DAL.Implementation
 {
-    public class RequestRepository
+    public class RequestRepository : IRequestRepository
     {
         public void CreateRequest(Request request)
         {

@@ -7,7 +7,6 @@ namespace BankSystem
     using System;
     using System.Collections.Generic;
     using System.Web;
-    using DependencyResolver;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;

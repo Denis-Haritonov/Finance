@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BLL.Interfaces;
 using BLL.Models;
 using DAL;
 using DAL.Interfaces;
 
-namespace BLL
+namespace BLL.Implementations
 {
-    public class RequestService
+    public class RequestService : IRequestService
     {
         private IUserRepository userRepository;
 
         private IRequestRepository requestRepository;
+
+        public RequestService(IRequestRepository requestRepository, IUserRepository userRepository)
+        {
+            this.requestRepository = requestRepository;
+            this.userRepository = userRepository;
+        }
 
         public String CreateRequest(RequestModel requestModel, String passportNumber)
         {
