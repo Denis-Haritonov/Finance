@@ -5,3 +5,4 @@ obj
 /BankSystem/DBProject/*.user
 *.pdb
 /BankSystem/DBProject/DBProject.dbmdl
+*.cache
