@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Menu.cs" company="ZigZag">
-//   Copyright © ZigZag 2015
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-using Common.Enum;
+﻿using System;
 
 namespace Pl.Web.Portal.Menu
 {
@@ -40,7 +34,7 @@ namespace Pl.Web.Portal.Menu
         /// <param name="currentUrl">Current request url</param>
         /// <param name="currentRole">Current user role</param>
         /// <returns>Rendered string</returns>
-        public static string Render(string currentUrl, Roles currentRole)
+        public static string Render(string currentUrl, String currentRole)
         {
             var itemsRender = string.Empty;
             menuPoints.ForEach(mp => itemsRender += mp.Render(currentUrl, currentRole));

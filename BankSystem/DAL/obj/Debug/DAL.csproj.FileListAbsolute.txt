@@ -5,6 +5,5 @@ C:\Projects\Finance\BankSystem\DAL\bin\Debug\EntityFramework.dll
 C:\Projects\Finance\BankSystem\DAL\bin\Debug\EntityFramework.SqlServer.dll
 C:\Projects\Finance\BankSystem\DAL\bin\Debug\EntityFramework.xml
 C:\Projects\Finance\BankSystem\DAL\bin\Debug\EntityFramework.SqlServer.xml
-C:\Projects\Finance\BankSystem\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 C:\Projects\Finance\BankSystem\DAL\obj\Debug\DAL.dll
 C:\Projects\Finance\BankSystem\DAL\obj\Debug\DAL.pdb

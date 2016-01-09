@@ -1,29 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="FinanceModelStoreContainer" CdmEntityContainer="FinanceEntities">
-    <EntitySetMapping Name="Account">
-      <EntityTypeMapping TypeName="FinanceModel.Account">
-        <MappingFragment StoreEntitySet="Account">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Surname" ColumnName="Surname" />
-          <ScalarProperty Name="OtherName" ColumnName="OtherName" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Client">
+  <EntityContainerMapping StorageEntityContainer="FinanceModelStoreContainer" CdmEntityContainer="FinanceEntities2">
+    <EntitySetMapping Name="Clients">
       <EntityTypeMapping TypeName="FinanceModel.Client">
         <MappingFragment StoreEntitySet="Client">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
           <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
           <ScalarProperty Name="PassportSerialNumber" ColumnName="PassportSerialNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ClientInfo">
+    <EntitySetMapping Name="ClientInfoes">
       <EntityTypeMapping TypeName="FinanceModel.ClientInfo">
         <MappingFragment StoreEntitySet="ClientInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -32,7 +20,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Credit">
+    <EntitySetMapping Name="Credits">
       <EntityTypeMapping TypeName="FinanceModel.Credit">
         <MappingFragment StoreEntitySet="Credit">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -43,7 +31,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CreditType">
+    <EntitySetMapping Name="CreditTypes">
       <EntityTypeMapping TypeName="FinanceModel.CreditType">
         <MappingFragment StoreEntitySet="CreditType">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -56,7 +44,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Deposit">
+    <EntitySetMapping Name="Deposits">
       <EntityTypeMapping TypeName="FinanceModel.Deposit">
         <MappingFragment StoreEntitySet="Deposit">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -66,7 +54,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DepositType">
+    <EntitySetMapping Name="DepositTypes">
       <EntityTypeMapping TypeName="FinanceModel.DepositType">
         <MappingFragment StoreEntitySet="DepositType">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -78,26 +66,42 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Employee">
-      <EntityTypeMapping TypeName="FinanceModel.Employee">
-        <MappingFragment StoreEntitySet="Employee">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-          <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+    <EntitySetMapping Name="Memberships">
+      <EntityTypeMapping TypeName="FinanceModel.Membership">
+        <MappingFragment StoreEntitySet="Membership">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+          <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="EmployeeType">
-      <EntityTypeMapping TypeName="FinanceModel.EmployeeType">
-        <MappingFragment StoreEntitySet="EmployeeType">
+    <EntitySetMapping Name="OAuthMemberships">
+      <EntityTypeMapping TypeName="FinanceModel.OAuthMembership">
+        <MappingFragment StoreEntitySet="OAuthMembership">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+          <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Transaction">
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="FinanceModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
       <EntityTypeMapping TypeName="FinanceModel.Transaction">
         <MappingFragment StoreEntitySet="Transaction">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -108,15 +112,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserProfile">
+    <EntitySetMapping Name="UserProfiles">
       <EntityTypeMapping TypeName="FinanceModel.UserProfile">
         <MappingFragment StoreEntitySet="UserProfile">
-          <ScalarProperty Name="UserPassportSerialNumber" ColumnName="UserPassportSerialNumber" />
-          <ScalarProperty Name="UserBirthDate" ColumnName="UserBirthDate" />
-          <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
-          <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
+          <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+          <ScalarProperty Name="UserBirthDate" ColumnName="UserBirthDate" />
+          <ScalarProperty Name="UserPassportSerialNumber" ColumnName="UserPassportSerialNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersInRoles">
+      <EntityTypeMapping TypeName="FinanceModel.UsersInRole">
+        <MappingFragment StoreEntitySet="UsersInRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -136,54 +149,5 @@
         <ScalarProperty Name="Id" ColumnName="DepositId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="Membership">
-      <EntityTypeMapping TypeName="FinanceModel.Membership">
-        <MappingFragment StoreEntitySet="Membership">
-          <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
-          <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
-          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
-          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
-          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
-          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OAuthMembership">
-      <EntityTypeMapping TypeName="FinanceModel.OAuthMembership">
-        <MappingFragment StoreEntitySet="OAuthMembership">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
-          <ScalarProperty Name="Provider" ColumnName="Provider" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="FinanceModel.Roles">
-        <MappingFragment StoreEntitySet="Roles">
-          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="UsersInRoles" TypeName="FinanceModel.UsersInRoles" StoreEntitySet="UsersInRoles">
-      <EndProperty Name="UserProfile">
-        <ScalarProperty Name="UserId" ColumnName="UserId" />
-      </EndProperty>
-      <EndProperty Name="Roles">
-        <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="C__RefactorLog">
-      <EntityTypeMapping TypeName="FinanceModel.C__RefactorLog">
-        <MappingFragment StoreEntitySet="__RefactorLog">
-          <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

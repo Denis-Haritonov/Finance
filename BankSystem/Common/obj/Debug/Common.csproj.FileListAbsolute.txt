@@ -1,4 +1,5 @@
-C:\Projects\Finance\banksystem\Common\bin\Debug\Common.dll
-C:\Projects\Finance\banksystem\Common\bin\Debug\Common.pdb
-C:\Projects\Finance\banksystem\Common\obj\Debug\Common.dll
-C:\Projects\Finance\banksystem\Common\obj\Debug\Common.pdb
+C:\Projects\Finance\BankSystem\Common\bin\Debug\Common.dll
+C:\Projects\Finance\BankSystem\Common\bin\Debug\Common.pdb
+C:\Projects\Finance\BankSystem\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+C:\Projects\Finance\BankSystem\Common\obj\Debug\Common.dll
+C:\Projects\Finance\BankSystem\Common\obj\Debug\Common.pdb

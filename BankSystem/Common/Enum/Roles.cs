@@ -8,9 +8,10 @@ namespace Common.Enum
 {
     public enum Roles
     {
-        Client,
-        Worker,
-        Admin
-        
+        NotAuthorized = 0,
+        Admin = 1,
+        Client = 2,
+        Operator = 3,
+        SecurityWorker = 4
     }
 }

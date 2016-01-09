@@ -16,7 +16,8 @@ namespace DAL
     {
         public UserProfile()
         {
-            this.Roles = new HashSet<Roles>();
+            this.Clients = new HashSet<Client>();
+            this.UsersInRoles = new HashSet<UsersInRole>();
         }
     
         public int UserId { get; set; }
@@ -26,6 +27,7 @@ namespace DAL
         public Nullable<System.DateTime> UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
     
-        public virtual ICollection<Roles> Roles { get; set; }
+        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<UsersInRole> UsersInRoles { get; set; }
     }
 }

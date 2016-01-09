@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace BankSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         //

@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         List<UserProfile> GetUsers();
+
+        void AddOrUpdateUser(UserProfile user);
     }
 }

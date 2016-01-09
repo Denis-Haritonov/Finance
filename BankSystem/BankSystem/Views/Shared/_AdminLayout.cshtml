@@ -1,5 +1,4 @@
 ﻿@using Pl.Web.Portal.Menu
-@using Roles = Common.Enum.Roles
 @{
     ViewBag.Title = "_AdminLayout";
 }
@@ -28,7 +27,8 @@
                     <!-- Sidebar -->
                     <div id="sidebar" class="sidebar responsive" data-sidebar-hover="true" data-sidebar-scroll="true" data-sidebar="true">
                         <ul class="nav nav-tabs nav-stacked main-menu">
-                            @Html.Raw(Menu.Render(currUrl, (Common.Enum.Roles)(Enum.Parse(typeof(Roles), role))))
+
+                            @Html.Raw(Menu.Render(currUrl, Roles.GetRolesForUser(WebSecurity.CurrentUserName).First()))
                         </ul>
                     </div>
                 </ul>

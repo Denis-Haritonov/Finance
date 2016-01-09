@@ -1,28 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="__RefactorLog">
-    <Key>
-      <PropertyRef Name="OperationKey" />
-    </Key>
-    <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Account">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="OtherName" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
   <EntityType Name="Client">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AccountId" Type="int" Nullable="false" />
+    <Property Name="UserProfileId" Type="int" Nullable="false" />
     <Property Name="IdentityNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="PassportSerialNumber" Type="nvarchar" MaxLength="50" />
   </EntityType>
@@ -92,28 +75,11 @@
     <Property Name="TermInfo" Type="nvarchar(max)" />
     <Property Name="RulesInfo" Type="nvarchar(max)" />
   </EntityType>
-  <EntityType Name="Employee">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AccountId" Type="int" Nullable="false" />
-    <Property Name="EmployeeTypeId" Type="int" Nullable="false" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EmployeeType">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" />
-  </EntityType>
   <EntityType Name="Membership">
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
     <Property Name="IsConfirmed" Type="bit" />
@@ -127,9 +93,9 @@
   </EntityType>
   <EntityType Name="OAuthMembership">
     <Key>
-      <PropertyRef Name="Provider" />
-      <PropertyRef Name="ProviderUserId" />
+      <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
@@ -164,21 +130,21 @@
   </EntityType>
   <EntityType Name="UsersInRoles">
     <Key>
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="RoleId" />
+      <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Client_Account">
-    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+  <Association Name="FK_Client_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
     <End Role="Client" Type="Self.Client" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="Id" />
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="Client">
-        <PropertyRef Name="AccountId" />
+        <PropertyRef Name="UserProfileId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -242,30 +208,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Employee_Account">
-    <End Role="Account" Type="Self.Account" Multiplicity="1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Employee">
-        <PropertyRef Name="AccountId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Employee_EmployeeType">
-    <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EmployeeType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Employee">
-        <PropertyRef Name="EmployeeTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_RoleId">
     <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
     <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
@@ -315,8 +257,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="FinanceModelStoreContainer">
-    <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ClientCredit" EntityType="Self.ClientCredit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ClientDeposit" EntityType="Self.ClientDeposit" Schema="dbo" store:Type="Tables" />
@@ -325,16 +265,14 @@
     <EntitySet Name="CreditType" EntityType="Self.CreditType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deposit" EntityType="Self.Deposit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DepositType" EntityType="Self.DepositType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OAuthMembership" EntityType="Self.OAuthMembership" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Client_Account" Association="Self.FK_Client_Account">
-      <End Role="Account" EntitySet="Account" />
+    <AssociationSet Name="FK_Client_UserProfile" Association="Self.FK_Client_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
       <End Role="Client" EntitySet="Client" />
     </AssociationSet>
     <AssociationSet Name="FK_ClientCredit_Client" Association="Self.FK_ClientCredit_Client">
@@ -356,14 +294,6 @@
     <AssociationSet Name="FK_ClientInfo_Client" Association="Self.FK_ClientInfo_Client">
       <End Role="Client" EntitySet="Client" />
       <End Role="ClientInfo" EntitySet="ClientInfo" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Employee_Account" Association="Self.FK_Employee_Account">
-      <End Role="Account" EntitySet="Account" />
-      <End Role="Employee" EntitySet="Employee" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Employee_EmployeeType" Association="Self.FK_Employee_EmployeeType">
-      <End Role="EmployeeType" EntitySet="EmployeeType" />
-      <End Role="Employee" EntitySet="Employee" />
     </AssociationSet>
     <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
       <End Role="Roles" EntitySet="Roles" />

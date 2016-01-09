@@ -70,8 +70,6 @@
     <Build Include="dbo\CreditType.sql" />
     <Build Include="dbo\Deposit.sql" />
     <Build Include="dbo\DepositType.sql" />
-    <Build Include="dbo\Employee.sql" />
-    <Build Include="dbo\EmployeeType.sql" />
     <Build Include="dbo\Transaction.sql" />
     <Build Include="dbo\UserProfile.sql" />
     <Build Include="dbo\OAuthMembership.sql" />
@@ -81,5 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DBProject.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="dbo\Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>

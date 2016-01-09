@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Membership] (
-    [UserId]                                  INT            NOT NULL,
+    [UserId]                                  INT            NOT NULL primary key identity, 
     [CreateDate]                              DATETIME       NULL,
     [ConfirmationToken]                       NVARCHAR (128) NULL,
     [IsConfirmed]                             BIT            DEFAULT ((0)) NULL,
@@ -10,6 +10,5 @@
     [PasswordSalt]                            NVARCHAR (128) NOT NULL,
     [PasswordVerificationToken]               NVARCHAR (128) NULL,
     [PasswordVerificationTokenExpirationDate] DATETIME       NULL,
-    PRIMARY KEY CLUSTERED ([UserId] ASC)
 );
 
