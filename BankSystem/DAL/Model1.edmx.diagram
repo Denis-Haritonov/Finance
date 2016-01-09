@@ -5,39 +5,41 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bba46ef0875c4487b17b4c777d9a7e5e" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="FinanceModel.C__RefactorLog" PointX="8.75" PointY="4.875" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Client" PointX="5.25" PointY="15.25" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.ClientInfo" PointX="7.5" PointY="12.5" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Credit" PointX="7.5" PointY="18" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Deposit" PointX="7.5" PointY="15.125" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Employee" PointX="5.25" PointY="8.25" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.EmployeeType" PointX="3" PointY="4.375" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Membership" PointX="0.75" PointY="11.875" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.OAuthMembership" PointX="0.75" PointY="0.875" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Roles" PointX="0.75" PointY="8.5" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Transaction" PointX="9.75" PointY="16.5" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.UserProfile" PointX="3" PointY="7.75" Width="1.5" />
+        <EntityTypeShape EntityType="FinanceModel.C__RefactorLog" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.Client" Width="1.5" PointX="3" PointY="24.375" />
+        <EntityTypeShape EntityType="FinanceModel.ClientInfo" Width="1.5" PointX="5.25" PointY="21.75" />
+        <EntityTypeShape EntityType="FinanceModel.Comment" Width="1.5" PointX="8.25" PointY="11.125" />
+        <EntityTypeShape EntityType="FinanceModel.Credit" Width="1.5" PointX="5.25" PointY="24.25" />
+        <EntityTypeShape EntityType="FinanceModel.CreditType" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="FinanceModel.Deposit" Width="1.5" PointX="5.25" PointY="27.375" />
+        <EntityTypeShape EntityType="FinanceModel.DepositType" Width="1.5" PointX="0.75" PointY="14.875" />
+        <EntityTypeShape EntityType="FinanceModel.Employee" Width="1.5" PointX="6" PointY="11.375" />
+        <EntityTypeShape EntityType="FinanceModel.EmployeeType" Width="1.5" PointX="3.75" PointY="15.5" />
+        <EntityTypeShape EntityType="FinanceModel.Membership" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.OAuthMembership" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.Request" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="FinanceModel.Roles" Width="1.5" PointX="3.75" PointY="7.625" />
+        <EntityTypeShape EntityType="FinanceModel.Transaction" Width="1.5" PointX="7.5" PointY="25.75" />
+        <EntityTypeShape EntityType="FinanceModel.UserProfile" Width="1.5" PointX="0.75" PointY="10.875" />
+        <EntityTypeShape EntityType="FinanceModel.UsersInRoles" Width="1.5" PointX="6" PointY="8.375" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_Membership" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_OAuthMembership" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_Roles" Width="1.5" PointX="6.75" PointY="0.75" />
         <AssociationConnector Association="FinanceModel.FK_Client_UserProfile" />
         <AssociationConnector Association="FinanceModel.FK_ClientInfo_Client" />
-        <AssociationConnector Association="FinanceModel.FK_Transaction_Credit" />
-        <AssociationConnector Association="FinanceModel.FK_Transaction_Deposit" />
-        <AssociationConnector Association="FinanceModel.FK_Employee_Account" />
-        <AssociationConnector Association="FinanceModel.FK_Employee_EmployeeType" />
-        <AssociationConnector Association="FinanceModel.ClientCredit" />
-        <AssociationConnector Association="FinanceModel.ClientDeposit" />
-        <AssociationConnector Association="FinanceModel.UsersInRoles" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_Membership" PointX="10.75" PointY="0.875" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_OAuthMembership" PointX="8.75" PointY="0.875" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_Roles" PointX="2.75" PointY="0.875" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.CreditType" PointX="6" PointY="4.25" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.DepositType" PointX="6" PointY="0.75" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Comment" PointX="10.5" PointY="8" Width="1.5" />
-        <EntityTypeShape EntityType="FinanceModel.Request" PointX="8.25" PointY="7.5" Width="1.5" />
         <AssociationConnector Association="FinanceModel.FK_Comment_Request" />
         <AssociationConnector Association="FinanceModel.FK_Comment_UserProfile" />
+        <AssociationConnector Association="FinanceModel.FK_Transaction_Credit" />
         <AssociationConnector Association="FinanceModel.FK_Request_CreditType" />
+        <AssociationConnector Association="FinanceModel.FK_Transaction_Deposit" />
         <AssociationConnector Association="FinanceModel.FK_Request_DepositType" />
+        <AssociationConnector Association="FinanceModel.FK_Employee_Account" />
+        <AssociationConnector Association="FinanceModel.FK_Employee_EmployeeType" />
         <AssociationConnector Association="FinanceModel.FK_Request_UserProfile" />
+        <AssociationConnector Association="FinanceModel.fk_RoleId" />
+        <AssociationConnector Association="FinanceModel.fk_UserId" />
+        <AssociationConnector Association="FinanceModel.ClientCredit" />
+        <AssociationConnector Association="FinanceModel.ClientDeposit" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

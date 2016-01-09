@@ -105,7 +105,7 @@ namespace BankSystem.Controllers
         public ActionResult ClientDetails(int requestId)
         {
             var requsetService = new RequestService();
-            var request = requsetService
+            return View();
         }
     }
 }

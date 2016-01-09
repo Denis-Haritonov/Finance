@@ -6,15 +6,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BankSystem.Filters;
 using BankSystem.Models;
-using DAL;
+using BLL.Interfaces;
+using BLL.Models.ViewModel;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using BankSystem.Filters;
-using BankSystem.Models;
-using BLL.Implementations;
-using BLL.Interfaces;
-using BLL.Models.ViewModel;
 
 namespace BankSystem.Controllers
 {

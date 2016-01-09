@@ -28,7 +28,7 @@ namespace BLL.Implementations
         public void AddClientUser(UserViewModel userModel)
         {
             var dalUser = Mapper.Map<UserViewModel, UserProfile>(userModel);
-            dalUser.UsersInRoles.Add(new UsersInRole(){ RoleId = (int)Common.Enum.Roles.Client, UserId  = dalUser.UserId });
+            dalUser.UsersInRoles.Add(new UsersInRoles(){ RoleId = (int)Common.Enum.Roles.Client, UserId  = dalUser.UserId });
             this._userRepository.AddOrUpdateUser(dalUser);
         }
     }

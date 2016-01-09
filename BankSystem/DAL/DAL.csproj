@@ -126,6 +126,9 @@
     <Compile Include="UserProfile.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="UsersInRoles.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="webpages_Membership.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

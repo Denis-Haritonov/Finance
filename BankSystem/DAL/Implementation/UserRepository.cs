@@ -10,19 +10,19 @@ namespace DAL.Implementation
     {
         public List<UserProfile> GetUsers()
         {
-            using (var context = new FinanceEntity())
+            using (var context = new FinanceEntities())
             {
-                return context.UserProfiles.ToList();
+                return context.UserProfile.ToList();
             }
         }
 
         public void AddOrUpdateUser(UserProfile user)
         {
-            using (var context = new FinanceEntity())
+            using (var context = new FinanceEntities())
             {
                 if (user.UserId == 0)
                 {
-                    context.UserProfiles.Add(user);
+                    context.UserProfile.Add(user);
                 }
                 else
                 {
