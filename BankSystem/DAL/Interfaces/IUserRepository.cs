@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DAL.Interfaces
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         List<UserProfile> GetUsers();
+
+        UserProfile GetUserByPassportNumber(String passportNumber);
+
+        UserProfile GetUserByLogin(String login);
     }
 }

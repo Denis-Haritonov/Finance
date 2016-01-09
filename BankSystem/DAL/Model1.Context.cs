@@ -28,18 +28,21 @@ namespace DAL
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<ClientInfo> ClientInfo { get; set; }
-        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Credit> Credit { get; set; }
-        public virtual DbSet<CreditType> CreditType { get; set; }
         public virtual DbSet<Deposit> Deposit { get; set; }
-        public virtual DbSet<DepositType> DepositType { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<EmployeeType> EmployeeType { get; set; }
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<OAuthMembership> OAuthMembership { get; set; }
-        public virtual DbSet<Request> Request { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
+        public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public virtual DbSet<CreditType> CreditType { get; set; }
+        public virtual DbSet<DepositType> DepositType { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<Request> Request { get; set; }
     }
 }

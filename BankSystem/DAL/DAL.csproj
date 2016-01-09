@@ -86,6 +86,7 @@
     <Compile Include="Implementation\UserRepository.cs" />
     <Compile Include="Interfaces\ICreditTypeReporsitory.cs" />
     <Compile Include="Interfaces\IDepositTypeRepository.cs" />
+    <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Membership.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -123,6 +124,15 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="UserProfile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Membership.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_OAuthMembership.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Roles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
   </ItemGroup>

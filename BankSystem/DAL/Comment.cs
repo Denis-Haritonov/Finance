@@ -19,6 +19,7 @@ namespace DAL
         public int UserProfileId { get; set; }
         public bool IsInternal { get; set; }
         public int RequestId { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual Request Request { get; set; }
         public virtual UserProfile UserProfile { get; set; }

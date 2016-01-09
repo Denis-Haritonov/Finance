@@ -53,6 +53,7 @@
           <Property Name="UserProfileId" Type="int" Nullable="false" />
           <Property Name="IsInternal" Type="bit" Nullable="false" />
           <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Credit">
           <Key>
@@ -75,6 +76,7 @@
           <Property Name="ReturnTerm" Type="bigint" Nullable="false" />
           <Property Name="StartAmountInfo" Type="nvarchar(max)" />
           <Property Name="RulesInfo" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Deposit">
           <Key>
@@ -95,6 +97,7 @@
           <Property Name="Percent" Type="float" Nullable="false" />
           <Property Name="TermInfo" Type="nvarchar(max)" />
           <Property Name="RulesInfo" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -146,8 +149,11 @@
           <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="RequestType" Type="int" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="CreditTypeId" Type="int" />
+          <Property Name="DepositTypeId" Type="int" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -184,6 +190,38 @@
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <Association Name="FK_Client_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
@@ -305,6 +343,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Request_CreditType">
+          <End Role="CreditType" Type="Self.CreditType" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="CreditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_DepositType">
+          <End Role="DepositType" Type="Self.DepositType" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepositType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="DepositTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Request_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
@@ -385,6 +447,9 @@
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Client_UserProfile" Association="Self.FK_Client_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Client" EntitySet="Client" />
@@ -425,6 +490,14 @@
             <End Role="EmployeeType" EntitySet="EmployeeType" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_Request_CreditType" Association="Self.FK_Request_CreditType">
+            <End Role="CreditType" EntitySet="CreditType" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_DepositType" Association="Self.FK_Request_DepositType">
+            <End Role="DepositType" EntitySet="DepositType" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
           <AssociationSet Name="FK_Request_UserProfile" Association="Self.FK_Request_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
@@ -454,16 +527,12 @@
           <EntitySet Name="C__RefactorLog" EntityType="FinanceModel.C__RefactorLog" />
           <EntitySet Name="Client" EntityType="FinanceModel.Client" />
           <EntitySet Name="ClientInfo" EntityType="FinanceModel.ClientInfo" />
-          <EntitySet Name="Comment" EntityType="FinanceModel.Comment" />
           <EntitySet Name="Credit" EntityType="FinanceModel.Credit" />
-          <EntitySet Name="CreditType" EntityType="FinanceModel.CreditType" />
           <EntitySet Name="Deposit" EntityType="FinanceModel.Deposit" />
-          <EntitySet Name="DepositType" EntityType="FinanceModel.DepositType" />
           <EntitySet Name="Employee" EntityType="FinanceModel.Employee" />
           <EntitySet Name="EmployeeType" EntityType="FinanceModel.EmployeeType" />
           <EntitySet Name="Membership" EntityType="FinanceModel.Membership" />
           <EntitySet Name="OAuthMembership" EntityType="FinanceModel.OAuthMembership" />
-          <EntitySet Name="Request" EntityType="FinanceModel.Request" />
           <EntitySet Name="Roles" EntityType="FinanceModel.Roles" />
           <EntitySet Name="Transaction" EntityType="FinanceModel.Transaction" />
           <EntitySet Name="UserProfile" EntityType="FinanceModel.UserProfile" />
@@ -474,14 +543,6 @@
           <AssociationSet Name="FK_ClientInfo_Client" Association="FinanceModel.FK_ClientInfo_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="ClientInfo" EntitySet="ClientInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_Request" Association="FinanceModel.FK_Comment_Request">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_UserProfile" Association="FinanceModel.FK_Comment_UserProfile">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_Transaction_Credit" Association="FinanceModel.FK_Transaction_Credit">
             <End Role="Credit" EntitySet="Credit" />
@@ -499,10 +560,6 @@
             <End Role="EmployeeType" EntitySet="EmployeeType" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_UserProfile" Association="FinanceModel.FK_Request_UserProfile">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
           <AssociationSet Name="ClientCredit" Association="FinanceModel.ClientCredit">
             <End Role="Client" EntitySet="Client" />
             <End Role="Credit" EntitySet="Credit" />
@@ -515,7 +572,34 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="webpages_Membership" EntityType="FinanceModel.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="FinanceModel.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="FinanceModel.webpages_Roles" />
+          <EntitySet Name="CreditType" EntityType="FinanceModel.CreditType" />
+          <EntitySet Name="DepositType" EntityType="FinanceModel.DepositType" />
+          <EntitySet Name="Comment" EntityType="FinanceModel.Comment" />
+          <EntitySet Name="Request" EntityType="FinanceModel.Request" />
+          <AssociationSet Name="FK_Comment_Request" Association="FinanceModel.FK_Comment_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_UserProfile" Association="FinanceModel.FK_Comment_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_CreditType" Association="FinanceModel.FK_Request_CreditType">
+            <End Role="CreditType" EntitySet="CreditType" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_DepositType" Association="FinanceModel.FK_Request_DepositType">
+            <End Role="DepositType" EntitySet="DepositType" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_UserProfile" Association="FinanceModel.FK_Request_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          </EntityContainer>
         <EnumType Name="RequestState" />
         <EntityType Name="C__RefactorLog">
           <Key>
@@ -545,18 +629,6 @@
           <Property Name="ClientId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.FK_ClientInfo_Client" FromRole="ClientInfo" ToRole="Client" />
         </EntityType>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
-          <Property Name="IsInternal" Type="Boolean" Nullable="false" />
-          <Property Name="RequestId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Comment_Request" FromRole="Comment" ToRole="Request" />
-          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="Comment" ToRole="UserProfile" />
-        </EntityType>
         <EntityType Name="Credit">
           <Key>
             <PropertyRef Name="Id" />
@@ -569,19 +641,6 @@
           <NavigationProperty Name="Transaction" Relationship="FinanceModel.FK_Transaction_Credit" FromRole="Credit" ToRole="Transaction" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.ClientCredit" FromRole="Credit" ToRole="Client" />
         </EntityType>
-        <EntityType Name="CreditType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Percent" Type="Double" Nullable="false" />
-          <Property Name="OverduePercent" Type="Double" Nullable="false" />
-          <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
-          <Property Name="StartAmountInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="Deposit">
           <Key>
             <PropertyRef Name="Id" />
@@ -592,18 +651,6 @@
           <Property Name="DepositTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Transaction" Relationship="FinanceModel.FK_Transaction_Deposit" FromRole="Deposit" ToRole="Transaction" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.ClientDeposit" FromRole="Deposit" ToRole="Client" />
-        </EntityType>
-        <EntityType Name="DepositType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
-          <Property Name="Percent" Type="Double" Nullable="false" />
-          <Property Name="TermInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -650,19 +697,6 @@
           <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Request">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="RequestType" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_Request" FromRole="Request" ToRole="Comment" />
-          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="Request" ToRole="UserProfile" />
-        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -694,10 +728,10 @@
           <Property Name="UserBirthDate" Type="DateTime" Precision="0" />
           <Property Name="UserPassportSerialNumber" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.FK_Client_UserProfile" FromRole="UserProfile" ToRole="Client" />
-          <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="UserProfile" ToRole="Comment" />
           <NavigationProperty Name="Employee" Relationship="FinanceModel.FK_Employee_Account" FromRole="UserProfile" ToRole="Employee" />
-          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="UserProfile" ToRole="Request" />
           <NavigationProperty Name="Roles" Relationship="FinanceModel.UsersInRoles" FromRole="UserProfile" ToRole="Roles" />
+          <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="UserProfile" ToRole="Comment" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="UserProfile" ToRole="Request" />
         </EntityType>
         <Association Name="FK_Client_UserProfile">
           <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
@@ -720,30 +754,6 @@
             </Principal>
             <Dependent Role="ClientInfo">
               <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comment_Request">
-          <End Type="FinanceModel.Request" Role="Request" Multiplicity="1" />
-          <End Type="FinanceModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Request">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="RequestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comment_UserProfile">
-          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
-          <End Type="FinanceModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="UserProfileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -795,18 +805,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Request_UserProfile">
-          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
-          <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Request">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ClientCredit">
           <End Type="FinanceModel.Client" Role="Client" Multiplicity="*" />
           <End Type="FinanceModel.Credit" Role="Credit" Multiplicity="*" />
@@ -818,6 +816,156 @@
         <Association Name="UsersInRoles">
           <End Type="FinanceModel.Roles" Role="Roles" Multiplicity="*" />
           <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CreditType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Percent" Type="Double" Nullable="false" />
+          <Property Name="OverduePercent" Type="Double" Nullable="false" />
+          <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
+          <Property Name="StartAmountInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_CreditType" FromRole="CreditType" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="DepositType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
+          <Property Name="Percent" Type="Double" Nullable="false" />
+          <Property Name="TermInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_DepositType" FromRole="DepositType" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="IsInternal" Type="Boolean" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Comment_Request" FromRole="Comment" ToRole="Request" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="Comment" ToRole="UserProfile" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="RequestType" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="CreditTypeId" Type="Int32" />
+          <Property Name="DepositTypeId" Type="Int32" />
+          <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_Request" FromRole="Request" ToRole="Comment" />
+          <NavigationProperty Name="CreditType" Relationship="FinanceModel.FK_Request_CreditType" FromRole="Request" ToRole="CreditType" />
+          <NavigationProperty Name="DepositType" Relationship="FinanceModel.FK_Request_DepositType" FromRole="Request" ToRole="DepositType" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="Request" ToRole="UserProfile" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Comment_Request">
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="FinanceModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_UserProfile">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="FinanceModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_CreditType">
+          <End Type="FinanceModel.CreditType" Role="CreditType" Multiplicity="0..1" />
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="CreditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_DepositType">
+          <End Type="FinanceModel.DepositType" Role="DepositType" Multiplicity="0..1" />
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepositType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="DepositTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_UserProfile">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -851,17 +999,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Comment">
-            <EntityTypeMapping TypeName="FinanceModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
-                <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
-                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Credit">
             <EntityTypeMapping TypeName="FinanceModel.Credit">
               <MappingFragment StoreEntitySet="Credit">
@@ -873,37 +1010,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CreditType">
-            <EntityTypeMapping TypeName="FinanceModel.CreditType">
-              <MappingFragment StoreEntitySet="CreditType">
-                <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
-                <ScalarProperty Name="StartAmountInfo" ColumnName="StartAmountInfo" />
-                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
-                <ScalarProperty Name="OverduePercent" ColumnName="OverduePercent" />
-                <ScalarProperty Name="Percent" ColumnName="Percent" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Deposit">
             <EntityTypeMapping TypeName="FinanceModel.Deposit">
               <MappingFragment StoreEntitySet="Deposit">
                 <ScalarProperty Name="DepositTypeId" ColumnName="DepositTypeId" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DepositType">
-            <EntityTypeMapping TypeName="FinanceModel.DepositType">
-              <MappingFragment StoreEntitySet="DepositType">
-                <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
-                <ScalarProperty Name="TermInfo" ColumnName="TermInfo" />
-                <ScalarProperty Name="Percent" ColumnName="Percent" />
-                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -950,18 +1062,6 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
                 <ScalarProperty Name="Provider" ColumnName="Provider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Request">
-            <EntityTypeMapping TypeName="FinanceModel.Request">
-              <MappingFragment StoreEntitySet="Request">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1020,6 +1120,94 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="FinanceModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="FinanceModel.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="FinanceModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditType">
+            <EntityTypeMapping TypeName="FinanceModel.CreditType">
+              <MappingFragment StoreEntitySet="CreditType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
+                <ScalarProperty Name="StartAmountInfo" ColumnName="StartAmountInfo" />
+                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
+                <ScalarProperty Name="OverduePercent" ColumnName="OverduePercent" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepositType">
+            <EntityTypeMapping TypeName="FinanceModel.DepositType">
+              <MappingFragment StoreEntitySet="DepositType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
+                <ScalarProperty Name="TermInfo" ColumnName="TermInfo" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="FinanceModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="FinanceModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DepositTypeId" ColumnName="DepositTypeId" />
+                <ScalarProperty Name="CreditTypeId" ColumnName="CreditTypeId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

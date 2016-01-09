@@ -4,7 +4,12 @@
     [ClientId] INT NOT NULL, 
     [RequestType] INT NOT NULL, 
     [Amount] MONEY NOT NULL, 
-    [Status] INT NOT NULL, 
+    [State] INT NOT NULL, 
     [Type] INT NOT NULL, 
-    CONSTRAINT [FK_Request_UserProfile] FOREIGN KEY ([ClientId]) REFERENCES [UserProfile]([UserId])
+    [CreditTypeId] INT NULL, 
+    [DepositTypeId] INT NULL, 
+    [Date] DATETIME NOT NULL, 
+    CONSTRAINT [FK_Request_UserProfile] FOREIGN KEY ([ClientId]) REFERENCES [UserProfile]([UserId]), 
+    CONSTRAINT [FK_Request_CreditType] FOREIGN KEY ([CreditTypeId]) REFERENCES [CreditType]([Id]), 
+    CONSTRAINT [FK_Request_DepositType] FOREIGN KEY ([DepositTypeId]) REFERENCES [DepositType]([Id])
 )

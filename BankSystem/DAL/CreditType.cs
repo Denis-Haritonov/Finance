@@ -14,6 +14,11 @@ namespace DAL
     
     public partial class CreditType
     {
+        public CreditType()
+        {
+            this.Request = new HashSet<Request>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public double Percent { get; set; }
@@ -22,5 +27,7 @@ namespace DAL
         public string StartAmountInfo { get; set; }
         public string RulesInfo { get; set; }
         public bool IsActive { get; set; }
+    
+        public virtual ICollection<Request> Request { get; set; }
     }
 }

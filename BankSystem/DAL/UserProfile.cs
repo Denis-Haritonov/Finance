@@ -17,10 +17,10 @@ namespace DAL
         public UserProfile()
         {
             this.Client = new HashSet<Client>();
-            this.Comment = new HashSet<Comment>();
             this.Employee = new HashSet<Employee>();
-            this.Request = new HashSet<Request>();
             this.Roles = new HashSet<Roles>();
+            this.Comment = new HashSet<Comment>();
+            this.Request = new HashSet<Request>();
         }
     
         public int UserId { get; set; }
@@ -31,9 +31,9 @@ namespace DAL
         public string UserPassportSerialNumber { get; set; }
     
         public virtual ICollection<Client> Client { get; set; }
-        public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }
-        public virtual ICollection<Request> Request { get; set; }
         public virtual ICollection<Roles> Roles { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Request> Request { get; set; }
     }
 }

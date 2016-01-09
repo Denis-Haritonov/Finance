@@ -63,6 +63,14 @@ namespace BankSystem
                         "~/Content/uniform.default.css",
                         "~/Content/uploadify.css",
                         "~/Content/jquery-ui-1.8.21.custom.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css",
+                      "~/Content/datepicker.css",
+                      "~/Content/Gridmvc.css",
+                      "~/Content/gridmvc.datepicker.css",
+                      "~/Content/facebox.css"));
         }
     }
 }

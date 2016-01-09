@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using BLL.Models;
 
@@ -9,5 +10,7 @@ namespace BankSystem.Models
         public RequestModel RequestModel { get; set; }
 
         public List<SelectListItem> DepositTypes { get; set; } 
+
+        public String Selected 
     }
 }
