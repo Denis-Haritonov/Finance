@@ -36,7 +36,6 @@ namespace DAL
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<OAuthMembership> OAuthMembership { get; set; }
         public virtual DbSet<Request> Request { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<UsersInRoles> UsersInRoles { get; set; }

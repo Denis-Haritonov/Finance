@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Security;
 using BLL.Interfaces;
 using WebMatrix.WebData;
 
@@ -20,6 +21,8 @@ namespace BankSystem.Controllers
             //WebSecurity.CreateUserAndAccount("Client", "123456");
             //var a = User.IsInRole("Client");
             //var b = User.IsInRole("Operator");
+            //var c = Roles.IsUserInRole("Client");
+            //var d = Roles.IsUserInRole("Operator");
             return View();
         }
 
