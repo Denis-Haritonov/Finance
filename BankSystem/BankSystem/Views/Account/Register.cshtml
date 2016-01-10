@@ -3,31 +3,13 @@
     ViewBag.Title = "Register";
 }
 
-
-
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-
-    <fieldset>
-        <legend>Форма регистрации Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
+@using (Html.BeginForm("Register", "Account"))
+{
+        Html.RenderPartial("_UserEditForm", @Model);
+    
 }
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
