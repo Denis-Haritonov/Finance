@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IRequestService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\CreditTypeModel.cs" />
     <Compile Include="Models\DepositTypeModel.cs" />
     <Compile Include="Models\Enums\RequestState.cs" />

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BLL.Models.Enums;
 using DAL;
 using RequestState = BLL.Models.Enums.RequestState;
@@ -14,10 +16,12 @@ namespace BLL.Models
 
         public RequestModel(Request request)
         {
+            Id = request.Id;
             Type = (RequestType)request.Type;
             State = (RequestState) request.State;
             Amount = request.Amount;
             Date = request.Date;
+            AssignedEmployeeId = request.AssignedEmployeeId;
             if (Type == RequestType.Credit && request.CreditTypeId.HasValue)
             {
                 CreditTypeId = request.CreditTypeId.Value;
@@ -34,7 +38,13 @@ namespace BLL.Models
                     TypeName = request.DepositType.Name;
                 }
             }
+            if (request.Comment != null)
+            {
+                Comments = request.Comment.Select(item => new CommentModel(item)).OrderBy(item => item.Date).ToList();
+            }
         }
+
+        public int Id { get; set; }
 
         public RequestType Type { get; set; }
 
@@ -49,6 +59,8 @@ namespace BLL.Models
         public DateTime Date { get; set; }
 
         public String TypeName { get; set; }
+
+        public int? AssignedEmployeeId { get; set; }
 
         public String StatusString
         {
@@ -67,5 +79,7 @@ namespace BLL.Models
                 }
             }
         }
+
+        public List<CommentModel> Comments { get; set; }
     }
 }

@@ -18,4 +18,27 @@
         <p>Заявка на депозит: @Model.TypeName</p>
     }
     Заявленная сумма: @Model.Amount
+    @if (Model.Comments != null && Model.Comments.Any())
+    {
+        <hr />
+        <p>Комментарии</p>
+        foreach (var comment in Model.Comments.Where(c => !c.IsInternal))
+        {
+            <div class="well">
+                <p>
+                    @comment.AuthorName @comment.Date
+                </p>
+                <p>
+                    @comment.Text
+                </p>
+            </div>
+        }
+    }
+    @using (Html.BeginForm("LeaveComment", "Comment", new { requestId = Model.Id }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <p>Ваше сообщение</p>
+        <textarea name="Text"></textarea>
+        <button class="btn btn-success">Отправить</button>
+    }
 </div>

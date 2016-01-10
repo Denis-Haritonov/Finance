@@ -1,0 +1,36 @@
+﻿@using GridMvc.Html
+@model IEnumerable<BLL.Models.RequestModel>
+
+@{
+    ViewBag.Title = "Очередь заявок";
+}
+
+@helper RenderAssignLinkAction(int requestId)
+{
+    @Html.ActionLink("Рассмотреть заявку", "AssignToEmployee", new {requestId = requestId})
+}
+
+@helper RenderRequestDetailsAction(int requestId)
+{
+    @Html.ActionLink("Просмотр", "EmployeeDetails", new {requestId = requestId})
+}
+
+<h2>Очередь заявок</h2>
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(item => item.TypeName)
+        .Titled("Тип");
+
+    columns.Add(item => item.Date)
+        .Titled("Дата");
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderAssignLinkAction(item.Id));
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderRequestDetailsAction(item.Id));
+})

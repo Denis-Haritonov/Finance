@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
@@ -99,23 +99,6 @@
           <Property Name="RulesInfo" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserProfileId" Type="int" Nullable="false" />
-          <Property Name="EmployeeTypeId" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EmployeeType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="Membership">
           <Key>
             <PropertyRef Name="UserId" />
@@ -154,6 +137,7 @@
           <Property Name="CreditTypeId" Type="int" />
           <Property Name="DepositTypeId" Type="int" />
           <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="AssignedEmployeeId" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -190,38 +174,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_Membership">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" />
-          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
-          <Property Name="IsConfirmed" Type="bit" />
-          <Property Name="LastPasswordFailureDate" Type="datetime" />
-          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="PasswordChangedDate" Type="datetime" />
-          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
-          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="webpages_OAuthMembership">
-          <Key>
-            <PropertyRef Name="Provider" />
-            <PropertyRef Name="ProviderUserId" />
-          </Key>
-          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_Roles">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <Association Name="FK_Client_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
@@ -319,27 +271,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Account">
+        <Association Name="FK_Request_Client">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserProfileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_EmployeeType">
-          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="EmployeeTypeId" />
+            <Dependent Role="Request">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -367,15 +307,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Request_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+        <Association Name="FK_Request_Employee">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Request">
-              <PropertyRef Name="ClientId" />
+              <PropertyRef Name="AssignedEmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -438,8 +378,6 @@
           <EntitySet Name="CreditType" EntityType="Self.CreditType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deposit" EntityType="Self.Deposit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepositType" EntityType="Self.DepositType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OAuthMembership" EntityType="Self.OAuthMembership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
@@ -447,9 +385,6 @@
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Client_UserProfile" Association="Self.FK_Client_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Client" EntitySet="Client" />
@@ -482,13 +417,9 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Account" Association="Self.FK_Employee_Account">
+          <AssociationSet Name="FK_Request_Client" Association="Self.FK_Request_Client">
             <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_EmployeeType" Association="Self.FK_Employee_EmployeeType">
-            <End Role="EmployeeType" EntitySet="EmployeeType" />
-            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Request" EntitySet="Request" />
           </AssociationSet>
           <AssociationSet Name="FK_Request_CreditType" Association="Self.FK_Request_CreditType">
             <End Role="CreditType" EntitySet="CreditType" />
@@ -498,7 +429,7 @@
             <End Role="DepositType" EntitySet="DepositType" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_UserProfile" Association="Self.FK_Request_UserProfile">
+          <AssociationSet Name="FK_Request_Employee" Association="Self.FK_Request_Employee">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
@@ -532,8 +463,6 @@
           <EntitySet Name="CreditType" EntityType="FinanceModel.CreditType" />
           <EntitySet Name="Deposit" EntityType="FinanceModel.Deposit" />
           <EntitySet Name="DepositType" EntityType="FinanceModel.DepositType" />
-          <EntitySet Name="Employee" EntityType="FinanceModel.Employee" />
-          <EntitySet Name="EmployeeType" EntityType="FinanceModel.EmployeeType" />
           <EntitySet Name="Membership" EntityType="FinanceModel.Membership" />
           <EntitySet Name="OAuthMembership" EntityType="FinanceModel.OAuthMembership" />
           <EntitySet Name="Request" EntityType="FinanceModel.Request" />
@@ -541,9 +470,6 @@
           <EntitySet Name="Transaction" EntityType="FinanceModel.Transaction" />
           <EntitySet Name="UserProfile" EntityType="FinanceModel.UserProfile" />
           <EntitySet Name="UsersInRoles" EntityType="FinanceModel.UsersInRoles" />
-          <EntitySet Name="webpages_Membership" EntityType="FinanceModel.webpages_Membership" />
-          <EntitySet Name="webpages_OAuthMembership" EntityType="FinanceModel.webpages_OAuthMembership" />
-          <EntitySet Name="webpages_Roles" EntityType="FinanceModel.webpages_Roles" />
           <AssociationSet Name="FK_Client_UserProfile" Association="FinanceModel.FK_Client_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Client" EntitySet="Client" />
@@ -576,15 +502,11 @@
             <End Role="DepositType" EntitySet="DepositType" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Account" Association="FinanceModel.FK_Employee_Account">
+          <AssociationSet Name="FK_Request_Client" Association="FinanceModel.FK_Request_Client">
             <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_EmployeeType" Association="FinanceModel.FK_Employee_EmployeeType">
-            <End Role="EmployeeType" EntitySet="EmployeeType" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Request_UserProfile" Association="FinanceModel.FK_Request_UserProfile">
+          <AssociationSet Name="FK_Request_Employee" Association="FinanceModel.FK_Request_Employee">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
@@ -697,26 +619,6 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_DepositType" FromRole="DepositType" ToRole="Request" />
         </EntityType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeTypeId" Type="Int32" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Employee_Account" FromRole="Employee" ToRole="UserProfile" />
-          <NavigationProperty Name="EmployeeType" Relationship="FinanceModel.FK_Employee_EmployeeType" FromRole="Employee" ToRole="EmployeeType" />
-        </EntityType>
-        <EntityType Name="EmployeeType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
-        </EntityType>
         <EntityType Name="Membership">
           <Key>
             <PropertyRef Name="UserId" />
@@ -755,10 +657,12 @@
           <Property Name="CreditTypeId" Type="Int32" />
           <Property Name="DepositTypeId" Type="Int32" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AssignedEmployeeId" Type="Int32" />
           <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_Request" FromRole="Request" ToRole="Comment" />
           <NavigationProperty Name="CreditType" Relationship="FinanceModel.FK_Request_CreditType" FromRole="Request" ToRole="CreditType" />
           <NavigationProperty Name="DepositType" Relationship="FinanceModel.FK_Request_DepositType" FromRole="Request" ToRole="DepositType" />
-          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="Request" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_Client" FromRole="Request" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile1" Relationship="FinanceModel.FK_Request_Employee" FromRole="Request" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -792,8 +696,8 @@
           <Property Name="UserPassportSerialNumber" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.FK_Client_UserProfile" FromRole="UserProfile" ToRole="Client" />
           <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="UserProfile" ToRole="Comment" />
-          <NavigationProperty Name="Employee" Relationship="FinanceModel.FK_Employee_Account" FromRole="UserProfile" ToRole="Employee" />
-          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="UserProfile" ToRole="Request" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_Client" FromRole="UserProfile" ToRole="Request" />
+          <NavigationProperty Name="Request1" Relationship="FinanceModel.FK_Request_Employee" FromRole="UserProfile" ToRole="Request" />
           <NavigationProperty Name="UsersInRoles" Relationship="FinanceModel.fk_UserId" FromRole="UserProfile" ToRole="UsersInRoles" />
         </EntityType>
         <EntityType Name="UsersInRoles">
@@ -805,38 +709,6 @@
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="FinanceModel.fk_RoleId" FromRole="UsersInRoles" ToRole="Roles" />
           <NavigationProperty Name="UserProfile" Relationship="FinanceModel.fk_UserId" FromRole="UsersInRoles" ToRole="UserProfile" />
-        </EntityType>
-        <EntityType Name="webpages_Membership">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IsConfirmed" Type="Boolean" />
-          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
-          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
-          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="webpages_OAuthMembership">
-          <Key>
-            <PropertyRef Name="Provider" />
-            <PropertyRef Name="ProviderUserId" />
-          </Key>
-          <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_Roles">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Client_UserProfile">
           <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
@@ -934,31 +806,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Account">
-          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
-          <End Type="FinanceModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserProfileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_EmployeeType">
-          <End Type="FinanceModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
-          <End Type="FinanceModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="EmployeeTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Request_UserProfile">
+        <Association Name="FK_Request_Client">
           <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
           <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -967,6 +815,18 @@
             </Principal>
             <Dependent Role="Request">
               <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Employee">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="AssignedEmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1094,25 +954,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="FinanceModel.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
-                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeType">
-            <EntityTypeMapping TypeName="FinanceModel.EmployeeType">
-              <MappingFragment StoreEntitySet="EmployeeType">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Membership">
             <EntityTypeMapping TypeName="FinanceModel.Membership">
               <MappingFragment StoreEntitySet="Membership">
@@ -1143,6 +984,7 @@
           <EntitySetMapping Name="Request">
             <EntityTypeMapping TypeName="FinanceModel.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="AssignedEmployeeId" ColumnName="AssignedEmployeeId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="DepositTypeId" ColumnName="DepositTypeId" />
                 <ScalarProperty Name="CreditTypeId" ColumnName="CreditTypeId" />
@@ -1192,40 +1034,6 @@
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="webpages_Membership">
-            <EntityTypeMapping TypeName="FinanceModel.webpages_Membership">
-              <MappingFragment StoreEntitySet="webpages_Membership">
-                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
-                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
-                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
-                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
-                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
-                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="webpages_OAuthMembership">
-            <EntityTypeMapping TypeName="FinanceModel.webpages_OAuthMembership">
-              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
-                <ScalarProperty Name="Provider" ColumnName="Provider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="webpages_Roles">
-            <EntityTypeMapping TypeName="FinanceModel.webpages_Roles">
-              <MappingFragment StoreEntitySet="webpages_Roles">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

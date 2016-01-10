@@ -8,7 +8,7 @@ using BLL.Models.Enums;
 
 namespace BankSystem.Controllers
 {
-    public class RequestController : Controller
+    public class RequestController : BaseController
     {
         private IRequestService requestService;
 
@@ -16,15 +16,12 @@ namespace BankSystem.Controllers
 
         private ICreditTypeService creditTypeService;
 
-        private IUserService userService;
-
         public RequestController(IRequestService requestService, IDepositTypeService depositTypeService,
-            ICreditTypeService creditTypeService, IUserService userService)
+            ICreditTypeService creditTypeService, IUserService userService) : base (userService)
         {
             this.requestService = requestService;
             this.depositTypeService = depositTypeService;
             this.creditTypeService = creditTypeService;
-            this.userService = userService;
         }
 
         public ActionResult Index()
@@ -119,11 +116,49 @@ namespace BankSystem.Controllers
             return View(requestModel);
         }
 
+        public ActionResult EmployeeDetails(int requestId)
+        {
+            var requestModel = requestService.GetRequestDetails(requestId);
+            var viewModel = new EmployeeRequestDetailsVM
+            {
+                RequestModel = requestModel,
+                IsAssignedToCurrent = CurrentUser.UserId == requestModel.AssignedEmployeeId
+            };
+            return View(viewModel);
+        }
+
         public ActionResult RequestsQue()
         {
             var user = userService.GetUserByLogin(User.Identity.Name);
-            //var requests = requestService.GetRequestsQue(user.UserId);
-            return View();
+            var requests = requestService.GetRequestQueForEmployee(user.UserId);
+            return View(requests);
         }
+
+        public ActionResult AssignRequest(int requestId)
+        {
+            requestService.AssignRequestToEmployee(requestId, CurrentUser.UserId);
+            return RedirectToAction("EmployeeDetails", new {requestId = requestId});
+        }
+
+        public ActionResult ApproveRequest(int requestId)
+        {
+            var request = requestService.GetRequestDetails(requestId);
+            if (request.AssignedEmployeeId == CurrentUser.UserId)
+            {
+                requestService.ChangeRequestState(requestId, RequestState.Approved);
+            }
+            return RedirectToAction("RequestsQue");
+        }
+
+        public ActionResult RejectRequest(int requestId)
+        {
+            var request = requestService.GetRequestDetails(requestId);
+            if (request.AssignedEmployeeId == CurrentUser.UserId)
+            {
+                requestService.ChangeRequestState(requestId, RequestState.Rejected);
+            }
+            return RedirectToAction("RequestsQue");
+        }
+
     }
 }

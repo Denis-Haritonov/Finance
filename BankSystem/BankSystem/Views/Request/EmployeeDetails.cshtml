@@ -1,0 +1,55 @@
+﻿@using BLL.Models.Enums
+@model BankSystem.Models.EmployeeRequestDetailsVM
+
+@{
+    ViewBag.Title = "Заявка";
+}
+
+<h2>Заявка</h2>
+<div>
+    <label>Дата создания: @Model.RequestModel.Date</label>
+    Статус заявки: @Model.RequestModel.StatusString
+    @if (Model.RequestModel.Type == RequestType.Credit)
+    {
+        <p>Заявка на кредит: @Model.RequestModel.TypeName</p>
+    }
+    else if (Model.RequestModel.Type == RequestType.Deposit)
+    {
+        <p>Заявка на депозит: @Model.RequestModel.TypeName</p>
+    }
+    Заявленная сумма: @Model.RequestModel.Amount
+    @if (Model.IsAssignedToCurrent)
+    {
+        <div class="row">
+            <div class="col-md-2">
+                @Html.ActionLink("Подтвердить", "ApproveRequest", new {requestId = Model.RequestModel.Id})
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Отклонить", "RejectRequest", new {requestId = Model.RequestModel.Id})
+            </div>
+        </div>
+    }
+    @if (Model.RequestModel.Comments != null && Model.RequestModel.Comments.Any())
+    {
+        <hr/>
+        <p>Комментарии</p>
+        foreach (var comment in Model.RequestModel.Comments)
+        {
+            <div class="well">
+                <p>
+                    @comment.AuthorName @comment.Date
+                </p>
+                <p>
+                    @comment.Text
+                </p>
+            </div>
+        }
+    }
+    @using (Html.BeginForm("LeaveComment", "Comment", new {requestId = Model.RequestModel.Id}, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <p>Ваше сообщение</p>
+        <textarea name="Text"></textarea>
+        <button class="btn btn-success">Отправить</button>
+    }
+ </div>

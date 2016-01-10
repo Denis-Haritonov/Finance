@@ -221,6 +221,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -232,6 +234,8 @@
     <Compile Include="Menu\MenuPointRenderTemplates.cs" />
     <Compile Include="Models\CreditRequestVM.cs" />
     <Compile Include="Models\DepositRequestVM.cs" />
+    <Compile Include="Models\EmployeeRequestDetailsVM.cs" />
+    <Compile Include="Models\PostCommentVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -409,6 +413,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Request\RequestsQue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -443,6 +448,7 @@
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />
+    <Content Include="Views\Request\EmployeeDetails.cshtml" />
     <None Include="Views\Request\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>

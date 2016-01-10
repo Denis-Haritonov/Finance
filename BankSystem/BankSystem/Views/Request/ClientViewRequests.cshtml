@@ -59,6 +59,6 @@
         .Sanitized(false)
         .RenderValueAs(item =>
             @<b>
-                @Html.Action("Details", new {Id = item.Id})
+                @Html.ActionLink("Просмотр", "Details", new {Id = item.Id})
             </b>);
 })

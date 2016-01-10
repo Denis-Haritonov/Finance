@@ -45,15 +45,19 @@ namespace DAL.Implementation
                 return
                     context.Request.Include(item => item.CreditType)
                         .Include(item => item.DepositType)
+                        .Include(item => item.Comment.Select(c => c.UserProfile))
                         .FirstOrDefault(item => item.Id == requestId);
             }
         }
 
-        public List<Request> GetUnassignedAndPersonal(int employeeId)
+        public List<Request> GetUnassignedAndPersonalRequests(int employeeId)
         {
             using (var context = new FinanceEntities())
             {
-                return null;
+                return
+                    context.Request.Where(
+                        item => !item.AssignedEmployeeId.HasValue || item.AssignedEmployeeId.Value == employeeId)
+                        .ToList();
             }
         }
     }

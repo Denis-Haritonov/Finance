@@ -5,6 +5,7 @@ using BLL.Interfaces;
 using BLL.Models;
 using DAL;
 using DAL.Interfaces;
+using RequestState = BLL.Models.Enums.RequestState;
 
 namespace BLL.Implementations
 {
@@ -44,7 +45,7 @@ namespace BLL.Implementations
         public List<RequestModel> GetRequestsByClient(int clientId)
         {
             var requests = requestRepository.GetClientRequests(clientId);
-            return requests.Select(item => new RequestModel(item)).ToList();
+            return requests.Select(item => new RequestModel(item)).OrderBy(item => item.Date).ToList();
         }
 
         public RequestModel GetRequestDetails(int requestId)
@@ -59,7 +60,22 @@ namespace BLL.Implementations
 
         public List<RequestModel> GetRequestQueForEmployee(int employeeId)
         {
-            return null;
-        } 
+            var requests = requestRepository.GetUnassignedAndPersonalRequests(employeeId);
+            return requests.Select(item => new RequestModel(item)).OrderBy(item => item.Date).ToList();
+        }
+
+        public void AssignRequestToEmployee(int requestId, int employeeId)
+        {
+            var request = requestRepository.GetRequestById(requestId);
+            request.AssignedEmployeeId = employeeId;
+            requestRepository.UpdateRequest(request);
+        }
+
+        public void ChangeRequestState(int requsetId, RequestState state)
+        {
+            var request = requestRepository.GetRequestById(requsetId);
+            request.State = (int)state;
+            requestRepository.UpdateRequest(request);
+        }
     }
 }
