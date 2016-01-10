@@ -22,6 +22,7 @@ namespace Pl.Web.Portal.Menu
         /// </summary>
         static Menu()
         {
+            menuPoints = new List<MenuPoint>();
             SetupAdminMenu();
             SetupResellerMenu();
             SetupRetailerMenu();
@@ -46,7 +47,7 @@ namespace Pl.Web.Portal.Menu
         /// </summary>
         private static void SetupAdminMenu()
         {
-               menuPoints = new List<MenuPoint>();     
+            
         }
 
         /// <summary>
@@ -65,35 +66,26 @@ namespace Pl.Web.Portal.Menu
             
         }
 
-        /// <summary>
-        /// Generate url for menu point.
-        /// </summary>
-        /// <param name="action">
-        /// Action name.
-        /// </param>
-        /// <param name="controller">
-        /// Controller name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        private static string GenerateUrl(string action, string controller)
-        {
-            return UrlHelper.GenerateUrl(null, action, controller, null, RouteTable.Routes, HttpContext.Current.Request.RequestContext, false);
-        }
 
         /// <summary>
         /// Setup warehouse menu
         /// </summary>
         private static void SetupWarehouseMenu()
         {
+            var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            var index = new MenuPoint(new List<string>() { "Admin" })
+            {
+                Name = "Index",
+                PointUrl = urlHelper.Action("Index","Admin")
+            };
+            menuPoints.Add(index);
 
-            var stockGrid = new MenuPoint()
+            var test = new MenuPoint(new List<string>() { "Admin" })
             {
                 Name = "Test",
-                PointUrl = UrlHelper.GenerateUrl(null,"Index","Admin", null, RouteTable.Routes, HttpContext.Current.Request.RequestContext,false)
+                PointUrl = urlHelper.Action("Test", "Admin")
             };
-            menuPoints.Add(stockGrid);
+            menuPoints.Add(test);
         }
     }
 }

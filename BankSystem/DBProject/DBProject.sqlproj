@@ -86,4 +86,7 @@
     <None Include="DBProject.publish.xml" />
     <None Include="DBProject_1.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
 </Project>

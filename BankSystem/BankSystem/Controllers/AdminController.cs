@@ -7,7 +7,6 @@ using WebMatrix.WebData;
 
 namespace BankSystem.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         //
@@ -15,9 +14,12 @@ namespace BankSystem.Controllers
 
         public ActionResult Index()
         {
-
             return View();
         }
 
+        public ActionResult Test()
+        {
+            return View("Index");
+        }
     }
 }

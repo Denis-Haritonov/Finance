@@ -22,13 +22,13 @@
                 <ul>
                     @{
                         var currUrl = Request.Url.LocalPath;
-                        var role = System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() ?? "Client";
+                        var role = System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() ?? "Admin";
                     }
                     <!-- Sidebar -->
                     <div id="sidebar" class="sidebar responsive" data-sidebar-hover="true" data-sidebar-scroll="true" data-sidebar="true">
                         <ul class="nav nav-tabs nav-stacked main-menu">
 
-                            @Html.Raw(Menu.Render(currUrl, Roles.GetRolesForUser(WebSecurity.CurrentUserName).First()))
+                            @Html.Raw(Menu.Render(currUrl, role))
                         </ul>
                     </div>
                 </ul>
