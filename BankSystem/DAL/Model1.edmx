@@ -179,7 +179,7 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
           <Property Name="IsConfirmed" Type="bit" />
