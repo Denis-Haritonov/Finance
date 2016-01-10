@@ -1,0 +1,21 @@
+﻿@using BLL.Models.Enums
+@model BLL.Models.RequestModel
+
+@{
+    ViewBag.Title = "Заявка";
+}
+
+<h2>Заявка</h2>
+<div>
+    <label>Дата создания: @Model.Date</label>
+    Статус заявки: @Model.StatusString
+    @if (Model.Type == RequestType.Credit)
+    {
+        <p>Заявка на кредит: @Model.TypeName</p>
+    }
+    else if (Model.Type == RequestType.Deposit)
+    {
+        <p>Заявка на депозит: @Model.TypeName</p>
+    }
+    Заявленная сумма: @Model.Amount
+</div>

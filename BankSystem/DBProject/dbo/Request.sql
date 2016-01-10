@@ -9,7 +9,9 @@
     [CreditTypeId] INT NULL, 
     [DepositTypeId] INT NULL, 
     [Date] DATETIME NOT NULL, 
-    CONSTRAINT [FK_Request_UserProfile] FOREIGN KEY ([ClientId]) REFERENCES [UserProfile]([UserId]), 
+    [AssignedEmployeeId] INT NULL, 
+    CONSTRAINT [FK_Request_Client] FOREIGN KEY ([ClientId]) REFERENCES [UserProfile]([UserId]), 
     CONSTRAINT [FK_Request_CreditType] FOREIGN KEY ([CreditTypeId]) REFERENCES [CreditType]([Id]), 
-    CONSTRAINT [FK_Request_DepositType] FOREIGN KEY ([DepositTypeId]) REFERENCES [DepositType]([Id])
+    CONSTRAINT [FK_Request_DepositType] FOREIGN KEY ([DepositTypeId]) REFERENCES [DepositType]([Id]), 
+    CONSTRAINT [FK_Request_Employee] FOREIGN KEY ([AssignedEmployeeId]) REFERENCES [UserProfile]([UserId])
 )

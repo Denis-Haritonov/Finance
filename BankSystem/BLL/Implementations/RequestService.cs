@@ -37,11 +37,7 @@ namespace BLL.Implementations
                 DepositTypeId = requestModel.DepositTypeId,
                 Date = DateTime.Now
             };
-            using (var context = new FinanceEntities())
-            {
-                context.Request.Add(request);
-                context.SaveChanges();
-            }
+            requestRepository.CreateRequest(request);
             return null;
         }
 
@@ -49,6 +45,21 @@ namespace BLL.Implementations
         {
             var requests = requestRepository.GetClientRequests(clientId);
             return requests.Select(item => new RequestModel(item)).ToList();
+        }
+
+        public RequestModel GetRequestDetails(int requestId)
+        {
+            var request = requestRepository.GetRequestById(requestId);
+            if (request != null)
+            {
+                return new RequestModel(request);
+            }
+            return null;
+        }
+
+        public List<RequestModel> GetRequestQueForEmployee(int employeeId)
+        {
+            return null;
         } 
     }
 }

@@ -439,6 +439,7 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Request\ClientViewRequests.cshtml" />
+    <Content Include="Views\Request\ClientDetails.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

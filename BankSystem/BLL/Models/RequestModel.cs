@@ -49,5 +49,23 @@ namespace BLL.Models
         public DateTime Date { get; set; }
 
         public String TypeName { get; set; }
+
+        public String StatusString
+        {
+            get
+            {
+                switch (State)
+                {
+                    case RequestState.Pending:
+                        return "Рассматривается";
+                    case RequestState.Approved:
+                        return "Подтверждена";
+                    case RequestState.Rejected:
+                        return "Отклонена";
+                    default:
+                        return String.Empty;
+                }
+            }
+        }
     }
 }

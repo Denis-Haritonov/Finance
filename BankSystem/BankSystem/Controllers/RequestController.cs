@@ -115,6 +115,14 @@ namespace BankSystem.Controllers
 
         public ActionResult ClientDetails(int requestId)
         {
+            var requestModel = requestService.GetRequestDetails(requestId);
+            return View(requestModel);
+        }
+
+        public ActionResult RequestsQue()
+        {
+            var user = userService.GetUserByLogin(User.Identity.Name);
+            //var requests = requestService.GetRequestsQue(user.UserId);
             return View();
         }
     }

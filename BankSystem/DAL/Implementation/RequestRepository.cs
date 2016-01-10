@@ -36,6 +36,25 @@ namespace DAL.Implementation
                         .Where(item => item.ClientId == clientId)
                         .ToList();
             }
-        } 
+        }
+
+        public Request GetRequestById(int requestId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return
+                    context.Request.Include(item => item.CreditType)
+                        .Include(item => item.DepositType)
+                        .FirstOrDefault(item => item.Id == requestId);
+            }
+        }
+
+        public List<Request> GetUnassignedAndPersonal(int employeeId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return null;
+            }
+        }
     }
 }

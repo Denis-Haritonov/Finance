@@ -9,5 +9,7 @@ namespace BLL.Interfaces
         String CreateRequest(RequestModel requestModel, String passportNumber);
 
         List<RequestModel> GetRequestsByClient(int clientId);
+
+        RequestModel GetRequestDetails(int requestId);
     }
 }
