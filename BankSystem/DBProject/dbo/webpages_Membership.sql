@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Membership] (
+﻿CREATE TABLE [dbo].[webpages_Membership] (
     [UserId]                                  INT            NOT NULL primary key identity, 
     [CreateDate]                              DATETIME       NULL,
     [ConfirmationToken]                       NVARCHAR (128) NULL,

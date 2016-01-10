@@ -72,9 +72,9 @@
     <Build Include="dbo\DepositType.sql" />
     <Build Include="dbo\Transaction.sql" />
     <Build Include="dbo\UserProfile.sql" />
-    <Build Include="dbo\OAuthMembership.sql" />
-    <Build Include="dbo\Membership.sql" />
-    <Build Include="dbo\Roles.sql" />
+    <Build Include="dbo\webpages_OAuthMembership.sql" />
+    <Build Include="dbo\webpages_Membership.sql" />
+    <Build Include="dbo\webpages_Roles.sql" />
     <Build Include="dbo\UsersInRoles.sql" />
     <Build Include="dbo\Request.sql" />
     <Build Include="dbo\Comment.sql" />

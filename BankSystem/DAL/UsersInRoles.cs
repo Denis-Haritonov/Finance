@@ -18,7 +18,7 @@ namespace DAL
         public int UserId { get; set; }
         public int RoleId { get; set; }
     
-        public virtual Roles Roles { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        public virtual webpages_Roles webpages_Roles { get; set; }
     }
 }

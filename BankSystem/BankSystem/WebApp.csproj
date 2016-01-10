@@ -442,6 +442,10 @@
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\_AppStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Request\ClientViewRequests.cshtml" />
     <Content Include="Views\Request\ClientDetails.cshtml" />
