@@ -15,7 +15,6 @@ using WebMatrix.WebData;
 namespace BankSystem.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         private IUserService _userService;
@@ -78,8 +77,8 @@ namespace BankSystem.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        [CaptchaValidator]
+        public ActionResult Register(RegisterModel model,bool captchaValid)
         {
             if (ModelState.IsValid)
             {

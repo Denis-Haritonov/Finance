@@ -1,0 +1,83 @@
+﻿
+@using BankSystem.Captcha
+@model BankSystem.Models.RegisterModel
+
+<fieldset class="col-lg-6">
+    <ol>
+        <li>
+            <div>@Html.LabelFor(m => m.UserName)</div>
+            <div>@Html.TextBoxFor(m => m.UserName)</div>
+            <div>@Html.ValidationMessageFor(m => m.UserName)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.SurName)</div>
+            <div>@Html.TextBoxFor(m => m.SurName)</div>
+            <div>@Html.ValidationMessageFor(m => m.SurName)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.ThirdName)</div>
+            <div>@Html.TextBoxFor(m => m.ThirdName)</div>
+            <div>@Html.ValidationMessageFor(m => m.ThirdName)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.BirthDateTime)</div>
+            <div>@Html.TextBoxFor(m => m.BirthDateTime)</div>
+            <div>@Html.ValidationMessageFor(m => m.BirthDateTime)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.Password)</div>
+            <div>@Html.PasswordFor(m => m.Password)</div>
+            <div>@Html.ValidationMessageFor(m => m.Password)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.ConfirmPassword)</div>
+            <div>@Html.PasswordFor(m => m.ConfirmPassword)</div>
+            <div>@Html.ValidationMessageFor(m => m.ConfirmPassword)</div>
+        </li>
+    </ol>
+</fieldset>
+<fieldset class="col-lg-6">
+    <ol>
+        <li>
+            <div>@Html.LabelFor(m => m.PasportNumber)</div>
+            <div>@Html.TextBoxFor(m => m.PasportNumber)</div>
+            <div>@Html.ValidationMessageFor(m => m.PasportNumber)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.PassportIdentificationNumber)</div>
+            <div>@Html.TextBoxFor(m => m.PassportIdentificationNumber)</div>
+            <div>@Html.ValidationMessageFor(m => m.PassportIdentificationNumber)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.Email)</div>
+            <div>@Html.TextBoxFor(m => m.Email)</div>
+            <div>@Html.ValidationMessageFor(m => m.Email)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.MobilePhone)</div>
+            <div>@Html.TextBoxFor(m => m.MobilePhone)</div>
+            <div>@Html.ValidationMessageFor(m => m.MobilePhone)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.SecretPhrase)</div>
+            <div>@Html.PasswordFor(m => m.SecretPhrase)</div>
+            <div>@Html.ValidationMessageFor(m => m.SecretPhrase)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.PassportApprovel)</div>
+            <div>@Html.PasswordFor(m => m.PassportApprovel)</div>
+            <div>@Html.ValidationMessageFor(m => m.PassportApprovel)</div>
+        </li>
+        <li>
+            <div>@Html.LabelFor(m => m.PassportEndDate)</div>
+            <div>@Html.PasswordFor(m => m.PassportEndDate)</div>
+            <div>@Html.ValidationMessageFor(m => m.PassportEndDate)</div>
+        </li>
+    </ol>
+</fieldset>
+@if (User.IsInRole("Admin"))
+{
+    <div>test</div>
+}
+@Html.Raw(Html.GenerateCaptcha())
+<input type="submit" value="Сохранить" />

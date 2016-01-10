@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[webpages_Membership] (
-    [UserId]                                  INT            NOT NULL primary key identity, 
+    [UserId]                                  INT            NOT NULL primary key, 
     [CreateDate]                              DATETIME       NULL,
     [ConfirmationToken]                       NVARCHAR (128) NULL,
     [IsConfirmed]                             BIT            DEFAULT ((0)) NULL,
