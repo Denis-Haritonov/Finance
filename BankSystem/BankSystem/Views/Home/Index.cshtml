@@ -1,45 +1,83 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
+
+
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">О банке</a></li>
+        <li role="presentation"><a href="#credits" aria-controls="credits" role="tab" data-toggle="tab">Кредиты</a></li>
+        <li role="presentation"><a href="#deposites" aria-controls="deposites" role="tab" data-toggle="tab">Вклады</a></li>
+        <li role="presentation"><a href="#currency" aria-controls="currency" role="tab" data-toggle="tab">Курсы валют</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="about">
+            <div class="jumbotron">
+                О банке
+            </div>
         </div>
-    </section>
-}
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
+        <div role="tabpanel" class="tab-pane" id="credits">
+            <div class="jumbotron">
+                Кредиты
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="deposites">
+            <div class="jumbotron">
+                Вклады
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="currency">
+            <div class="jumbotron">
+                <h2>Курсы валют</h2>
+                <div>
+                    USD 18 700 / 18 900
+                </div>
+                <div>
+                    EUR 20 000 / 20 350
+                </div>
+                <div>
+                    RUB 245.00 / 257.00
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="input-group"> 
+                        <div class="form-group">                            
+                            <select class="form-control" id="currency-1-name">
+                                <option value="1">BYR</option>
+                                <option value="18700">USD</option>
+                                <option value="20000">EUR</option>
+                                <option value="245">RUB</option>
+                            </select>
+                        </div>                  
+                        <input type="text" class="form-control" id="currency-1">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <div class="input-group">
+                            <div class="form-group">
+                                <select class="form-control" id="currency-2-name">
+                                    <option value="18700">USD</option>
+                                    <option value="1">BYR</option>
+                                    <option value="20000">EUR</option>
+                                    <option value="245">RUB</option>
+                                </select>
+                            </div>
+                            <input type="text" class="form-control" id="currency-2">                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2" style="margin-top:33px;">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="currency-btn">Посчитать</button>
+                    </span>
+                </div>
+        </div>        
+    </div>
+</div>
 
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
 
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+
