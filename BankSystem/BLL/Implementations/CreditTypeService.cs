@@ -18,6 +18,16 @@ namespace BLL.Implementations
         public List<CreditTypeModel> GetCreditTypes()
         {
             return creditTypeReporsitory.GetActiveCreditTypes().Select(item => new CreditTypeModel(item)).ToList();
-        } 
+        }
+
+        public CreditTypeModel GetCreditTypeById(int creditTypeId)
+        {
+            var creditType = creditTypeReporsitory.GetCreditTypeById(creditTypeId);
+            if (creditType != null)
+            {
+                return new CreditTypeModel(creditType);
+            }
+            return null;
+        }
     }
 }

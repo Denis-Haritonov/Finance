@@ -6,6 +6,8 @@
     [TermInfo]   NVARCHAR (MAX) NULL,
     [RulesInfo]  NVARCHAR (MAX) NULL,
     [IsActive] BIT NOT NULL, 
+    [Description] NVARCHAR(MAX) NOT NULL, 
+    [CurrencyShort] VARCHAR(3) NOT NULL, 
     CONSTRAINT [PK_DepositType] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

@@ -1,0 +1,29 @@
+﻿@using GridMvc.Html
+@model IEnumerable<BLL.Models.DepositTypeModel>
+
+@{
+    ViewBag.Title = "Вклады";
+}
+
+@helper RenderViewAction(int id)
+{
+    @Html.ActionLink("Подробнее", "Details", new {depositTypeId = id})
+}
+
+<h2>Вклады</h2>
+<div>
+    @Html.ActionLink("На главную", "Index", "Home")
+</div>
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(item => item.Name)
+        .Titled("Название");
+
+    columns.Add(item => item.CurrencyShort)
+        .Titled("Валюта");
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderViewAction(item.Id));
+}).EmptyText("Записей не найдено")

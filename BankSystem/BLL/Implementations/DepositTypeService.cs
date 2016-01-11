@@ -19,5 +19,15 @@ namespace BLL.Implementations
         {
             return depositTypeRepository.GetActiveDepositTypes().Select(item => new DepositTypeModel(item)).ToList();
         }
+
+        public DepositTypeModel GetDepositTypeById(int depositTypeId)
+        {
+            var depositType = depositTypeRepository.GetDepositTypeById(depositTypeId);
+            if (depositType != null)
+            {
+                return new DepositTypeModel(depositType);
+            }
+            return null;
+        }
     }
 }

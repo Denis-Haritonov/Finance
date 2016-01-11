@@ -231,6 +231,8 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\CreditTypeController.cs" />
+    <Compile Include="Controllers\DepositTypeController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
@@ -467,6 +469,10 @@
     <Content Include="Views\Employee\FindClient.cshtml" />
     <Content Include="Views\Employee\ClientDetails.cshtml" />
     <Content Include="Views\Employee\ClientRequests.cshtml" />
+    <Content Include="Views\DepositType\ViewDepositTypes.cshtml" />
+    <Content Include="Views\DepositType\Details.cshtml" />
+    <Content Include="Views\CreditType\ViewCreditTypes.cshtml" />
+    <Content Include="Views\CreditType\Details.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

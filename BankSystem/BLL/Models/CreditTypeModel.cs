@@ -11,10 +11,16 @@ namespace BLL.Models
         {
             Id = creditType.Id;
             Name = creditType.Name;
+            Description = creditType.Description;
+            CurrencyShort = creditType.CurrencyShort;
         }
 
         public int Id { get; set; }
 
         public String Name { get; set; }
+
+        public String Description { get; set; }
+
+        public String CurrencyShort { get; set; }
     }
 }

@@ -12,6 +12,14 @@ namespace DAL.Implementation
             {
                 return context.CreditType.Where(ct => ct.IsActive).ToList();
             }
-        } 
+        }
+
+        public CreditType GetCreditTypeById(int creditTypeId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return context.CreditType.FirstOrDefault(ct => ct.Id == creditTypeId);
+            }
+        }
     }
 }

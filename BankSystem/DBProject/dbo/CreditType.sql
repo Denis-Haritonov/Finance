@@ -7,6 +7,8 @@
     [StartAmountInfo] NVARCHAR (MAX) NULL,
     [RulesInfo]       NVARCHAR (MAX) NULL,
     [IsActive] BIT NOT NULL, 
+    [Description] NVARCHAR(MAX) NOT NULL, 
+    [CurrencyShort] VARCHAR(3) NOT NULL, 
     CONSTRAINT [PK_CreditType] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

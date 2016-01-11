@@ -77,6 +77,8 @@
           <Property Name="StartAmountInfo" Type="nvarchar(max)" />
           <Property Name="RulesInfo" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CurrencyShort" Type="varchar" MaxLength="3" Nullable="false" />
         </EntityType>
         <EntityType Name="Deposit">
           <Key>
@@ -98,6 +100,8 @@
           <Property Name="TermInfo" Type="nvarchar(max)" />
           <Property Name="RulesInfo" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CurrencyShort" Type="varchar" MaxLength="3" Nullable="false" />
         </EntityType>
         <EntityType Name="Membership">
           <Key>
@@ -623,6 +627,8 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="StartAmountInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencyShort" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_CreditType" FromRole="CreditType" ToRole="Request" />
         </EntityType>
         <EntityType Name="Deposit">
@@ -647,6 +653,8 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="TermInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencyShort" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_DepositType" FromRole="DepositType" ToRole="Request" />
         </EntityType>
         <EntityType Name="Membership">
@@ -944,6 +952,8 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySetMapping Name="CreditType">
             <EntityTypeMapping TypeName="FinanceModel.CreditType">
               <MappingFragment StoreEntitySet="CreditType">
+                <ScalarProperty Name="CurrencyShort" ColumnName="CurrencyShort" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
                 <ScalarProperty Name="StartAmountInfo" ColumnName="StartAmountInfo" />
@@ -968,6 +978,8 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySetMapping Name="DepositType">
             <EntityTypeMapping TypeName="FinanceModel.DepositType">
               <MappingFragment StoreEntitySet="DepositType">
+                <ScalarProperty Name="CurrencyShort" ColumnName="CurrencyShort" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
                 <ScalarProperty Name="TermInfo" ColumnName="TermInfo" />

@@ -28,7 +28,7 @@ namespace BLL.Models
                 CreditTypeId = request.CreditTypeId.Value;
                 if (request.CreditType != null)
                 {
-                    TypeName = request.CreditType.Name;
+                    TypeName = String.Format("{0} {1}", request.CreditType.Name, request.CreditType.CurrencyShort);
                 }
             }
             else if (Type == RequestType.Deposit && request.DepositTypeId.HasValue)
@@ -36,7 +36,7 @@ namespace BLL.Models
                 DepositTypeId = request.DepositTypeId.Value;
                 if (request.DepositType != null)
                 {
-                    TypeName = request.DepositType.Name;
+                    TypeName = String.Format("{0} {1}", request.DepositType.Name, request.DepositType.CurrencyShort);
                 }
             }
             if (withComments)

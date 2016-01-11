@@ -6,5 +6,7 @@ namespace BLL.Interfaces
     public interface IDepositTypeService
     {
         List<DepositTypeModel> GetDepositTypes();
+
+        DepositTypeModel GetDepositTypeById(int depositTypeId);
     }
 }

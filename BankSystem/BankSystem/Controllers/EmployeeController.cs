@@ -51,7 +51,7 @@ namespace BankSystem.Controllers
             var client = userService.GetUserById(clientId);
             if (client == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpNotFoundResult();
             }
             var requests = requestService.GetRequestsByClient(clientId);
             var model = new ClientInfoModel

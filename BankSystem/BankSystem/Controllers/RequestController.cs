@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using BankSystem.Models;
@@ -164,14 +165,14 @@ namespace BankSystem.Controllers
         {
             var depositTypes = depositTypeService.GetDepositTypes();
             return
-                depositTypes.Select(item => new SelectListItem {Text = item.Name, Value = item.Id.ToString()}).ToList();
+                depositTypes.Select(item => new SelectListItem { Text = String.Format("{0} {1}", item.Name, item.CurrencyShort), Value = item.Id.ToString() }).ToList();
         }
 
         private List<SelectListItem> GetCreditTypesListItems()
         {
             var creditTypes = creditTypeService.GetCreditTypes();
             return
-                creditTypes.Select(item => new SelectListItem {Text = item.Name, Value = item.Id.ToString()}).ToList();
+                creditTypes.Select(item => new SelectListItem { Text = String.Format("{0} {1}", item.Name, item.CurrencyShort), Value = item.Id.ToString() }).ToList();
         } 
     }
 }
