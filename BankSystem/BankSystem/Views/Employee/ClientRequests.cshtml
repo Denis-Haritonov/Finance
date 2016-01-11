@@ -1,0 +1,29 @@
+﻿@using GridMvc.Html
+@model BankSystem.Models.ClientInfoModel
+
+@{
+    ViewBag.Title = "Заявки клиента";
+}
+
+@helper RenderRequestDetailsAction(int requestId)
+{
+    @Html.ActionLink("Просмотр", "EmployeeDetails", "Request", new { requestId = requestId }, null)
+}
+
+<h2>Заявки клиента</h2>
+<div>
+    Имя: @Model.UserModel.UserName @Model.UserModel.UserSurname @Model.UserModel.UserLastName
+</div>
+@Html.Grid(Model.Requests).Columns(columns =>
+{
+    columns.Add(item => item.TypeName)
+        .Titled("Тип");
+
+    columns.Add(item => item.FormattedDate)
+        .Titled("Дата");
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderRequestDetailsAction(item.Id));
+})

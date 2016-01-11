@@ -1,0 +1,11 @@
+﻿@model BLL.Models.ViewModel.UserViewModel
+
+@{
+    ViewBag.Title = "Информация о клиенте";
+}
+
+<h2>Информация о клиенте</h2>
+<div>
+    Имя: @Model.UserName @Model.UserSurname @Model.UserLastName
+</div>
+@Html.ActionLink("Заявки клиента", "ClientRequests", new {clientId = Model.UserId})

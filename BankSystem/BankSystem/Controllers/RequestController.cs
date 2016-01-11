@@ -24,11 +24,6 @@ namespace BankSystem.Controllers
             this.creditTypeService = creditTypeService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [Authorize(Roles = "Client")]
         public ActionResult CreateCreditRequest()
         {
@@ -104,12 +99,14 @@ namespace BankSystem.Controllers
             return View(clientRequests);
         }
 
+        [Authorize(Roles = "Client")]
         public ActionResult ClientDetails(int requestId)
         {
             var requestModel = requestService.GetRequestDetails(requestId);
             return View(requestModel);
         }
 
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult EmployeeDetails(int requestId)
         {
             var requestModel = requestService.GetRequestDetails(requestId);
@@ -134,6 +131,7 @@ namespace BankSystem.Controllers
             return View(requestsQueModel);
         }
 
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult AssignRequest(int requestId)
         {
             requestService.AssignRequestToEmployee(requestId, CurrentUser.UserId);

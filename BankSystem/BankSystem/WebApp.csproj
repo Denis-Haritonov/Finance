@@ -231,6 +231,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -240,6 +241,8 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuPoint.cs" />
     <Compile Include="Menu\MenuPointRenderTemplates.cs" />
+    <Compile Include="Models\ClientInfoModel.cs" />
+    <Compile Include="Models\ClientSearchModel.cs" />
     <Compile Include="Models\CreditRequestVM.cs" />
     <Compile Include="Models\DepositRequestVM.cs" />
     <Compile Include="Models\EmployeeRequestDetailsVM.cs" />
@@ -461,11 +464,13 @@
     <Content Include="Views\Request\ClientViewRequests.cshtml" />
     <Content Include="Views\Account\_UserEditForm.cshtml" />
     <Content Include="Views\Request\ClientDetails.cshtml" />
+    <Content Include="Views\Employee\FindClient.cshtml" />
+    <Content Include="Views\Employee\ClientDetails.cshtml" />
+    <Content Include="Views\Employee\ClientRequests.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />
     <Content Include="Views\Request\EmployeeDetails.cshtml" />
-    <None Include="Views\Request\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

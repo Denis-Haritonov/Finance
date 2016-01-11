@@ -11,5 +11,9 @@ namespace BLL.Interfaces
         void AddClientUser(UserViewModel userModel);
 
         UserViewModel GetUserByLogin(String login);
+
+        UserViewModel FindClientByPassportNumber(String searchTerm);
+
+        UserViewModel GetUserById(int userId);
     }
 }

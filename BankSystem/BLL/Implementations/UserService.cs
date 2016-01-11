@@ -41,5 +41,25 @@ namespace BLL.Implementations
             }
             return null;
         }
+
+        public UserViewModel FindClientByPassportNumber(String searchTerm)
+        {
+            var user = _userRepository.GetUserByPassportNumber(searchTerm);
+            if (user != null)
+            {
+                return new UserViewModel(user);
+            }
+            return null;
+        }
+
+        public UserViewModel GetUserById(int userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user != null)
+            {
+                return new UserViewModel(user);
+            }
+            return null;
+        }
     }
 }
