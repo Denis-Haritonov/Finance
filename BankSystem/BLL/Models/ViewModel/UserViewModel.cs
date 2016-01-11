@@ -8,7 +8,6 @@ namespace BLL.Models.ViewModel
     {
         public UserViewModel()
         {
-            this.UserInRoles = new List<UsersInRoles>();
         }
 
         public UserViewModel(UserProfile userProfile)
@@ -25,6 +24,5 @@ namespace BLL.Models.ViewModel
         public string UserLastName { get; set; }
         public DateTime? UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
-        public List<UsersInRoles> UserInRoles { get; set; } 
     }
 }

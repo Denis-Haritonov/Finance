@@ -20,7 +20,6 @@ namespace DAL
             this.Comment = new HashSet<Comment>();
             this.Request = new HashSet<Request>();
             this.Request1 = new HashSet<Request>();
-            this.UsersInRoles = new HashSet<UsersInRoles>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
         }
     
@@ -35,7 +34,6 @@ namespace DAL
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Request> Request { get; set; }
         public virtual ICollection<Request> Request1 { get; set; }
-        public virtual ICollection<UsersInRoles> UsersInRoles { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

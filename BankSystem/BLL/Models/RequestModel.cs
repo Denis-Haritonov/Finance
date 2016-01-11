@@ -13,7 +13,6 @@ namespace BLL.Models
         {
         }
 
-
         public RequestModel(Request request)
         {
             Id = request.Id;
@@ -22,6 +21,7 @@ namespace BLL.Models
             Amount = request.Amount;
             Date = request.Date;
             AssignedEmployeeId = request.AssignedEmployeeId;
+            ClientId = request.ClientId;
             if (Type == RequestType.Credit && request.CreditTypeId.HasValue)
             {
                 CreditTypeId = request.CreditTypeId.Value;
@@ -30,9 +30,9 @@ namespace BLL.Models
                     TypeName = request.CreditType.Name;
                 }
             }
-            else if (Type == RequestType.Credit && request.DepositTypeId.HasValue)
+            else if (Type == RequestType.Deposit && request.DepositTypeId.HasValue)
             {
-                CreditTypeId = request.DepositTypeId.Value;
+                DepositTypeId = request.DepositTypeId.Value;
                 if (request.DepositType != null)
                 {
                     TypeName = request.DepositType.Name;
@@ -52,15 +52,17 @@ namespace BLL.Models
 
         public decimal Amount { get; set; }
 
-        public int CreditTypeId { get; set; }
+        public int? CreditTypeId { get; set; }
 
-        public int DepositTypeId { get; set; }
+        public int? DepositTypeId { get; set; }
 
         public DateTime Date { get; set; }
 
         public String TypeName { get; set; }
 
         public int? AssignedEmployeeId { get; set; }
+
+        public int ClientId { get; set; }
 
         public String StatusString
         {

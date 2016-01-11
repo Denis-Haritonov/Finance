@@ -7,6 +7,7 @@
 
 <h2>Заявка</h2>
 <div>
+    @Html.ActionLink("Назад к заявкам", "ClientViewRequests")
     <label>Дата создания: @Model.Date</label>
     Статус заявки: @Model.StatusString
     @if (Model.Type == RequestType.Credit)
@@ -20,7 +21,7 @@
     Заявленная сумма: @Model.Amount
     @if (Model.Comments != null && Model.Comments.Any())
     {
-        <hr />
+        <hr/>
         <p>Комментарии</p>
         foreach (var comment in Model.Comments.Where(c => !c.IsInternal))
         {
@@ -34,7 +35,7 @@
             </div>
         }
     }
-    @using (Html.BeginForm("LeaveComment", "Comment", new { requestId = Model.Id }, FormMethod.Post))
+    @using (Html.BeginForm("LeaveComment", "Comment", new {requestId = Model.Id}, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <p>Ваше сообщение</p>

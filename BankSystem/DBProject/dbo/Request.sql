@@ -1,8 +1,7 @@
 ﻿CREATE TABLE [dbo].[Request]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
     [ClientId] INT NOT NULL, 
-    [RequestType] INT NOT NULL, 
     [Amount] MONEY NOT NULL, 
     [State] INT NOT NULL, 
     [Type] INT NOT NULL, 

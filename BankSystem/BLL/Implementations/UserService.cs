@@ -27,7 +27,8 @@ namespace BLL.Implementations
         public void AddClientUser(UserViewModel userModel)
         {
             var dalUser = Mapper.Map<UserViewModel, UserProfile>(userModel);
-            dalUser.UsersInRoles.Add(new UsersInRoles(){ RoleId = (int)Roles.Client, UserId  = dalUser.UserId });
+            //TODO: solve user-role dependency. Temporaly comented out.
+            //dalUser.UsersInRoles.Add(new UsersInRoles(){ RoleId = (int)Roles.Client, UserId  = dalUser.UserId });
             this._userRepository.AddOrUpdateUser(dalUser);
         }
 
@@ -36,7 +37,7 @@ namespace BLL.Implementations
             var user = _userRepository.GetUserByLogin(login);
             if (user != null)
             {
-                return Mapper.Map<UserProfile, UserViewModel>(user);
+                return new UserViewModel(user);
             }
             return null;
         }

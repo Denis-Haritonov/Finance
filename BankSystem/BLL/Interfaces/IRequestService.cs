@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BLL.Models;
 using BLL.Models.Enums;
 
@@ -7,7 +6,7 @@ namespace BLL.Interfaces
 {
     public interface IRequestService
     {
-        String CreateRequest(RequestModel requestModel, String passportNumber);
+        void CreateRequest(RequestModel requestModel);
 
         List<RequestModel> GetRequestsByClient(int clientId);
 

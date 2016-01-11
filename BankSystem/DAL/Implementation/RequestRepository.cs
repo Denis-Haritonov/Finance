@@ -33,6 +33,7 @@ namespace DAL.Implementation
                 return
                     context.Request.Include(item => item.DepositType)
                         .Include(item => item.CreditType)
+                        .Include(item => item.Comment)
                         .Where(item => item.ClientId == clientId)
                         .ToList();
             }

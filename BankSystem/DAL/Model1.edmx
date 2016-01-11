@@ -128,9 +128,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="RequestType" Type="int" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="State" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
@@ -159,14 +158,6 @@
           <Property Name="UserLastName" Type="nvarchar" MaxLength="56" Nullable="false" />
           <Property Name="UserBirthDate" Type="date" />
           <Property Name="UserPassportSerialNumber" Type="nvarchar" MaxLength="9" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UsersInRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -354,18 +345,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_RoleId">
-          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
-          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Roles">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UsersInRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_RoleIdk">
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
           <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
@@ -402,18 +381,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_UserId">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
-          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UsersInRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_UserIdk">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
           <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
@@ -442,7 +409,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
@@ -500,10 +466,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
-          </AssociationSet>
           <AssociationSet Name="fk_RoleIdk" Association="Self.fk_RoleIdk">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
@@ -515,10 +477,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <AssociationSet Name="FK_Transaction_Deposit" Association="Self.FK_Transaction_Deposit">
             <End Role="Deposit" EntitySet="Deposit" />
             <End Role="Transaction" EntitySet="Transaction" />
-          </AssociationSet>
-          <AssociationSet Name="fk_UserId" Association="Self.fk_UserId">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="fk_UserIdk" Association="Self.fk_UserIdk">
             <End Role="UserProfile" EntitySet="UserProfile" />
@@ -543,7 +501,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySet Name="Request" EntityType="FinanceModel.Request" />
           <EntitySet Name="Transaction" EntityType="FinanceModel.Transaction" />
           <EntitySet Name="UserProfile" EntityType="FinanceModel.UserProfile" />
-          <EntitySet Name="UsersInRoles" EntityType="FinanceModel.UsersInRoles" />
           <EntitySet Name="webpages_Membership" EntityType="FinanceModel.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="FinanceModel.webpages_OAuthMembership" />
           <EntitySet Name="webpages_Roles" EntityType="FinanceModel.webpages_Roles" />
@@ -586,14 +543,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <AssociationSet Name="FK_Request_Employee" Association="FinanceModel.FK_Request_Employee">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="fk_UserId" Association="FinanceModel.fk_UserId">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
-          </AssociationSet>
-          <AssociationSet Name="fk_RoleId" Association="FinanceModel.fk_RoleId">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="ClientCredit" Association="FinanceModel.ClientCredit">
             <End Role="Client" EntitySet="Client" />
@@ -729,9 +678,8 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="RequestType" Type="Int32" Nullable="false" />
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="State" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
@@ -771,18 +719,7 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="UserProfile" ToRole="Comment" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_Client" FromRole="UserProfile" ToRole="Request" />
           <NavigationProperty Name="Request1" Relationship="FinanceModel.FK_Request_Employee" FromRole="UserProfile" ToRole="Request" />
-          <NavigationProperty Name="UsersInRoles" Relationship="FinanceModel.fk_UserId" FromRole="UserProfile" ToRole="UsersInRoles" />
           <NavigationProperty Name="webpages_Roles" Relationship="FinanceModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
-        </EntityType>
-        <EntityType Name="UsersInRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.fk_UserId" FromRole="UsersInRoles" ToRole="UserProfile" />
-          <NavigationProperty Name="webpages_Roles" Relationship="FinanceModel.fk_RoleId" FromRole="UsersInRoles" ToRole="webpages_Roles" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -815,7 +752,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UsersInRoles" Relationship="FinanceModel.fk_RoleId" FromRole="webpages_Roles" ToRole="UsersInRoles" />
           <NavigationProperty Name="UserProfile" Relationship="FinanceModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
         </EntityType>
         <Association Name="FK_Client_UserProfile">
@@ -935,30 +871,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             </Principal>
             <Dependent Role="Request">
               <PropertyRef Name="AssignedEmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_UserId">
-          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
-          <End Type="FinanceModel.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UsersInRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_RoleId">
-          <End Type="FinanceModel.webpages_Roles" Role="webpages_Roles" Multiplicity="1" />
-          <End Type="FinanceModel.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Roles">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UsersInRoles">
-              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1103,7 +1015,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1129,15 +1040,6 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
                 <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsersInRoles">
-            <EntityTypeMapping TypeName="FinanceModel.UsersInRoles">
-              <MappingFragment StoreEntitySet="UsersInRoles">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

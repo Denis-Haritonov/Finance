@@ -37,7 +37,7 @@ namespace DAL.Implementation
         {
             using (var context = new FinanceEntities())
             {
-                throw new NotImplementedException();
+                return context.UserProfile.FirstOrDefault(item => item.UserName == login);
             }
         }
 

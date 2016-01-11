@@ -16,14 +16,12 @@ namespace DAL
     {
         public webpages_Roles()
         {
-            this.UsersInRoles = new HashSet<UsersInRoles>();
             this.UserProfile = new HashSet<UserProfile>();
         }
     
         public int RoleId { get; set; }
         public string RoleName { get; set; }
     
-        public virtual ICollection<UsersInRoles> UsersInRoles { get; set; }
         public virtual ICollection<UserProfile> UserProfile { get; set; }
     }
 }
