@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
 using BLL.Models;
@@ -26,13 +27,15 @@ namespace BankSystem.Controllers
                 Text = commentVM.Text,
                 RequestId = commentVM.requestId
             };
-            commentService.AddComment(commentModel);
+            if (!String.IsNullOrWhiteSpace(commentModel.Text))
+            {
+                commentService.AddComment(commentModel);
+            }
             if (User.IsInRole("Client"))
             {
                 return RedirectToAction("ClientDetails", "Request", new {requestId = commentModel.RequestId});
             }
             return RedirectToAction("EmployeeDetails", "Request", new {requestId = commentModel.RequestId});
         }
-        
     }
 }

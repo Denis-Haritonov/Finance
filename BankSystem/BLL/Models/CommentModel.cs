@@ -36,5 +36,10 @@ namespace BLL.Models
         public int RequestId { get; set; }
 
         public String AuthorName { get; set; }
+
+        public String FormattedDate
+        {
+            get { return Date.ToString("dd.MM.yyyy hh:mm"); }
+        }
     }
 }

@@ -7,50 +7,54 @@
 
 <h2>Заявка</h2>
 <div>
-    @Html.ActionLink("Назад к заявкам", "ClientViewRequests")
-    <label>Дата создания: @Model.RequestModel.Date</label>
-    Статус заявки: @Model.RequestModel.StatusString
+    <div>
+        @Html.ActionLink("Очередь заявок", "RequestsQue")
+    </div>
     @if (Model.RequestModel.Type == RequestType.Credit)
     {
-        <p>Заявка на кредит: @Model.RequestModel.TypeName</p>
+        <div>Заявка на кредит: @Model.RequestModel.TypeName</div>
     }
     else if (Model.RequestModel.Type == RequestType.Deposit)
     {
-        <p>Заявка на депозит: @Model.RequestModel.TypeName</p>
+        <div>Заявка на депозит: @Model.RequestModel.TypeName</div>
     }
-    Заявленная сумма: @Model.RequestModel.Amount
+    <div>
+        Дата создания: @Model.RequestModel.FormattedDate
+    </div>
+    <div>
+        Статус заявки: @Model.RequestModel.StatusString
+    </div>
+    <div>
+        Заявленная сумма: @Model.RequestModel.Amount
+    </div>
     @if (Model.IsAssignedToCurrent)
     {
-        <div class="row">
-            <div class="col-md-2">
-                @Html.ActionLink("Подтвердить", "ApproveRequest", new {requestId = Model.RequestModel.Id})
-            </div>
-            <div class="col-md-2">
-                @Html.ActionLink("Отклонить", "RejectRequest", new {requestId = Model.RequestModel.Id})
-            </div>
+        <div>
+            @Html.ActionLink("Подтвердить", "ApproveRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
+            @Html.ActionLink("Отклонить", "RejectRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
         </div>
     }
     @if (Model.RequestModel.Comments != null && Model.RequestModel.Comments.Any())
     {
-        <hr/>
+        <hr />
         <p>Комментарии</p>
-        foreach (var comment in Model.RequestModel.Comments)
+        foreach (var comment in Model.RequestModel.Comments.Where(c => !c.IsInternal))
         {
-            <div class="well">
-                <p>
-                    @comment.AuthorName @comment.Date
-                </p>
-                <p>
+            <div class="panel panel-default">
+                <div class="panel-heading">@comment.AuthorName <b>@comment.FormattedDate</b></div>
+                <div class="panel-body">
                     @comment.Text
-                </p>
+                </div>
             </div>
         }
     }
-    @using (Html.BeginForm("LeaveComment", "Comment", new {requestId = Model.RequestModel.Id}, FormMethod.Post))
+    <hr />
+    @using (Html.BeginForm("LeaveComment", "Comment", new { requestId = Model.RequestModel.Id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        <p>Ваше сообщение</p>
-        <textarea name="Text"></textarea>
+        <p>Оставить сообщение</p>
+        <textarea required name="Text" class="form-control"></textarea>
+        <br />
         <button class="btn btn-success">Отправить</button>
     }
 </div>

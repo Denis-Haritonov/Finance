@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using BLL.Models.Enums;
 using DAL;
@@ -13,7 +14,7 @@ namespace BLL.Models
         {
         }
 
-        public RequestModel(Request request)
+        public RequestModel(Request request, bool withComments = false)
         {
             Id = request.Id;
             Type = (RequestType)request.Type;
@@ -38,7 +39,7 @@ namespace BLL.Models
                     TypeName = request.DepositType.Name;
                 }
             }
-            if (request.Comment != null)
+            if (withComments)
             {
                 Comments = request.Comment.Select(item => new CommentModel(item)).OrderBy(item => item.Date).ToList();
             }
@@ -56,6 +57,8 @@ namespace BLL.Models
 
         public int? DepositTypeId { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         public String TypeName { get; set; }
@@ -80,6 +83,11 @@ namespace BLL.Models
                         return String.Empty;
                 }
             }
+        }
+
+        public String FormattedDate
+        {
+            get { return Date.ToString("dd.MM.yyyy hh:mm"); }
         }
 
         public List<CommentModel> Comments { get; set; }

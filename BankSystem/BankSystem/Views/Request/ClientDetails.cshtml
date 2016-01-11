@@ -7,39 +7,47 @@
 
 <h2>Заявка</h2>
 <div>
-    @Html.ActionLink("Назад к заявкам", "ClientViewRequests")
-    <label>Дата создания: @Model.Date</label>
-    Статус заявки: @Model.StatusString
+    <div>
+        @Html.ActionLink("Назад к заявкам", "ClientViewRequests")
+    </div>
     @if (Model.Type == RequestType.Credit)
     {
-        <p>Заявка на кредит: @Model.TypeName</p>
+        <div>Заявка на кредит: @Model.TypeName</div>
     }
     else if (Model.Type == RequestType.Deposit)
     {
-        <p>Заявка на депозит: @Model.TypeName</p>
+        <div>Заявка на депозит: @Model.TypeName</div>
     }
-    Заявленная сумма: @Model.Amount
+    <div>
+        Дата создания: @Model.FormattedDate
+    </div>
+    <div>
+        Статус заявки: @Model.StatusString
+    </div>
+    <div>
+        Заявленная сумма: @Model.Amount
+    </div>
     @if (Model.Comments != null && Model.Comments.Any())
     {
         <hr/>
         <p>Комментарии</p>
         foreach (var comment in Model.Comments.Where(c => !c.IsInternal))
         {
-            <div class="well">
-                <p>
-                    @comment.AuthorName @comment.Date
-                </p>
-                <p>
+            <div class="panel panel-default">
+                <div class="panel-heading">@comment.AuthorName <b>@comment.FormattedDate</b></div>
+                <div class="panel-body">
                     @comment.Text
-                </p>
+                </div>
             </div>
         }
     }
+    <hr/>
     @using (Html.BeginForm("LeaveComment", "Comment", new {requestId = Model.Id}, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        <p>Ваше сообщение</p>
-        <textarea name="Text"></textarea>
+        <p>Оставить сообщение</p>
+        <textarea required name="Text" class="form-control"></textarea>
+        <br/>
         <button class="btn btn-success">Отправить</button>
     }
 </div>

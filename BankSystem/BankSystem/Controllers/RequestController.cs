@@ -121,11 +121,17 @@ namespace BankSystem.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult RequestsQue()
         {
-            var user = userService.GetUserByLogin(User.Identity.Name);
-            var requests = requestService.GetRequestQueForEmployee(user.UserId);
-            return View(requests);
+            var userId = CurrentUser.UserId;
+            var requests = requestService.GetRequestQueForEmployee(userId);
+            var requestsQueModel = new RequestsQueVM
+            {
+                Requests = requests,
+                CurrentUser = CurrentUser
+            };
+            return View(requestsQueModel);
         }
 
         public ActionResult AssignRequest(int requestId)
@@ -134,6 +140,7 @@ namespace BankSystem.Controllers
             return RedirectToAction("EmployeeDetails", new {requestId = requestId});
         }
 
+        [Authorize(Roles = "Operator")]
         public ActionResult ApproveRequest(int requestId)
         {
             var request = requestService.GetRequestDetails(requestId);
@@ -144,6 +151,7 @@ namespace BankSystem.Controllers
             return RedirectToAction("RequestsQue");
         }
 
+        [Authorize(Roles = "Operator")]
         public ActionResult RejectRequest(int requestId)
         {
             var request = requestService.GetRequestDetails(requestId);
@@ -153,7 +161,6 @@ namespace BankSystem.Controllers
             }
             return RedirectToAction("RequestsQue");
         }
-
 
         private List<SelectListItem> GetDepositTypesListItems()
         {

@@ -33,7 +33,6 @@ namespace DAL.Implementation
                 return
                     context.Request.Include(item => item.DepositType)
                         .Include(item => item.CreditType)
-                        .Include(item => item.Comment)
                         .Where(item => item.ClientId == clientId)
                         .ToList();
             }
@@ -56,8 +55,12 @@ namespace DAL.Implementation
             using (var context = new FinanceEntities())
             {
                 return
-                    context.Request.Where(
-                        item => !item.AssignedEmployeeId.HasValue || item.AssignedEmployeeId.Value == employeeId)
+                    context.Request.Include(item => item.CreditType)
+                        .Include(item => item.DepositType)
+                        .Where(
+                            item =>
+                                item.State == 0 &&
+                                (!item.AssignedEmployeeId.HasValue || item.AssignedEmployeeId.Value == employeeId))
                         .ToList();
             }
         }

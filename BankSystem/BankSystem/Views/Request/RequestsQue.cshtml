@@ -1,13 +1,21 @@
-﻿@using GridMvc.Html
-@model IEnumerable<BLL.Models.RequestModel>
+﻿@using BLL.Models
+@using GridMvc.Html
+@model BankSystem.Models.RequestsQueVM
 
 @{
     ViewBag.Title = "Очередь заявок";
 }
 
-@helper RenderAssignLinkAction(int requestId)
+@helper RenderAssignLinkAction(RequestModel request)
 {
-    @Html.ActionLink("Рассмотреть заявку", "AssignToEmployee", new {requestId = requestId})
+    if (request.AssignedEmployeeId == Model.CurrentUser.UserId)
+    {
+        <text>На моем рассмотрении</text>
+    }
+    else if (!request.AssignedEmployeeId.HasValue)
+    {
+        @Html.ActionLink("Рассмотреть заявку", "AssignRequest", new {requestId = request.Id})
+    }
 }
 
 @helper RenderRequestDetailsAction(int requestId)
@@ -16,18 +24,18 @@
 }
 
 <h2>Очередь заявок</h2>
-@Html.Grid(Model).Columns(columns =>
+@Html.Grid(Model.Requests).Columns(columns =>
 {
     columns.Add(item => item.TypeName)
         .Titled("Тип");
 
-    columns.Add(item => item.Date)
+    columns.Add(item => item.FormattedDate)
         .Titled("Дата");
 
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
-        .RenderValueAs(item => RenderAssignLinkAction(item.Id));
+        .RenderValueAs(item => RenderAssignLinkAction(item));
 
     columns.Add()
         .Encoded(false)

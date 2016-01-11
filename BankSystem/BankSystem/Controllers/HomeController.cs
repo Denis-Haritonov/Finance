@@ -18,7 +18,7 @@ namespace BankSystem.Controllers
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
             //WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-            //WebSecurity.CreateUserAndAccount("Client", "123456");
+            //WebSecurity.CreateUserAndAccount("Employee", "123456");
             //var a = User.IsInRole("Client");
             //var b = User.IsInRole("Operator");
             //var c = Roles.IsUserInRole("Client");

@@ -18,6 +18,7 @@ namespace DAL
         {
             this.Client = new HashSet<Client>();
             this.Comment = new HashSet<Comment>();
+            this.Employee = new HashSet<Employee>();
             this.Request = new HashSet<Request>();
             this.Request1 = new HashSet<Request>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
@@ -32,6 +33,7 @@ namespace DAL
     
         public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Employee> Employee { get; set; }
         public virtual ICollection<Request> Request { get; set; }
         public virtual ICollection<Request> Request1 { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }

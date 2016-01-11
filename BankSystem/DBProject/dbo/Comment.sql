@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Comment]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY (1, 1), 
     [Text] NVARCHAR(MAX) NOT NULL, 
     [UserProfileId] INT NOT NULL, 
     [IsInternal] BIT NOT NULL, 

@@ -86,5 +86,6 @@
     <None Include="DBProject.publish.xml" />
     <None Include="DBProject_1.publish.xml" />
     <None Include="Mikhail-home.publish.xml" />
+    <None Include="Mikhail-work.publish.xml" />
   </ItemGroup>
 </Project>

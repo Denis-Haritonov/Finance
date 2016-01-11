@@ -71,6 +71,11 @@ namespace BankSystem
                       "~/Content/Gridmvc.css",
                       "~/Content/gridmvc.datepicker.css",
                       "~/Content/facebox.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/respond.js",
+                "~/Scripts/bootstrap-datepicker.js"));
         }
     }
 }

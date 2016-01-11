@@ -36,7 +36,7 @@ namespace BLL.Implementations
         public List<RequestModel> GetRequestsByClient(int clientId)
         {
             var requests = requestRepository.GetClientRequests(clientId);
-            return requests.Select(item => new RequestModel(item)).OrderBy(item => item.Date).ToList();
+            return requests.Select(item => new RequestModel(item)).OrderByDescending(item => item.Date).ToList();
         }
 
         public RequestModel GetRequestDetails(int requestId)
@@ -44,7 +44,7 @@ namespace BLL.Implementations
             var request = requestRepository.GetRequestById(requestId);
             if (request != null)
             {
-                return new RequestModel(request);
+                return new RequestModel(request, true);
             }
             return null;
         }

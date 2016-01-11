@@ -244,6 +244,7 @@
     <Compile Include="Models\DepositRequestVM.cs" />
     <Compile Include="Models\EmployeeRequestDetailsVM.cs" />
     <Compile Include="Models\PostCommentVM.cs" />
+    <Compile Include="Models\RequestsQueVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

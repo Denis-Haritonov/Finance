@@ -2,7 +2,7 @@
 {
     public enum RequestType
     {
-        Deposit,
-        Credit
+        Deposit = 0,
+        Credit = 1
     }
 }
