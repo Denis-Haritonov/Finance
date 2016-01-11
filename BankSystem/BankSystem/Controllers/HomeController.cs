@@ -39,5 +39,10 @@ namespace BankSystem.Controllers
 
             return View();
         }
+
+        public ActionResult Currency()
+        {
+            return View();
+        }
     }
 }

@@ -473,6 +473,7 @@
     <Content Include="Views\DepositType\Details.cshtml" />
     <Content Include="Views\CreditType\ViewCreditTypes.cshtml" />
     <Content Include="Views\CreditType\Details.cshtml" />
+    <Content Include="Views\Home\Currency.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />
