@@ -53,12 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\CommentService.cs" />
+    <Compile Include="Implementations\CreditService.cs" />
     <Compile Include="Implementations\CreditTypeService.cs" />
+    <Compile Include="Implementations\DepositService.cs" />
     <Compile Include="Implementations\DepositTypeService.cs" />
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Interfaces\ICommentService.cs" />
+    <Compile Include="Interfaces\ICreditService.cs" />
     <Compile Include="Interfaces\ICreditTypeService.cs" />
+    <Compile Include="Interfaces\IDepositService.cs" />
     <Compile Include="Interfaces\IDepositTypeService.cs" />
     <Compile Include="Interfaces\IRequestService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

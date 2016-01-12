@@ -64,6 +64,7 @@
           <Property Name="StartAmount" Type="money" Nullable="false" />
           <Property Name="Debt" Type="money" Nullable="false" />
           <Property Name="CreditTypeId" Type="int" Nullable="false" />
+          <Property Name="RequestId" Type="int" />
         </EntityType>
         <EntityType Name="CreditType">
           <Key>
@@ -88,6 +89,8 @@
           <Property Name="StartDate" Type="smalldatetime" Nullable="false" />
           <Property Name="Balance" Type="money" Nullable="false" />
           <Property Name="DepositTypeId" Type="int" Nullable="false" />
+          <Property Name="RequestId" Type="int" />
+          <Property Name="EndDate" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DepositType">
           <Key>
@@ -301,6 +304,54 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Credit_CreditType">
+          <End Role="CreditType" Type="Self.CreditType" Multiplicity="1" />
+          <End Role="Credit" Type="Self.Credit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="CreditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Credit_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="Credit" Type="Self.Credit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposit_DepositType">
+          <End Role="DepositType" Type="Self.DepositType" Multiplicity="1" />
+          <End Role="Deposit" Type="Self.Deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepositType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="DepositTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposit_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="Deposit" Type="Self.Deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Request_Client">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
@@ -454,6 +505,22 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <AssociationSet Name="FK_Credit_CreditType" Association="Self.FK_Credit_CreditType">
+            <End Role="CreditType" EntitySet="CreditType" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Credit_Request" Association="Self.FK_Credit_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposit_DepositType" Association="Self.FK_Deposit_DepositType">
+            <End Role="DepositType" EntitySet="DepositType" />
+            <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposit_Request" Association="Self.FK_Deposit_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
           <AssociationSet Name="FK_Request_Client" Association="Self.FK_Request_Client">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
@@ -524,6 +591,14 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <AssociationSet Name="FK_Credit_CreditType" Association="FinanceModel.FK_Credit_CreditType">
+            <End Role="CreditType" EntitySet="CreditType" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Credit_Request" Association="FinanceModel.FK_Credit_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transaction_Credit" Association="FinanceModel.FK_Transaction_Credit">
             <End Role="Credit" EntitySet="Credit" />
             <End Role="Transaction" EntitySet="Transaction" />
@@ -531,6 +606,14 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <AssociationSet Name="FK_Request_CreditType" Association="FinanceModel.FK_Request_CreditType">
             <End Role="CreditType" EntitySet="CreditType" />
             <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposit_DepositType" Association="FinanceModel.FK_Deposit_DepositType">
+            <End Role="DepositType" EntitySet="DepositType" />
+            <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposit_Request" Association="FinanceModel.FK_Deposit_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Deposit" EntitySet="Deposit" />
           </AssociationSet>
           <AssociationSet Name="FK_Transaction_Deposit" Association="FinanceModel.FK_Transaction_Deposit">
             <End Role="Deposit" EntitySet="Deposit" />
@@ -612,6 +695,9 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="StartAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Debt" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="CreditTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" />
+          <NavigationProperty Name="CreditType" Relationship="FinanceModel.FK_Credit_CreditType" FromRole="Credit" ToRole="CreditType" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Credit_Request" FromRole="Credit" ToRole="Request" />
           <NavigationProperty Name="Transaction" Relationship="FinanceModel.FK_Transaction_Credit" FromRole="Credit" ToRole="Transaction" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.ClientCredit" FromRole="Credit" ToRole="Client" />
         </EntityType>
@@ -629,6 +715,7 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CurrencyShort" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Credit" Relationship="FinanceModel.FK_Credit_CreditType" FromRole="CreditType" ToRole="Credit" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_CreditType" FromRole="CreditType" ToRole="Request" />
         </EntityType>
         <EntityType Name="Deposit">
@@ -639,6 +726,10 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Balance" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="DepositTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="DepositType" Relationship="FinanceModel.FK_Deposit_DepositType" FromRole="Deposit" ToRole="DepositType" />
+          <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Deposit_Request" FromRole="Deposit" ToRole="Request" />
           <NavigationProperty Name="Transaction" Relationship="FinanceModel.FK_Transaction_Deposit" FromRole="Deposit" ToRole="Transaction" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.ClientDeposit" FromRole="Deposit" ToRole="Client" />
         </EntityType>
@@ -655,6 +746,7 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CurrencyShort" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Deposit" Relationship="FinanceModel.FK_Deposit_DepositType" FromRole="DepositType" ToRole="Deposit" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_DepositType" FromRole="DepositType" ToRole="Request" />
         </EntityType>
         <EntityType Name="Membership">
@@ -696,7 +788,9 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AssignedEmployeeId" Type="Int32" />
           <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_Request" FromRole="Request" ToRole="Comment" />
+          <NavigationProperty Name="Credit" Relationship="FinanceModel.FK_Credit_Request" FromRole="Request" ToRole="Credit" />
           <NavigationProperty Name="CreditType" Relationship="FinanceModel.FK_Request_CreditType" FromRole="Request" ToRole="CreditType" />
+          <NavigationProperty Name="Deposit" Relationship="FinanceModel.FK_Deposit_Request" FromRole="Request" ToRole="Deposit" />
           <NavigationProperty Name="DepositType" Relationship="FinanceModel.FK_Request_DepositType" FromRole="Request" ToRole="DepositType" />
           <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_Client" FromRole="Request" ToRole="UserProfile" />
           <NavigationProperty Name="UserProfile1" Relationship="FinanceModel.FK_Request_Employee" FromRole="Request" ToRole="UserProfile" />
@@ -810,6 +904,30 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Credit_CreditType">
+          <End Type="FinanceModel.CreditType" Role="CreditType" Multiplicity="1" />
+          <End Type="FinanceModel.Credit" Role="Credit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="CreditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Credit_Request">
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="FinanceModel.Credit" Role="Credit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_Credit">
           <End Type="FinanceModel.Credit" Role="Credit" Multiplicity="0..1" />
           <End Type="FinanceModel.Transaction" Role="Transaction" Multiplicity="*" />
@@ -831,6 +949,30 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             </Principal>
             <Dependent Role="Request">
               <PropertyRef Name="CreditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposit_DepositType">
+          <End Type="FinanceModel.DepositType" Role="DepositType" Multiplicity="1" />
+          <End Type="FinanceModel.Deposit" Role="Deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepositType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="DepositTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposit_Request">
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="FinanceModel.Deposit" Role="Deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="RequestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -941,6 +1083,7 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySetMapping Name="Credit">
             <EntityTypeMapping TypeName="FinanceModel.Credit">
               <MappingFragment StoreEntitySet="Credit">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
                 <ScalarProperty Name="CreditTypeId" ColumnName="CreditTypeId" />
                 <ScalarProperty Name="Debt" ColumnName="Debt" />
                 <ScalarProperty Name="StartAmount" ColumnName="StartAmount" />
@@ -968,6 +1111,8 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySetMapping Name="Deposit">
             <EntityTypeMapping TypeName="FinanceModel.Deposit">
               <MappingFragment StoreEntitySet="Deposit">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
                 <ScalarProperty Name="DepositTypeId" ColumnName="DepositTypeId" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />

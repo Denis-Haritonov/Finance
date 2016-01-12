@@ -27,7 +27,7 @@
     <div>
         Заявленная сумма: @Model.RequestModel.Amount
     </div>
-    @if (Model.IsAssignedToCurrent)
+    @if (Model.IsAssignedToCurrent && Model.RequestModel.State == RequestState.Pending)
     {
         <div>
             @Html.ActionLink("Подтвердить", "ApproveRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})

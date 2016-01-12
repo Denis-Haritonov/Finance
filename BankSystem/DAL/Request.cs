@@ -17,6 +17,8 @@ namespace DAL
         public Request()
         {
             this.Comment = new HashSet<Comment>();
+            this.Credit = new HashSet<Credit>();
+            this.Deposit = new HashSet<Deposit>();
         }
     
         public int Id { get; set; }
@@ -30,7 +32,9 @@ namespace DAL
         public Nullable<int> AssignedEmployeeId { get; set; }
     
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Credit> Credit { get; set; }
         public virtual CreditType CreditType { get; set; }
+        public virtual ICollection<Deposit> Deposit { get; set; }
         public virtual DepositType DepositType { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual UserProfile UserProfile1 { get; set; }

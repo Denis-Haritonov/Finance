@@ -75,12 +75,16 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Implementation\CommentRepository.cs" />
+    <Compile Include="Implementation\CreditRepository.cs" />
     <Compile Include="Implementation\CreditTypeRepository.cs" />
+    <Compile Include="Implementation\DepositRepository.cs" />
     <Compile Include="Implementation\DepositTypeRepository.cs" />
     <Compile Include="Implementation\RequestRepository.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
     <Compile Include="Interfaces\ICommentRepository.cs" />
+    <Compile Include="Interfaces\ICreditRepository.cs" />
     <Compile Include="Interfaces\ICreditTypeReporsitory.cs" />
+    <Compile Include="Interfaces\IDepositRepository.cs" />
     <Compile Include="Interfaces\IDepositTypeRepository.cs" />
     <Compile Include="Interfaces\IRequestRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />

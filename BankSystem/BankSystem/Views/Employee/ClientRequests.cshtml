@@ -22,6 +22,9 @@
     columns.Add(item => item.FormattedDate)
         .Titled("Дата");
 
+    columns.Add(item => item.StatusString)
+        .Titled("Статус");
+
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
