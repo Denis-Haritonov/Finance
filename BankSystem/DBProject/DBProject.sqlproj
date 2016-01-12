@@ -62,10 +62,6 @@
     <Folder Include="dbo\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Client.sql" />
-    <Build Include="dbo\ClientCredit.sql" />
-    <Build Include="dbo\ClientDeposit.sql" />
-    <Build Include="dbo\ClientInfo.sql" />
     <Build Include="dbo\Credit.sql" />
     <Build Include="dbo\CreditType.sql" />
     <Build Include="dbo\Deposit.sql" />

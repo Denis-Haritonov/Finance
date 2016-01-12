@@ -16,7 +16,6 @@ namespace DAL
     {
         public UserProfile()
         {
-            this.Client = new HashSet<Client>();
             this.Comment = new HashSet<Comment>();
             this.Request = new HashSet<Request>();
             this.Request1 = new HashSet<Request>();
@@ -30,7 +29,6 @@ namespace DAL
         public Nullable<System.DateTime> UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
     
-        public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Request> Request { get; set; }
         public virtual ICollection<Request> Request1 { get; set; }

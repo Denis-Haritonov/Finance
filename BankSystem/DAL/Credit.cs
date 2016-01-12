@@ -17,7 +17,6 @@ namespace DAL
         public Credit()
         {
             this.Transaction = new HashSet<Transaction>();
-            this.Client = new HashSet<Client>();
         }
     
         public int Id { get; set; }
@@ -30,6 +29,5 @@ namespace DAL
         public virtual CreditType CreditType { get; set; }
         public virtual Request Request { get; set; }
         public virtual ICollection<Transaction> Transaction { get; set; }
-        public virtual ICollection<Client> Client { get; set; }
     }
 }

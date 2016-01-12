@@ -26,8 +26,6 @@ namespace DAL
         }
     
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<ClientInfo> ClientInfo { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Credit> Credit { get; set; }
         public virtual DbSet<CreditType> CreditType { get; set; }
