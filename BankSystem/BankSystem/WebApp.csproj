@@ -245,6 +245,7 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuPoint.cs" />
     <Compile Include="Menu\MenuPointRenderTemplates.cs" />
+    <Compile Include="Models\ClientDepositsModel.cs" />
     <Compile Include="Models\ClientInfoModel.cs" />
     <Compile Include="Models\ClientSearchModel.cs" />
     <Compile Include="Models\CreditRequestVM.cs" />
@@ -478,6 +479,9 @@
     <Content Include="Views\Client\Personal.cshtml" />
     <Content Include="Views\Deposit\OpenDeposit.cshtml" />
     <Content Include="Views\Deposit\EmployeeDetails.cshtml" />
+    <Content Include="Views\Deposit\DepositsByClient.cshtml" />
+    <Content Include="Views\Deposit\DepositsForClient.cshtml" />
+    <Content Include="Views\Deposit\ClientDetails.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

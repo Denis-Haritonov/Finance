@@ -1,4 +1,5 @@
-﻿using BLL.Models;
+﻿using System.Collections.Generic;
+using BLL.Models;
 
 namespace BLL.Interfaces
 {
@@ -9,5 +10,7 @@ namespace BLL.Interfaces
         DepositModel FindByRequestId(int requestId);
 
         DepositModel GetDepositById(int depositId);
+
+        List<DepositModel> GetClientDeposits(int clientId);
     }
 }

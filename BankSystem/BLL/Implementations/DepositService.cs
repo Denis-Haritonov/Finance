@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BLL.Interfaces;
 using BLL.Models;
 using BLL.Models.Enums;
@@ -57,5 +59,14 @@ namespace BLL.Implementations
             }
             return null;
         }
+
+        public List<DepositModel> GetClientDeposits(int clientId)
+        {
+            return
+                depositRepository.GetClientDeposits(clientId)
+                    .OrderByDescending(item => item.StartDate)
+                    .Select(item => new DepositModel(item))
+                    .ToList();
+        } 
     }
 }

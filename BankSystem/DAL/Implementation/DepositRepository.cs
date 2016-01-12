@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using DAL.Interfaces;
 
@@ -34,6 +35,19 @@ namespace DAL.Implementation
                     context.Deposit.Include(item => item.DepositType)
                         .Include(item => item.UserProfile)
                         .FirstOrDefault(item => item.Id == depositId);
+            }
+        }
+
+
+        public List<Deposit> GetClientDeposits(int clientId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return
+                    context.Deposit.Include(item => item.DepositType)
+                        .Include(item => item.UserProfile)
+                        .Where(item => item.ClientId == clientId)
+                        .ToList();
             }
         }
     }

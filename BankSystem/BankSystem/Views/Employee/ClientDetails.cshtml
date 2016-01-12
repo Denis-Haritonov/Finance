@@ -12,5 +12,5 @@
     @Html.ActionLink("Заявки клиента", "ClientRequests", new {clientId = Model.UserId})
 </div>
 <div>
-    @Html.ActionLink("Вклады клиента", "", "Deposit")
+    @Html.ActionLink("Вклады клиента", "DepositsByClient", "Deposit", new { clientId = Model.UserId }, null)
 </div>

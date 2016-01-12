@@ -18,7 +18,7 @@ namespace BankSystem.Controllers
             this.requestService = requestService;
         }
 
-        [System.Web.Http.Authorize(Roles = "Admin, Operator, SecurityWorker")]
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult OpenDeposit(int requestId)
         {
             var request = requestService.GetRequestDetails(requestId);
@@ -40,7 +40,7 @@ namespace BankSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [System.Web.Http.Authorize(Roles = "Admin, Operator, SecurityWorker")]
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult OpenDeposit(int requestId, OpenDepositModel model)
         {
             var request = requestService.GetRequestDetails(requestId);
@@ -67,13 +67,52 @@ namespace BankSystem.Controllers
             return View(model);
         }
 
-        [System.Web.Http.Authorize(Roles = "Admin, Operator, SecurityWorker")]
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult EmployeeDetails(int depositId)
         {
             var deposit = depositService.GetDepositById(depositId);
             if (deposit == null)
             {
                 return new HttpNotFoundResult();
+            }
+            return View(deposit);
+        }
+
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
+        public ActionResult DepositsByClient(int clientId)
+        {
+            var deposits = depositService.GetClientDeposits(clientId);
+            var client = userService.GetUserById(clientId);
+            if (client == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            var model = new ClientDepositsModel
+            {
+                Client = client,
+                Deposits = deposits
+            };
+            return View(model);
+        }
+
+        [Authorize(Roles = "Client")]
+        public ActionResult DepositsForClient()
+        {
+            var deposits = depositService.GetClientDeposits(CurrentUser.UserId);
+            return View(deposits);
+        }
+
+        [Authorize(Roles = "Client")]
+        public ActionResult ClientDetails(int depositId)
+        {
+            var deposit = depositService.GetDepositById(depositId);
+            if (deposit == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            if (deposit.ClientId != CurrentUser.UserId)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             return View(deposit);
         }

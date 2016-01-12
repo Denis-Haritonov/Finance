@@ -18,6 +18,7 @@ namespace BLL.Models
             DepositTypeId = deposit.DepositTypeId;
             RequestId = deposit.RequestId;
             EndDate = deposit.EndDate;
+            ClientId = deposit.ClientId;
             if (deposit.DepositType != null)
             {
                 DepositType = new DepositTypeModel(deposit.DepositType);
