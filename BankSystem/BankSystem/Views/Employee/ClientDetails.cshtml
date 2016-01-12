@@ -8,4 +8,9 @@
 <div>
     Имя: @Model.UserName @Model.UserSurname @Model.UserLastName
 </div>
-@Html.ActionLink("Заявки клиента", "ClientRequests", new {clientId = Model.UserId})
+<div>
+    @Html.ActionLink("Заявки клиента", "ClientRequests", new {clientId = Model.UserId})
+</div>
+<div>
+    @Html.ActionLink("Вклады клиента", "", "Deposit")
+</div>

@@ -17,6 +17,8 @@ namespace DAL
         public UserProfile()
         {
             this.Comment = new HashSet<Comment>();
+            this.Credit = new HashSet<Credit>();
+            this.Deposit = new HashSet<Deposit>();
             this.Request = new HashSet<Request>();
             this.Request1 = new HashSet<Request>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
@@ -30,6 +32,8 @@ namespace DAL
         public string UserPassportSerialNumber { get; set; }
     
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Credit> Credit { get; set; }
+        public virtual ICollection<Deposit> Deposit { get; set; }
         public virtual ICollection<Request> Request { get; set; }
         public virtual ICollection<Request> Request1 { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }

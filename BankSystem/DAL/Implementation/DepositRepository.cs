@@ -1,4 +1,6 @@
-﻿using DAL.Interfaces;
+﻿using System.Data.Entity;
+using System.Linq;
+using DAL.Interfaces;
 
 namespace DAL.Implementation
 {
@@ -13,5 +15,26 @@ namespace DAL.Implementation
             }
         }
 
+        public Deposit FindByRequestId(int requestId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return
+                    context.Deposit.Include(item => item.DepositType)
+                        .Include(item => item.UserProfile)
+                        .FirstOrDefault(item => item.RequestId == requestId);
+            }
+        }
+
+        public Deposit GetDepositById(int depositId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return
+                    context.Deposit.Include(item => item.DepositType)
+                        .Include(item => item.UserProfile)
+                        .FirstOrDefault(item => item.Id == depositId);
+            }
+        }
     }
 }

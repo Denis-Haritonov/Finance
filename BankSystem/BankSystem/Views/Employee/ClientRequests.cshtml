@@ -12,6 +12,9 @@
 
 <h2>Заявки клиента</h2>
 <div>
+    @Html.ActionLink("Профиль клиента", "ClientDetails", "Employee", new { clientId = Model.UserModel.UserId }, null)
+</div>
+<div>
     Имя: @Model.UserModel.UserName @Model.UserModel.UserSurname @Model.UserModel.UserLastName
 </div>
 @Html.Grid(Model.Requests).Columns(columns =>

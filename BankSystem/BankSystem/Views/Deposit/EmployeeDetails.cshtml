@@ -1,0 +1,22 @@
+﻿@model BLL.Models.DepositModel
+
+@{
+    ViewBag.Title = "Вклад";
+}
+
+<h2>Вклад</h2>
+<div>
+    @Html.ActionLink("Профиль клиента", "ClientDetails", "Employee", new {clientId = Model.ClientModel.UserId}, null)
+</div>
+<div>
+    Название: @Model.DepositType.Name
+</div>
+<div>
+    Валюта: @Model.DepositType.CurrencyShort
+</div>
+<div>
+    Открыт: @Model.FormattedStartDate
+</div>
+<div>
+    Баланс: @Model.Balance
+</div>

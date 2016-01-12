@@ -25,7 +25,9 @@ namespace DAL
         public int DepositTypeId { get; set; }
         public Nullable<int> RequestId { get; set; }
         public System.DateTime EndDate { get; set; }
+        public int ClientId { get; set; }
     
+        public virtual UserProfile UserProfile { get; set; }
         public virtual DepositType DepositType { get; set; }
         public virtual Request Request { get; set; }
         public virtual ICollection<Transaction> Transaction { get; set; }

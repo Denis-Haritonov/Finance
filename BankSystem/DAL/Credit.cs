@@ -25,7 +25,9 @@ namespace DAL
         public decimal Debt { get; set; }
         public int CreditTypeId { get; set; }
         public Nullable<int> RequestId { get; set; }
+        public int ClientId { get; set; }
     
+        public virtual UserProfile UserProfile { get; set; }
         public virtual CreditType CreditType { get; set; }
         public virtual Request Request { get; set; }
         public virtual ICollection<Transaction> Transaction { get; set; }

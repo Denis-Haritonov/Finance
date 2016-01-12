@@ -10,6 +10,15 @@
     <div>
         @Html.ActionLink("Очередь заявок", "RequestsQue")
     </div>
+    <div>
+        @Html.ActionLink("Пользователь", "ClientDetails", "Employee", new {clientId = Model.RequestModel.ClientId}, null)
+    </div>
+    @if (Model.DepositModel != null)
+    {
+        <div>
+            @Html.ActionLink("Открыт вклад", "EmployeeDetails", "Deposit", new {depositId = Model.DepositModel.Id}, null)
+        </div>
+    }
     @if (Model.RequestModel.Type == RequestType.Credit)
     {
         <div>Заявка на кредит: @Model.RequestModel.TypeName</div>
@@ -32,6 +41,12 @@
         <div>
             @Html.ActionLink("Подтвердить", "ApproveRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
             @Html.ActionLink("Отклонить", "RejectRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
+        </div>
+    }
+    @if (Model.RequestModel.State == RequestState.Approved && Model.DepositModel == null)
+    {
+        <div>
+            @Html.ActionLink("Открыть вклад", "OpenDeposit", "Deposit", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
         </div>
     }
     @if (Model.RequestModel.Comments != null && Model.RequestModel.Comments.Any())

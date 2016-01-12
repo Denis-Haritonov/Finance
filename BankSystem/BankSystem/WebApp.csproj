@@ -233,6 +233,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\CreditTypeController.cs" />
+    <Compile Include="Controllers\DepositController.cs" />
     <Compile Include="Controllers\DepositTypeController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Models\CreditRequestVM.cs" />
     <Compile Include="Models\DepositRequestVM.cs" />
     <Compile Include="Models\EmployeeRequestDetailsVM.cs" />
+    <Compile Include="Models\OpenDepositModel.cs" />
     <Compile Include="Models\PostCommentVM.cs" />
     <Compile Include="Models\RequestsQueVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -422,8 +424,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -476,6 +476,8 @@
     <Content Include="Views\CreditType\Details.cshtml" />
     <Content Include="Views\Home\Currency.cshtml" />
     <Content Include="Views\Client\Personal.cshtml" />
+    <Content Include="Views\Deposit\OpenDeposit.cshtml" />
+    <Content Include="Views\Deposit\EmployeeDetails.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

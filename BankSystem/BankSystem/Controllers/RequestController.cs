@@ -17,12 +17,18 @@ namespace BankSystem.Controllers
 
         private ICreditTypeService creditTypeService;
 
+        private IDepositService depositService;
+
+        private ICreditService creditService;
+
         public RequestController(IRequestService requestService, IDepositTypeService depositTypeService,
-            ICreditTypeService creditTypeService, IUserService userService) : base (userService)
+            ICreditTypeService creditTypeService, IUserService userService, ICreditService creditService, IDepositService depositService) : base (userService)
         {
             this.requestService = requestService;
             this.depositTypeService = depositTypeService;
             this.creditTypeService = creditTypeService;
+            this.creditService = creditService;
+            this.depositService = depositService;
         }
 
         [Authorize(Roles = "Client")]
@@ -111,10 +117,16 @@ namespace BankSystem.Controllers
         public ActionResult EmployeeDetails(int requestId)
         {
             var requestModel = requestService.GetRequestDetails(requestId);
+            if (requestModel == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            var deposit = depositService.FindByRequestId(requestId);
             var viewModel = new EmployeeRequestDetailsVM
             {
                 RequestModel = requestModel,
-                IsAssignedToCurrent = CurrentUser.UserId == requestModel.AssignedEmployeeId
+                IsAssignedToCurrent = CurrentUser.UserId == requestModel.AssignedEmployeeId,
+                DepositModel = deposit
             };
             return View(viewModel);
         }
