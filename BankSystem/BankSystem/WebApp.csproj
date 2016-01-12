@@ -230,6 +230,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\CreditTypeController.cs" />
     <Compile Include="Controllers\DepositTypeController.cs" />
@@ -474,6 +475,7 @@
     <Content Include="Views\CreditType\ViewCreditTypes.cshtml" />
     <Content Include="Views\CreditType\Details.cshtml" />
     <Content Include="Views\Home\Currency.cshtml" />
+    <Content Include="Views\Client\Personal.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

@@ -23,7 +23,7 @@ namespace BankSystem.Controllers
             var commentModel = new CommentModel
             {
                 AuthorId = currentUserId,
-                IsInternal = false,
+                IsInternal = commentVM.IsInternal == true.ToString(),
                 Text = commentVM.Text,
                 RequestId = commentVM.requestId
             };

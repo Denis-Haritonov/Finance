@@ -7,5 +7,7 @@ namespace BankSystem.Models
         public String Text { get; set; }
 
         public int requestId { get; set; }
+
+        public String IsInternal { get; set; }
     }
 }

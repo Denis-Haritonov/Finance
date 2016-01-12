@@ -38,7 +38,7 @@
     {
         <hr />
         <p>Комментарии</p>
-        foreach (var comment in Model.RequestModel.Comments.Where(c => !c.IsInternal))
+        foreach (var comment in Model.RequestModel.Comments)
         {
             <div class="panel panel-default">
                 <div class="panel-heading">@comment.AuthorName <b>@comment.FormattedDate</b></div>
@@ -53,6 +53,7 @@
     {
         @Html.AntiForgeryToken()
         <p>Оставить сообщение</p>
+        <input type="checkbox" id="isInternal" value="True" name="IsInternal"/><label for="isInternal"> Не показывать пользователю</label>
         <textarea required name="Text" class="form-control"></textarea>
         <br />
         <button class="btn btn-success">Отправить</button>
