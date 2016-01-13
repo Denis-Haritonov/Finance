@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
+using BLL.Models;
 using BLL.Models.Enums;
 
 namespace BankSystem.Controllers
@@ -12,10 +13,14 @@ namespace BankSystem.Controllers
 
         private IRequestService requestService;
 
-        public DepositController(IDepositService depositService, IUserService userService, IRequestService requestService) : base(userService)
+        private IDepositPaymentService depositPaymentService;
+
+        public DepositController(IDepositService depositService, IUserService userService,
+            IRequestService requestService, IDepositPaymentService depositPaymentService) : base(userService)
         {
             this.depositService = depositService;
             this.requestService = requestService;
+            this.depositPaymentService = depositPaymentService;
         }
 
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
@@ -115,6 +120,84 @@ namespace BankSystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             return View(deposit);
+        }
+
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
+        public ActionResult CancelPayment(int paymentId)
+        {
+            var payment = depositPaymentService.GetPaymentById(paymentId);
+            if (payment == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            depositPaymentService.CancelPayment(paymentId);
+            return RedirectToAction("ClientDetails", new {depositId = payment.DepositId});
+        }
+
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
+        public ActionResult IncomePayment(int depositId)
+        {
+            var deposit = depositService.GetDepositById(depositId);
+            if (deposit == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            var paymentModel = new DepositPaymentModel
+            {
+                DepositModel = deposit,
+                DepositId = depositId
+            };
+            return View(paymentModel);
+        }
+
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
+        public ActionResult OutcomePayment(int depositId)
+        {
+            var deposit = depositService.GetDepositById(depositId);
+            if (deposit == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            var paymentModel = new DepositPaymentModel
+            {
+                DepositModel = deposit,
+                DepositId = depositId
+            };
+            return View(paymentModel);
+        }
+
+        [HttpPost]
+        public ActionResult IncomePayment(int depositId, DepositPaymentModel paymentModel)
+        {
+            var deposit = depositService.GetDepositById(depositId);
+            if (deposit == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            if (ModelState.IsValid)
+            {
+                depositPaymentService.AddPayment(paymentModel);
+                return RedirectToAction("EmployeeDetails", new {depositId = depositId});
+            }
+            paymentModel.DepositModel = deposit;
+            return View(paymentModel);
+        }
+
+        [HttpPost]
+        public ActionResult OutcomePayment(int depositId, DepositPaymentModel paymentModel)
+        {
+            var deposit = depositService.GetDepositById(depositId);
+            if (deposit == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            if (ModelState.IsValid)
+            {
+                depositPaymentService.AddPayment(paymentModel);
+                return RedirectToAction("EmployeeDetails", new { depositId = depositId });
+            }
+            paymentModel.DepositModel = deposit;
+            return View(paymentModel);
         }
     }
 }

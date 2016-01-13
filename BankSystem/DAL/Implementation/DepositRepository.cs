@@ -16,6 +16,16 @@ namespace DAL.Implementation
             }
         }
 
+        public void UpdateDeposit(Deposit deposit)
+        {
+            using (var context = new FinanceEntities())
+            {
+                context.Deposit.Attach(deposit);
+                context.Entry(deposit).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
         public Deposit FindByRequestId(int requestId)
         {
             using (var context = new FinanceEntities())
@@ -23,6 +33,7 @@ namespace DAL.Implementation
                 return
                     context.Deposit.Include(item => item.DepositType)
                         .Include(item => item.UserProfile)
+                        .Include(item => item.DepositPayment)
                         .FirstOrDefault(item => item.RequestId == requestId);
             }
         }
@@ -34,6 +45,7 @@ namespace DAL.Implementation
                 return
                     context.Deposit.Include(item => item.DepositType)
                         .Include(item => item.UserProfile)
+                        .Include(item => item.DepositPayment)
                         .FirstOrDefault(item => item.Id == depositId);
             }
         }
@@ -46,6 +58,7 @@ namespace DAL.Implementation
                 return
                     context.Deposit.Include(item => item.DepositType)
                         .Include(item => item.UserProfile)
+                        .Include(item => item.DepositPayment)
                         .Where(item => item.ClientId == clientId)
                         .ToList();
             }

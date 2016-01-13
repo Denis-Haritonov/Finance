@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BLL.Models.ViewModel;
 using DAL;
 
@@ -27,6 +29,13 @@ namespace BLL.Models
             {
                 ClientModel = new UserViewModel(deposit.UserProfile);
             }
+            if (deposit.DepositPayment != null)
+            {
+                PaymentModels =
+                    deposit.DepositPayment.Select(item => new DepositPaymentModel(item))
+                        .OrderByDescending(item => item.Date)
+                        .ToList();
+            }
         }
 
         public int Id { get; set; }
@@ -46,6 +55,8 @@ namespace BLL.Models
         public int ClientId { get; set; }
 
         public UserViewModel ClientModel { get; set; }
+
+        public List<DepositPaymentModel> PaymentModels { get; set; } 
 
         public String FormattedStartDate
         {

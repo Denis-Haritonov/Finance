@@ -17,7 +17,8 @@ namespace DAL
         public int Id { get; set; }
         public int DepositId { get; set; }
         public int Type { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual Deposit Deposit { get; set; }
     }

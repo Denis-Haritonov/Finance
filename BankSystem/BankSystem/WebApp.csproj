@@ -526,6 +526,8 @@
     <Content Include="Views\Deposit\DepositsByClient.cshtml" />
     <Content Include="Views\Deposit\DepositsForClient.cshtml" />
     <Content Include="Views\Deposit\ClientDetails.cshtml" />
+    <Content Include="Views\Deposit\IncomePayment.cshtml" />
+    <Content Include="Views\Deposit\OutcomePayment.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

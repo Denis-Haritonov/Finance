@@ -1,4 +1,5 @@
-﻿@model BLL.Models.DepositModel
+﻿@using GridMvc.Html
+@model BLL.Models.DepositModel
 
 @{
     ViewBag.Title = "Вклад";
@@ -20,3 +21,14 @@
 <div>
     Баланс: @Model.Balance
 </div>
+@Html.Grid(Model.PaymentModels).Columns(columns =>
+{
+    columns.Add(item => item.FormattedStartDate)
+            .Titled("Дата");
+
+    columns.Add(item => item.TypeName)
+        .Titled("Тип");
+
+    columns.Add(item => item.Amount)
+        .Titled("Сумма");
+})

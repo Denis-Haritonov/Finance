@@ -1,7 +1,18 @@
-﻿@model BLL.Models.DepositModel
+﻿@using BLL.Models
+@using BLL.Models.Enums
+@using GridMvc.Html
+@model DepositModel
 
 @{
     ViewBag.Title = "Вклад";
+}
+
+@helper RenderCancelAction(DepositPaymentModel paymentModel)
+{
+    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != DepositPaymentType.AutomaticIncome && paymentModel.Date.Date == DateTime.Today)
+    {
+        @Html.ActionLink("Отменить платеж", "CancelPayment", "Deposit")
+    }
 }
 
 <h2>Вклад</h2>
@@ -20,3 +31,25 @@
 <div>
     Баланс: @Model.Balance
 </div>
+<div>
+    @Html.ActionLink("Внести на счет", "", "")
+</div>
+@if (Model.PaymentModels.Any())
+{
+    @Html.Grid(Model.PaymentModels).Columns(columns =>
+    {
+        columns.Add(item => item.FormattedStartDate)
+            .Titled("Дата");
+
+        columns.Add(item => item.TypeName)
+            .Titled("Тип");
+
+        columns.Add(item => item.Amount)
+            .Titled("Сумма");
+
+        columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(item=> RenderCancelAction(item));
+    })
+}

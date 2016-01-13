@@ -6,6 +6,8 @@ namespace DAL.Interfaces
     {
         void CreateDeposit(Deposit deposit);
 
+        void UpdateDeposit(Deposit deposit);
+
         Deposit FindByRequestId(int requestId);
 
         Deposit GetDepositById(int depositId);

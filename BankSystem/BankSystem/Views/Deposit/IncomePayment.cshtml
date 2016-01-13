@@ -1,0 +1,19 @@
+﻿@model BLL.Models.DepositPaymentModel
+
+@{
+    ViewBag.Title = "Внести на счет";
+}
+
+<h2>Внести на счет</h2>
+<div>
+    @Html.ActionLink("К вкладу", "EmployeeDetails", new {depositId = Model.DepositId})
+</div>
+<div>
+    Текущий баланс: @Model.DepositModel.Balance
+</div>
+@using (Html.BeginForm(new {depositId = Model.DepositId}))
+{
+    <label>Сумма</label>
+    @Html.TextBoxFor(model => model.Amount, new {@class = "form-control"})
+    <button type="submit">Подтвердить</button>
+}

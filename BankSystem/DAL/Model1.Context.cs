@@ -30,6 +30,7 @@ namespace DAL
         public virtual DbSet<Credit> Credit { get; set; }
         public virtual DbSet<CreditType> CreditType { get; set; }
         public virtual DbSet<Deposit> Deposit { get; set; }
+        public virtual DbSet<DepositPayment> DepositPayment { get; set; }
         public virtual DbSet<DepositType> DepositType { get; set; }
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<OAuthMembership> OAuthMembership { get; set; }
@@ -39,6 +40,5 @@ namespace DAL
         public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
         public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
-        public virtual DbSet<DepositPayment> DepositPayment { get; set; }
     }
 }
