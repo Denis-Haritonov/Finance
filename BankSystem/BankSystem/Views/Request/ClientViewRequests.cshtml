@@ -36,10 +36,17 @@
     }
 }
 
+@helper RenderAction(int requestId)
+{
+    @Html.ActionLink("Просмотр", "ClientDetails", new { requestId = requestId })
+}
+
 <h2>Мои заявки</h2>
+@Html.ActionLink("Создать заявку на кредит", "CreateCreditRequest", null, new {@class = "btn btn-sm btn-info"})
+@Html.ActionLink("Создать заявку на депозит", "CreateDepositRequest", null, new { @class = "btn btn-sm btn-info" })
 @Html.Grid(Model).Columns(columns =>
 {
-    columns.Add(item => item.Date)
+    columns.Add(item => item.FormattedDate)
         .Titled("Дата");
 
     columns.Add()
@@ -47,6 +54,9 @@
         .Encoded(false)
         .Sanitized(false)
         .RenderValueAs(item => RenderRequestType(item.Type));
+
+    columns.Add(item => item.TypeName)
+        .Titled("Название");
 
     columns.Add()
         .Titled("Статус")
@@ -57,8 +67,5 @@
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
-        .RenderValueAs(item =>
-            @<b>
-                @Html.Action("Details", new {Id = item.Id})
-            </b>);
-})
+        .RenderValueAs(item => RenderAction(item.Id));
+}).EmptyText("Записей не найдено")

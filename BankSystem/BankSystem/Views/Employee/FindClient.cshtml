@@ -1,0 +1,17 @@
+﻿@model BankSystem.Models.ClientSearchModel
+
+@{
+    ViewBag.Title = "Поиск";
+}
+
+<h2>Найти клиента</h2>
+<div>
+    Введите номер пасспорта клиента
+</div>
+@using (Html.BeginForm())
+{
+    @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", required = "required"})
+    <br/>
+    <button type="submit" class="btn btn-sm btn-success">Поиск</button>
+    @Html.ValidationSummary()
+}

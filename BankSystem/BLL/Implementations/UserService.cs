@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models.ViewModel;
 using DAL;
 using DAL.Interfaces;
+using Roles = Common.Enum.Roles;
 
 namespace BLL.Implementations
 {
@@ -28,8 +27,39 @@ namespace BLL.Implementations
         public void AddClientUser(UserViewModel userModel)
         {
             var dalUser = Mapper.Map<UserViewModel, UserProfile>(userModel);
-            dalUser.UsersInRoles.Add(new UsersInRoles(){ RoleId = (int)Common.Enum.Roles.Client, UserId  = dalUser.UserId });
+            //TODO: solve user-role dependency. Temporaly comented out.
+            //dalUser.UsersInRoles.Add(new UsersInRoles(){ RoleId = (int)Roles.Client, UserId  = dalUser.UserId });
             this._userRepository.AddOrUpdateUser(dalUser);
+        }
+
+        public UserViewModel GetUserByLogin(String login)
+        {
+            var user = _userRepository.GetUserByLogin(login);
+            if (user != null)
+            {
+                return new UserViewModel(user);
+            }
+            return null;
+        }
+
+        public UserViewModel FindClientByPassportNumber(String searchTerm)
+        {
+            var user = _userRepository.GetUserByPassportNumber(searchTerm);
+            if (user != null)
+            {
+                return new UserViewModel(user);
+            }
+            return null;
+        }
+
+        public UserViewModel GetUserById(int userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user != null)
+            {
+                return new UserViewModel(user);
+            }
+            return null;
         }
     }
 }

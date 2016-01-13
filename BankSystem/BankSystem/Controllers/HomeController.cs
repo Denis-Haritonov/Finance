@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using System.Web.Security;
 using BLL.Interfaces;
 using WebMatrix.WebData;
 
@@ -20,7 +17,12 @@ namespace BankSystem.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-            var users = this.service.GetUserViewModels();
+            //WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            //WebSecurity.CreateUserAndAccount("Employee", "123456");
+            //var a = User.IsInRole("Client");
+            //var b = User.IsInRole("Operator");
+            //var c = Roles.IsUserInRole("Client");
+            //var d = Roles.IsUserInRole("Operator");
             return View();
         }
 
@@ -35,6 +37,11 @@ namespace BankSystem.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Currency()
+        {
             return View();
         }
     }

@@ -16,10 +16,12 @@ namespace DAL
     {
         public UserProfile()
         {
-            this.Client = new HashSet<Client>();
             this.Comment = new HashSet<Comment>();
+            this.Credit = new HashSet<Credit>();
+            this.Deposit = new HashSet<Deposit>();
             this.Request = new HashSet<Request>();
-            this.UsersInRoles = new HashSet<UsersInRoles>();
+            this.Request1 = new HashSet<Request>();
+            this.webpages_Roles = new HashSet<webpages_Roles>();
         }
     
         public int UserId { get; set; }
@@ -29,9 +31,11 @@ namespace DAL
         public Nullable<System.DateTime> UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
     
-        public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Credit> Credit { get; set; }
+        public virtual ICollection<Deposit> Deposit { get; set; }
         public virtual ICollection<Request> Request { get; set; }
-        public virtual ICollection<UsersInRoles> UsersInRoles { get; set; }
+        public virtual ICollection<Request> Request1 { get; set; }
+        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

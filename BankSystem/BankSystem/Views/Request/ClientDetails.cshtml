@@ -1,0 +1,53 @@
+﻿@using BLL.Models.Enums
+@model BLL.Models.RequestModel
+
+@{
+    ViewBag.Title = "Заявка";
+}
+
+<h2>Заявка</h2>
+<div>
+    <div>
+        @Html.ActionLink("Назад к заявкам", "ClientViewRequests")
+    </div>
+    @if (Model.Type == RequestType.Credit)
+    {
+        <div>Заявка на кредит: @Model.TypeName</div>
+    }
+    else if (Model.Type == RequestType.Deposit)
+    {
+        <div>Заявка на депозит: @Model.TypeName</div>
+    }
+    <div>
+        Дата создания: @Model.FormattedDate
+    </div>
+    <div>
+        Статус заявки: @Model.StatusString
+    </div>
+    <div>
+        Заявленная сумма: @Model.Amount
+    </div>
+    @if (Model.Comments != null && Model.Comments.Any())
+    {
+        <hr/>
+        <p>Комментарии</p>
+        foreach (var comment in Model.Comments.Where(c => !c.IsInternal))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">@comment.AuthorName <b>@comment.FormattedDate</b></div>
+                <div class="panel-body">
+                    @comment.Text
+                </div>
+            </div>
+        }
+    }
+    <hr/>
+    @using (Html.BeginForm("LeaveComment", "Comment", new {requestId = Model.Id}, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <p>Оставить сообщение</p>
+        <textarea required name="Text" class="form-control"></textarea>
+        <br/>
+        <button class="btn btn-success">Отправить</button>
+    }
+</div>

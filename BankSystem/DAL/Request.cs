@@ -17,21 +17,26 @@ namespace DAL
         public Request()
         {
             this.Comment = new HashSet<Comment>();
+            this.Credit = new HashSet<Credit>();
+            this.Deposit = new HashSet<Deposit>();
         }
     
         public int Id { get; set; }
         public int ClientId { get; set; }
-        public int RequestType { get; set; }
         public decimal Amount { get; set; }
         public int State { get; set; }
         public int Type { get; set; }
         public Nullable<int> CreditTypeId { get; set; }
         public Nullable<int> DepositTypeId { get; set; }
         public System.DateTime Date { get; set; }
+        public Nullable<int> AssignedEmployeeId { get; set; }
     
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Credit> Credit { get; set; }
         public virtual CreditType CreditType { get; set; }
+        public virtual ICollection<Deposit> Deposit { get; set; }
         public virtual DepositType DepositType { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        public virtual UserProfile UserProfile1 { get; set; }
     }
 }

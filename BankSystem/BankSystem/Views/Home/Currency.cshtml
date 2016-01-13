@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Курс валют";
+}
+
+<h2>Курс валют</h2>
+<div>
+    @Html.ActionLink("На главную", "Index", "Home")
+</div>
+<div role="tabpanel" class="tab-pane" id="currency">
+    <div>
+        USD 18 700 / 18 900
+    </div>
+    <div>
+        EUR 20 000 / 20 350
+    </div>
+    <div>
+        RUB 245.00 / 257.00
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="input-group">
+                <div class="form-group">
+                    <select class="form-control" id="currency-1-name">
+                        <option value="1">BYR</option>
+                        <option value="18700">USD</option>
+                        <option value="20000">EUR</option>
+                        <option value="245">RUB</option>
+                    </select>
+                </div>
+                <input type="text" required class="form-control" id="currency-1">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+                <div class="input-group">
+                    <div class="form-group">
+                        <select class="form-control" id="currency-2-name">
+                            <option value="18700">USD</option>
+                            <option value="1">BYR</option>
+                            <option value="20000">EUR</option>
+                            <option value="245">RUB</option>
+                        </select>
+                    </div>
+                    <input type="text" readonly="readonly" class="form-control" id="currency-2">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2" style="margin-top: 33px;">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="currency-btn">Посчитать</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#currency-btn').click(function() {
+                var res = parseInt($('#currency-1').val()) * parseInt($('#currency-1-name').val()) / parseInt($('#currency-2-name').val());
+                if (!isNaN(res)) {
+                    $('#currency-2').val(res);
+                }
+            });
+        });
+    </script>
+}

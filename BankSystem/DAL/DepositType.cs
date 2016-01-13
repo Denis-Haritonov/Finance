@@ -16,6 +16,7 @@ namespace DAL
     {
         public DepositType()
         {
+            this.Deposit = new HashSet<Deposit>();
             this.Request = new HashSet<Request>();
         }
     
@@ -26,7 +27,10 @@ namespace DAL
         public string TermInfo { get; set; }
         public string RulesInfo { get; set; }
         public bool IsActive { get; set; }
+        public string Description { get; set; }
+        public string CurrencyShort { get; set; }
     
+        public virtual ICollection<Deposit> Deposit { get; set; }
         public virtual ICollection<Request> Request { get; set; }
     }
 }

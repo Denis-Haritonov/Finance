@@ -1,0 +1,18 @@
+﻿@model BankSystem.Models.OpenDepositModel
+
+@{
+    ViewBag.Title = "Открыть вклад";
+}
+
+<h2>Открыть вклад</h2>
+<div>
+    Название: @Model.RequestModel.TypeName
+</div>
+@using (Html.BeginForm(new {requestId = Model.RequestModel.Id}))
+{
+    @Html.AntiForgeryToken()
+    <div>Сумма денег</div>
+    @Html.TextBoxFor(model => model.Amount, new {@class = "form-control"})
+    <br/>
+    <button type="submit" class="btn btn-sm btn-success">Подтвердить</button>
+}

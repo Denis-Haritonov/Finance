@@ -16,8 +16,6 @@ namespace BusinesLogicLayer.Entities
         /// </summary>
         public void Configure()
         {
-            Mapper.CreateMap<UserProfile, UserViewModel>().ForMember(u => u.UserInRoles,opt => opt.Ignore());
-            Mapper.CreateMap<UserViewModel, UserProfile>().ForMember(u => u.UsersInRoles, opt => opt.Ignore());
         }
     }
 }

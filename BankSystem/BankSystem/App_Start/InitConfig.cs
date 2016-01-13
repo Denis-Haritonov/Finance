@@ -9,7 +9,6 @@ using BankSystem.Models;
 using BLL.Interfaces;
 using Common.Enum;
 using WebMatrix.WebData;
-using Roles = System.Web.Security.Roles;
 
 namespace BankSystem
 {

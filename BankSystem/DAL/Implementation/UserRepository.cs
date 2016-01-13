@@ -37,7 +37,7 @@ namespace DAL.Implementation
         {
             using (var context = new FinanceEntities())
             {
-                throw new NotImplementedException();
+                return context.UserProfile.FirstOrDefault(item => item.UserName == login);
             }
         }
 
@@ -46,6 +46,14 @@ namespace DAL.Implementation
             using (var context = new FinanceEntities())
             {
                 return context.UserProfile.FirstOrDefault(user => user.UserPassportSerialNumber == passportNumber);
+            }
+        }
+
+        public UserProfile GetUserById(int userId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return context.UserProfile.FirstOrDefault(user => user.UserId == userId);
             }
         }
     }
