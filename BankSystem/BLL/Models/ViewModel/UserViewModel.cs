@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using DAL;
 
 namespace BLL.Models.ViewModel
@@ -24,5 +23,7 @@ namespace BLL.Models.ViewModel
         public string UserLastName { get; set; }
         public DateTime? UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
+
+        public float? ScoringMark { get; set; }
     }
 }

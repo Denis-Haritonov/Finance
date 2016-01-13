@@ -1,11 +1,25 @@
-﻿@{
+﻿@model BLL.Models.ViewModel.UserViewModel
+
+@{
     ViewBag.Title = "Личный кабинет";
 }
 
 <h2>Личный кабинет</h2>
 <div>
-    @Html.ActionLink("Мои заявки", "ClientViewRequests", "Request")    
+    @Html.ActionLink("Мои заявки", "ClientViewRequests", "Request")
 </div>
 <div>
     @Html.ActionLink("Мои вклады", "DepositsForClient", "Deposit")
 </div>
+@if (ViewBag.Score == null)
+{
+    <div>
+        <a href="http://mammonwebapi.azurewebsites.net/?clientLink=@(Model.UserId)" target="_blank">Заполнить скоринговую анкету</a>
+    </div>
+}
+else
+{
+    <div>
+        Вы заполни скоринговую анкету. <a href="http://mammonwebapi.azurewebsites.net/?clientLink=@(Model.UserId)" target="_blank">Заполнить снова</a>
+    </div>
+}

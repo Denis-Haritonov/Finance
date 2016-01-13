@@ -12,5 +12,14 @@
     @Html.ActionLink("Заявки клиента", "ClientRequests", new {clientId = Model.UserId})
 </div>
 <div>
-    @Html.ActionLink("Вклады клиента", "DepositsByClient", "Deposit", new { clientId = Model.UserId }, null)
+    @Html.ActionLink("Вклады клиента", "DepositsByClient", "Deposit", new {clientId = Model.UserId}, null)
 </div>
+@if (Model.ScoringMark.HasValue)
+{
+    <div>Скоринговая оценка: @Model.ScoringMark</div>
+    <a href="http://mammonwebapi.azurewebsites.net/scoringsystem/answers?clientId=@(Model.UserId)" target="_blank">Просмотреть ответы</a>
+}
+else
+{
+    <div>Клиент не заполнил скоринговую анкету</div>
+}
