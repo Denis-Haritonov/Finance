@@ -2,14 +2,18 @@
 @{
     ViewBag.Title = "_AdminLayout";
 }
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
 @Styles.Render("~/BotThemeStyle")
 @Scripts.Render("~/BotThemeScript")
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container-fluid">
+            <a class="brand" href="#" style="cursor: default"><span>National Investment Bank</span></a>
             <div class="nav-no-collapse header-nav">
                 <ul class="nav pull-right">
-                    <li class="dropdown">@WebSecurity.CurrentUserName</li>
+                    @{
+                        Html.RenderPartial("_AdminLogin");
+                    }
                 </ul>
             </div>
         </div>
