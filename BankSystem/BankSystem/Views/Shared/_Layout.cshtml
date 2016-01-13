@@ -21,6 +21,15 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
+                            @if (User.IsInRole("Client"))
+                            {
+                                <li>@Html.ActionLink("Личный кабинет", "Personal", "Client")</li>
+                            }
+                            @if (User.IsInRole("Operator"))
+                            {
+                                <li>@Html.ActionLink("Очередь заявок", "RequestsQue", "Request")</li>
+                                <li>@Html.ActionLink("Поиск по клиентам", "FindClient", "Employee")</li>
+                            }
                         </ul>
                         @Html.Partial("_LoginPartial")
                     </div>

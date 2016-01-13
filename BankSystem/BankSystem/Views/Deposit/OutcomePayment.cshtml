@@ -9,12 +9,26 @@
     @Html.ActionLink("К вкладу", "EmployeeDetails", new { depositId = Model.DepositId })
 </div>
 <div>
-    Текущий баланс: @Model.DepositModel.Balance
+    Текущий баланс: <span id="balance">@Model.DepositModel.Balance</span>
 </div>
 @using (Html.BeginForm(new { depositId = Model.DepositId }))
 {
-    <label>Сумма</label>
-    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control" })
+    <div class="form-inline">
+        <div class="form-group">
+            <label>Сумма</label>
+            @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", id = "amount" })
+            <a class="btn btn-sm btn-default" id="all">Снять все</a>
+        </div>
+    </div>
     <br/>
     <button type="submit" class="btn btn-sm btn-default">Подтвердить</button>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        $('#all').click(function () {
+            $('#amount').val($('#balance').text());
+        })
+    </script>
 }
