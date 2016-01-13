@@ -15,6 +15,7 @@ namespace DependensyResolver
             this.Bind<ICommentService>().To<CommentService>().InSingletonScope();
             this.Bind<IDepositService>().To<DepositService>().InSingletonScope();
             this.Bind<ICreditService>().To<CreditService>().InSingletonScope();
+            this.Bind<IDepositPaymentService>().To<DepositPaymentService>().InSingletonScope();
         }
     }
 }

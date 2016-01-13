@@ -61,6 +61,15 @@
           <Property Name="EndDate" Type="smalldatetime" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DepositPayment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepositId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DepositType">
           <Key>
             <PropertyRef Name="Id" />
@@ -273,6 +282,18 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DepositPayment_Deposit">
+          <End Role="Deposit" Type="Self.Deposit" Multiplicity="1" />
+          <End Role="DepositPayment" Type="Self.DepositPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deposit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DepositPayment">
+              <PropertyRef Name="DepositId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Request_Client">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
@@ -375,6 +396,7 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySet Name="Credit" EntityType="Self.Credit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CreditType" EntityType="Self.CreditType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deposit" EntityType="Self.Deposit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepositPayment" EntityType="Self.DepositPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepositType" EntityType="Self.DepositType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OAuthMembership" EntityType="Self.OAuthMembership" Schema="dbo" store:Type="Tables" />
@@ -421,6 +443,10 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <AssociationSet Name="FK_Deposit_Request" Association="Self.FK_Deposit_Request">
             <End Role="Request" EntitySet="Request" />
             <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepositPayment_Deposit" Association="Self.FK_DepositPayment_Deposit">
+            <End Role="Deposit" EntitySet="Deposit" />
+            <End Role="DepositPayment" EntitySet="DepositPayment" />
           </AssociationSet>
           <AssociationSet Name="FK_Request_Client" Association="Self.FK_Request_Client">
             <End Role="UserProfile" EntitySet="UserProfile" />
@@ -534,6 +560,11 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
+          <EntitySet Name="DepositPayment" EntityType="FinanceModel.DepositPayment" />
+          <AssociationSet Name="FK_DepositPayment_Deposit" Association="FinanceModel.FK_DepositPayment_Deposit">
+            <End Role="Deposit" EntitySet="Deposit" />
+            <End Role="DepositPayment" EntitySet="DepositPayment" />
+          </AssociationSet>
         </EntityContainer>
         <EnumType Name="RequestState" />
         <EntityType Name="C__RefactorLog">
@@ -603,6 +634,7 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <NavigationProperty Name="DepositType" Relationship="FinanceModel.FK_Deposit_DepositType" FromRole="Deposit" ToRole="DepositType" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Deposit_Request" FromRole="Deposit" ToRole="Request" />
           <NavigationProperty Name="Transaction" Relationship="FinanceModel.FK_Transaction_Deposit" FromRole="Deposit" ToRole="Transaction" />
+          <NavigationProperty Name="DepositPayment" Relationship="FinanceModel.FK_DepositPayment_Deposit" FromRole="Deposit" ToRole="DepositPayment" />
         </EntityType>
         <EntityType Name="DepositType">
           <Key>
@@ -900,6 +932,28 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <End Type="FinanceModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="*" />
         </Association>
+        <EntityType Name="DepositPayment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepositId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deposit" Relationship="FinanceModel.FK_DepositPayment_Deposit" FromRole="DepositPayment" ToRole="Deposit" />
+        </EntityType>
+        <Association Name="FK_DepositPayment_Deposit">
+          <End Type="FinanceModel.Deposit" Role="Deposit" Multiplicity="1" />
+          <End Type="FinanceModel.DepositPayment" Role="DepositPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deposit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DepositPayment">
+              <PropertyRef Name="DepositId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1090,6 +1144,16 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DepositPayment">
+            <EntityTypeMapping TypeName="FinanceModel.DepositPayment">
+              <MappingFragment StoreEntitySet="DepositPayment">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DepositId" ColumnName="DepositId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

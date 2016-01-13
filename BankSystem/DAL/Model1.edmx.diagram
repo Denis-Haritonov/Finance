@@ -34,6 +34,8 @@
         <AssociationConnector Association="FinanceModel.FK_Request_Client" />
         <AssociationConnector Association="FinanceModel.FK_Request_Employee" />
         <AssociationConnector Association="FinanceModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="FinanceModel.DepositPayment" Width="1.5" PointX="10.5" PointY="12.375" />
+        <AssociationConnector Association="FinanceModel.FK_DepositPayment_Deposit" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
