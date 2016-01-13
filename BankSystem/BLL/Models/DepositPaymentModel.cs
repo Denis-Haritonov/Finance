@@ -19,7 +19,7 @@ namespace BLL.Models
             Date = payment.Date;
             if (payment.Deposit != null)
             {
-                DepositModel = new DepositModel(payment.Deposit);
+                DepositModel = new DepositModel(payment.Deposit, takePayments: false);
             }
         }
 

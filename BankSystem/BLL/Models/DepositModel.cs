@@ -12,7 +12,7 @@ namespace BLL.Models
         {
         }
 
-        public DepositModel(Deposit deposit)
+        public DepositModel(Deposit deposit, bool takePayments = true)
         {
             Id = deposit.Id;
             StartDate = deposit.StartDate;
@@ -29,7 +29,7 @@ namespace BLL.Models
             {
                 ClientModel = new UserViewModel(deposit.UserProfile);
             }
-            if (deposit.DepositPayment != null)
+            if (takePayments && deposit.DepositPayment != null)
             {
                 PaymentModels =
                     deposit.DepositPayment.Select(item => new DepositPaymentModel(item))

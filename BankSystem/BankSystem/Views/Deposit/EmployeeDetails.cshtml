@@ -11,7 +11,7 @@
 {
     if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != DepositPaymentType.AutomaticIncome && paymentModel.Date.Date == DateTime.Today)
     {
-        @Html.ActionLink("Отменить платеж", "CancelPayment", "Deposit")
+        @Html.ActionLink("Отменить", "CancelPayment", "Deposit", new {paymentId = paymentModel.Id}, null)
     }
 }
 
@@ -32,7 +32,10 @@
     Баланс: @Model.Balance
 </div>
 <div>
-    @Html.ActionLink("Внести на счет", "", "")
+    @Html.ActionLink("Внести на счет", "IncomePayment", new {depositId = Model.Id})
+</div>
+<div>
+    @Html.ActionLink("Снять со счета", "OutcomePayment", new {depositId = Model.Id})
 </div>
 @if (Model.PaymentModels.Any())
 {

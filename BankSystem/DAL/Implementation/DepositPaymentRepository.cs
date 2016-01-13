@@ -38,7 +38,11 @@ namespace DAL.Implementation
         {
             using (var context = new FinanceEntities())
             {
-                return context.DepositPayment.Include(item => item.Deposit).FirstOrDefault(item => item.Id == depositPaymentId);
+                return
+                    context.DepositPayment.Include(item => item.Deposit)
+                        .Include(item => item.Deposit.DepositType)
+                        .Include(item => item.Deposit.UserProfile)
+                        .FirstOrDefault(item => item.Id == depositPaymentId);
             }
         }
     }

@@ -131,7 +131,7 @@ namespace BankSystem.Controllers
                 return new HttpNotFoundResult();
             }
             depositPaymentService.CancelPayment(paymentId);
-            return RedirectToAction("ClientDetails", new {depositId = payment.DepositId});
+            return RedirectToAction("EmployeeDetails", new {depositId = payment.DepositId});
         }
 
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
@@ -176,6 +176,7 @@ namespace BankSystem.Controllers
             }
             if (ModelState.IsValid)
             {
+                paymentModel.Type = DepositPaymentType.Income;
                 depositPaymentService.AddPayment(paymentModel);
                 return RedirectToAction("EmployeeDetails", new {depositId = depositId});
             }
@@ -193,6 +194,7 @@ namespace BankSystem.Controllers
             }
             if (ModelState.IsValid)
             {
+                paymentModel.Type = DepositPaymentType.Outcome;
                 depositPaymentService.AddPayment(paymentModel);
                 return RedirectToAction("EmployeeDetails", new { depositId = depositId });
             }
