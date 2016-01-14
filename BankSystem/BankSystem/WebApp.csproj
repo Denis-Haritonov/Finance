@@ -81,6 +81,9 @@
       <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -229,6 +232,13 @@
     <Compile Include="Captcha\CaptchaValidatorAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\CreditTypeController.cs" />
+    <Compile Include="Controllers\DepositController.cs" />
+    <Compile Include="Controllers\DepositTypeController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -238,8 +248,15 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuPoint.cs" />
     <Compile Include="Menu\MenuPointRenderTemplates.cs" />
+    <Compile Include="Models\ClientDepositsModel.cs" />
+    <Compile Include="Models\ClientInfoModel.cs" />
+    <Compile Include="Models\ClientSearchModel.cs" />
     <Compile Include="Models\CreditRequestVM.cs" />
     <Compile Include="Models\DepositRequestVM.cs" />
+    <Compile Include="Models\EmployeeRequestDetailsVM.cs" />
+    <Compile Include="Models\OpenDepositModel.cs" />
+    <Compile Include="Models\PostCommentVM.cs" />
+    <Compile Include="Models\RequestsQueVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -452,8 +469,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -462,6 +477,7 @@
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_AdminLogin.cshtml" />
+    <Content Include="Views\Request\RequestsQue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -496,10 +512,27 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Request\ClientViewRequests.cshtml" />
     <Content Include="Views\Account\_UserEditForm.cshtml" />
+    <Content Include="Views\Request\ClientDetails.cshtml" />
+    <Content Include="Views\Employee\FindClient.cshtml" />
+    <Content Include="Views\Employee\ClientDetails.cshtml" />
+    <Content Include="Views\Employee\ClientRequests.cshtml" />
+    <Content Include="Views\DepositType\ViewDepositTypes.cshtml" />
+    <Content Include="Views\DepositType\Details.cshtml" />
+    <Content Include="Views\CreditType\ViewCreditTypes.cshtml" />
+    <Content Include="Views\CreditType\Details.cshtml" />
+    <Content Include="Views\Home\Currency.cshtml" />
+    <Content Include="Views\Client\Personal.cshtml" />
+    <Content Include="Views\Deposit\OpenDeposit.cshtml" />
+    <Content Include="Views\Deposit\EmployeeDetails.cshtml" />
+    <Content Include="Views\Deposit\DepositsByClient.cshtml" />
+    <Content Include="Views\Deposit\DepositsForClient.cshtml" />
+    <Content Include="Views\Deposit\ClientDetails.cshtml" />
+    <Content Include="Views\Deposit\IncomePayment.cshtml" />
+    <Content Include="Views\Deposit\OutcomePayment.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />
-    <None Include="Views\Request\Index.cshtml" />
+    <Content Include="Views\Request\EmployeeDetails.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

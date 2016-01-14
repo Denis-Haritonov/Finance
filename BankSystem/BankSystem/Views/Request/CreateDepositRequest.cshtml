@@ -9,11 +9,11 @@
 {
     @Html.AntiForgeryToken()
     <div class="form-group">
-        <label>Тип кредита</label>
+        <label>Тип депозита</label>
         @Html.DropDownListFor(m => m.RequestModel.DepositTypeId, Model.DepositTypes, new {@class = "form-control"})
     </div>
     <div class="form-group">
-        <label>Сумма кредита</label>
+        <label>Сумма депозита</label>
         @Html.TextBoxFor(m => m.RequestModel.Amount, new {@class = "form-control"})
     </div>
     <button class="btn btn-success">Отправить заявку</button>

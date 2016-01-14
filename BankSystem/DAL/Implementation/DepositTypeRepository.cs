@@ -12,6 +12,14 @@ namespace DAL.Implementation
             {
                 return context.DepositType.Where(dt => dt.IsActive).ToList();
             }
-        } 
+        }
+
+        public DepositType GetDepositTypeById(int depositTypeId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return context.DepositType.FirstOrDefault(item => item.Id == depositTypeId);
+            }
+        }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL;
 
 namespace BLL.Models.ViewModel
@@ -14,6 +11,14 @@ namespace BLL.Models.ViewModel
             this.UserInRoles = new List<webpages_Roles>();
         }
 
+        public UserViewModel(UserProfile userProfile)
+        {
+            UserId = userProfile.UserId;
+            UserName = userProfile.UserName;
+            UserSurname = userProfile.UserSurname;
+            UserPassportSerialNumber = userProfile.UserPassportSerialNumber;
+        }
+
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string UserSurname { get; set; }
@@ -21,5 +26,6 @@ namespace BLL.Models.ViewModel
         public DateTime? UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
         public List<webpages_Roles> UserInRoles { get; set; } 
+        public float? ScoringMark { get; set; }
     }
 }

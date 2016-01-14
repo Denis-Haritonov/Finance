@@ -1,0 +1,19 @@
+﻿@model BLL.Models.CreditTypeModel
+
+@{
+    ViewBag.Title = "Кредит";
+}
+
+<h2>Вклад</h2>
+<div>
+    @Html.ActionLink("Назад к кредитам", "ViewCreditTypes")
+</div>
+<div>
+    Название: @Model.Name
+</div>
+<div>
+    Валюта: @Model.CurrencyShort
+</div>
+<div>
+    @Model.Description
+</div>

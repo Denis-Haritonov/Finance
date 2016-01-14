@@ -16,6 +16,7 @@ namespace DAL
     {
         public Deposit()
         {
+            this.DepositPayment = new HashSet<DepositPayment>();
             this.Transaction = new HashSet<Transaction>();
             this.Client = new HashSet<Client>();
         }
@@ -24,7 +25,14 @@ namespace DAL
         public System.DateTime StartDate { get; set; }
         public decimal Balance { get; set; }
         public int DepositTypeId { get; set; }
+        public Nullable<int> RequestId { get; set; }
+        public System.DateTime EndDate { get; set; }
+        public int ClientId { get; set; }
     
+        public virtual UserProfile UserProfile { get; set; }
+        public virtual DepositType DepositType { get; set; }
+        public virtual Request Request { get; set; }
+        public virtual ICollection<DepositPayment> DepositPayment { get; set; }
         public virtual ICollection<Transaction> Transaction { get; set; }
         public virtual ICollection<Client> Client { get; set; }
     }

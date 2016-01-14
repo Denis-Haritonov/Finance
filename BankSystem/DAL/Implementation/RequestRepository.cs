@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using DAL.Interfaces;
 
 namespace DAL.Implementation
 {
-    public class RequestRepository
+    public class RequestRepository : IRequestRepository
     {
         public void CreateRequest(Request request)
         {
@@ -35,6 +36,33 @@ namespace DAL.Implementation
                         .Where(item => item.ClientId == clientId)
                         .ToList();
             }
-        } 
+        }
+
+        public Request GetRequestById(int requestId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return
+                    context.Request.Include(item => item.CreditType)
+                        .Include(item => item.DepositType)
+                        .Include(item => item.Comment.Select(c => c.UserProfile))
+                        .FirstOrDefault(item => item.Id == requestId);
+            }
+        }
+
+        public List<Request> GetUnassignedAndPersonalRequests(int employeeId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return
+                    context.Request.Include(item => item.CreditType)
+                        .Include(item => item.DepositType)
+                        .Where(
+                            item =>
+                                item.State == 0 &&
+                                (!item.AssignedEmployeeId.HasValue || item.AssignedEmployeeId.Value == employeeId))
+                        .ToList();
+            }
+        }
     }
 }

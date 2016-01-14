@@ -16,6 +16,7 @@ namespace DAL
     {
         public CreditType()
         {
+            this.Credit = new HashSet<Credit>();
             this.Request = new HashSet<Request>();
         }
     
@@ -27,7 +28,10 @@ namespace DAL
         public string StartAmountInfo { get; set; }
         public string RulesInfo { get; set; }
         public bool IsActive { get; set; }
+        public string Description { get; set; }
+        public string CurrencyShort { get; set; }
     
+        public virtual ICollection<Credit> Credit { get; set; }
         public virtual ICollection<Request> Request { get; set; }
     }
 }

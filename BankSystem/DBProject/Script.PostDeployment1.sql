@@ -12,7 +12,7 @@ Post-Deployment Script Template
 
 IF not exists (select * from webpages_Roles)
 
-Insert into webpages_Roles (RoleId,RoleName)
+Insert into webpages_Roles (RoleName)
 Values ('Admin'),
 ('Client'),
 ('Operator'),

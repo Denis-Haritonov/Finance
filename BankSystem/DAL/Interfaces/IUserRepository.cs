@@ -12,5 +12,7 @@ namespace DAL.Interfaces
         UserProfile GetUserByLogin(String login);
 
         void AddOrUpdateUser(UserProfile user);
+
+        UserProfile GetUserById(int userId);
     }
 }

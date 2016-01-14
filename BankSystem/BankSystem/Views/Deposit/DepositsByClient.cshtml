@@ -1,0 +1,30 @@
+﻿@using GridMvc.Html
+@model BankSystem.Models.ClientDepositsModel
+
+@{
+    ViewBag.Title = "Вклады";
+}
+
+@helper RenderViewAction(int depositId)
+{
+    @Html.ActionLink("Подробнее", "EmployeeDetails", new {depositId = depositId})
+}
+
+<h2>Вклады</h2>
+<div>
+    @Html.ActionLink("Клиент", "ClientDetails", "Employee", new {clientId = Model.Client.UserId}, null)
+</div>
+@Html.Grid(Model.Deposits).Columns(columns =>
+{
+    columns.Add()
+        .Titled("Название")
+        .RenderValueAs(item => String.Format("{0} {1}", item.DepositType.Name, item.DepositType.CurrencyShort));
+
+    columns.Add(item => item.FormattedStartDate)
+        .Titled("Дата открытия");
+
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderViewAction(item.Id));
+}).EmptyText("Записей не найдено")

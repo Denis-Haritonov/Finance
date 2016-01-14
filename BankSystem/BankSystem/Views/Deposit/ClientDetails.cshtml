@@ -1,0 +1,34 @@
+﻿@using GridMvc.Html
+@model BLL.Models.DepositModel
+
+@{
+    ViewBag.Title = "Вклад";
+}
+
+<h2>Вклад</h2>
+<div>
+    @Html.ActionLink("Личный кабинет", "Personal", "Client")
+</div>
+<div>
+    Название: @Model.DepositType.Name
+</div>
+<div>
+    Валюта: @Model.DepositType.CurrencyShort
+</div>
+<div>
+    Открыт: @Model.FormattedStartDate
+</div>
+<div>
+    Баланс: @Model.Balance
+</div>
+@Html.Grid(Model.PaymentModels).Columns(columns =>
+{
+    columns.Add(item => item.FormattedStartDate)
+            .Titled("Дата");
+
+    columns.Add(item => item.TypeName)
+        .Titled("Тип");
+
+    columns.Add(item => item.Amount)
+        .Titled("Сумма");
+})

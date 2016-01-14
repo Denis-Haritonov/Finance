@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="de9f4a2ee8514955a67ed15c889869f6" Name="Diagram1">
+        <EntityTypeShape EntityType="FinanceModel.Client" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.ClientInfo" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Comment" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Credit" Width="1.5" PointX="10.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.CreditType" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Deposit" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.DepositPayment" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.DepositType" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Request" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.Transaction" Width="1.5" PointX="12.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.UserProfile" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_Membership" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_OAuthMembership" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="FinanceModel.FK_Client_UserProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_ClientInfo_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Comment_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Comment_UserProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Credit_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Credit_CreditType" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Credit_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Transaction_Credit" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Request_CreditType" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Deposit_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Deposit_DepositType" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Deposit_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_DepositPayment_Deposit" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Transaction_Deposit" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Request_DepositType" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Request_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.FK_Request_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.ClientCredit" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.ClientDeposit" ManuallyRouted="false" />
+        <AssociationConnector Association="FinanceModel.webpages_UsersInRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
