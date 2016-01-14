@@ -32,6 +32,7 @@ namespace DAL.Implementation
             {
                 return context.Credit.Include(item => item.CreditType)
                     .Include(item => item.CreditPayment)
+                    .Include(item => item.UserProfile)
                     .FirstOrDefault(item => item.Id == creditId);
             }
         }

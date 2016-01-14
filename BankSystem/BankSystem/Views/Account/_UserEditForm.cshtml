@@ -3,7 +3,7 @@
 @model BankSystem.Models.RegisterModel
 
 <fieldset class="col-lg-6">
-    <ol>
+    <ul>
         <li>
             <div>@Html.LabelFor(m => m.Login)</div>
             <div>@Html.TextBoxFor(m => m.Login)</div>
@@ -44,10 +44,10 @@
             <div>@Html.TextBoxFor(m => m.RegistrationAddress)</div>
             <div>@Html.ValidationMessageFor(m => m.RegistrationAddress)</div>
         </li>
-    </ol>
+    </ul>
 </fieldset>
 <fieldset class="col-lg-6">
-    <ol>
+    <ul>
         <li>
             <div>@Html.LabelFor(m => m.UserPassportSerialNumber)</div>
             <div>@Html.TextBoxFor(m => m.UserPassportSerialNumber)</div>
@@ -83,7 +83,7 @@
             <div>@Html.TextBoxFor(m => m.PassportEndDate, new { @class = "datepicker", autocomplete = "off", @readonly = "readonly" })</div>
             <div>@Html.ValidationMessageFor(m => m.PassportEndDate)</div>
         </li>
-    </ol>
+    </ul>
 </fieldset>
 @if (User.IsInRole("Admin"))
 {

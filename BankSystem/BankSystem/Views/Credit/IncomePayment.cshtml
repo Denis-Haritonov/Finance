@@ -1,0 +1,20 @@
+﻿@model BLL.Models.CreditPaymentModel
+
+@{
+    ViewBag.Title = "Внести платеж";
+}
+
+<h2>Внести платеж</h2>
+<div>
+    @Html.ActionLink("К вкладу", "EmployeeDetails", new { creditId = Model.CreditId })
+</div>
+<div>
+    Общий долг: @((Model.CreditModel.MainDebt + Model.CreditModel.PercentageDebt).ToString("N"))
+</div>
+@using (Html.BeginForm(new { creditId = Model.CreditId }))
+{
+    <label>Сумма</label>
+    @Html.TextBoxFor(model => model.MainAmount, new { @class = "form-control" })
+    <br />
+    <button type="submit" class="btn btn-sm btn-default">Подтвердить</button>
+}

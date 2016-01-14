@@ -1,10 +1,11 @@
 ﻿@model BankSystem.Models.RegisterModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Регистрация";
 }
 
 @using (Html.BeginForm("Register", "Account"))
 {
+    <legend>Регистрация</legend>
         Html.RenderPartial("_UserEditForm", @Model);
     
 }

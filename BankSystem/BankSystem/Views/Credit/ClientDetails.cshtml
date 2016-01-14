@@ -1,0 +1,43 @@
+﻿@using GridMvc.Html
+@model BLL.Models.CreditModel
+
+@{
+    ViewBag.Title = "Кредит";
+}
+
+<h2>Кредит</h2>
+<div>
+    @Html.ActionLink("Личный кабинет", "Personal", "Client")
+</div>
+<div>
+    Название: @Model.CreditType.Name
+</div>
+<div>
+    Валюта: @Model.CreditType.CurrencyShort
+</div>
+<div>
+    Открыт: @Model.FormattedStartDate
+</div>
+<div>
+    Основной долг: @Model.MainDebt.ToString("N")
+</div>
+<div>
+    Долг по процентам: @Model.PercentageDebt.ToString("N")
+</div>  
+<div>
+    Общий долг: @((Model.MainDebt + Model.PercentageDebt).ToString("N"))
+</div>
+<div>
+    Действия:
+</div>
+@Html.Grid(Model.PaymentModels).Columns(columns =>
+{
+    columns.Add(item => item.FormattedDate)
+            .Titled("Дата");
+
+    columns.Add(item => item.TypeName)
+        .Titled("Тип");
+
+    columns.Add(item => (item.MainAmount + item.PercentAmount).ToString("N"))
+        .Titled("Сумма");
+})

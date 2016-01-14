@@ -122,11 +122,13 @@ namespace BankSystem.Controllers
                 return new HttpNotFoundResult();
             }
             var deposit = depositService.FindByRequestId(requestId);
+            var credit = creditService.FindByRequestId(requestId);
             var viewModel = new EmployeeRequestDetailsVM
             {
                 RequestModel = requestModel,
                 IsAssignedToCurrent = CurrentUser.UserId == requestModel.AssignedEmployeeId,
-                DepositModel = deposit
+                DepositModel = deposit,
+                CreditModel = credit
             };
             return View(viewModel);
         }

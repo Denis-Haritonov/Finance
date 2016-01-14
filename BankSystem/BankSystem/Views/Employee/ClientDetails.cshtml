@@ -9,10 +9,25 @@
     Имя: @Model.UserName @Model.UserSurname @Model.UserLastName
 </div>
 <div>
+    Серия паспорта: @Model.UserPassportSerialNumber
+</div>
+<div>
+    Номер паспорта: @Model.PassportIdentificationNumber
+</div>
+<div>
+    Номер телефона: @Model.MobilePhone
+</div>
+<div>
+    Email: @Model.Email
+</div>
+<div>
     @Html.ActionLink("Заявки клиента", "ClientRequests", new {clientId = Model.UserId})
 </div>
 <div>
     @Html.ActionLink("Вклады клиента", "DepositsByClient", "Deposit", new {clientId = Model.UserId}, null)
+</div>
+<div>
+    @Html.ActionLink("Кредиты клиента", "CreditsByClient", "Credit", new { clientId = Model.UserId }, null)
 </div>
 @if (Model.ScoringMark.HasValue)
 {

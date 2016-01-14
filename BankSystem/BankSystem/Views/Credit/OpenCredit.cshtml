@@ -1,0 +1,17 @@
+﻿@model BLL.Models.RequestModel
+
+@{
+    ViewBag.Title = "Открыть кредит";
+}
+
+<h2>Открыть кредит</h2>
+<div>
+    Название: @Model.TypeName
+</div>
+<div>Сумма денег: @Model.Amount</div>
+@using (Html.BeginForm("ConfirmCredit", "Credit", new { requestId = Model.Id }))
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <button type="submit" class="btn btn-sm btn-success">Подтвердить</button>
+}

@@ -9,5 +9,7 @@ namespace BankSystem.Models
         public bool IsAssignedToCurrent { get; set; }
 
         public DepositModel DepositModel { get; set; }
+
+        public CreditModel CreditModel { get; set; }
     }
 }

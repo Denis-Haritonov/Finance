@@ -48,7 +48,7 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (request.Type != RequestType.Deposit)
+            if (request.Type != RequestType.Credit)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -120,7 +120,7 @@ namespace BankSystem.Controllers
                 return new HttpNotFoundResult();
             }
             creditPaymentService.CancelPayment(paymentId);
-            return RedirectToAction("EmployeeDetails", new { depositId = payment.CreditId });
+            return RedirectToAction("EmployeeDetails", new { creditId = payment.CreditId });
         }
 
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]

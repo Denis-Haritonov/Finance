@@ -1,0 +1,69 @@
+﻿@using BLL.Models
+@using BLL.Models.Enums
+@using GridMvc.Html
+@model CreditModel
+
+@{
+    ViewBag.Title = "Кредит";
+}
+
+@helper RenderCancelAction(CreditPaymentModel paymentModel)
+{
+    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != CreditPaymentType.AutomaticPercents && paymentModel.Date.Date == DateTime.Today)
+    {
+        @Html.ActionLink("Отменить", "CancelPayment", "Credit", new { paymentId = paymentModel.Id }, null)
+    }
+}
+
+@helper RenderTotal(decimal main, decimal percent)
+{
+    @((main + percent).ToString("N"))
+}
+
+<h2>Кредит</h2>
+<div>
+    @Html.ActionLink("Кредиты клиента", "CreditsByClient", "Credit", new { clientId = Model.Client.UserId }, null)
+</div>
+<div>
+    Название: @Model.CreditType.Name
+</div>
+<div>
+    Валюта: @Model.CreditType.CurrencyShort
+</div>
+<div>
+    Открыт: @Model.FormattedStartDate
+</div>
+<div>
+    Основной долг: @Model.MainDebt.ToString("N")
+</div>
+<div>
+    Долг по процентам: @Model.PercentageDebt.ToString("N")
+</div>
+<div>
+    Общий долг: @((Model.MainDebt + Model.PercentageDebt).ToString("N"))
+</div>
+<div>
+    @Html.ActionLink("Внести платеж", "IncomePayment", new { creditId = Model.Id })
+</div>
+@if (Model.PaymentModels.Any())
+{
+    @Html.Grid(Model.PaymentModels).Columns(columns =>
+    {
+        columns.Add(item => item.FormattedDate)
+            .Titled("Дата");
+
+        columns.Add(item => item.TypeName)
+            .Titled("Тип");
+
+        columns.Add()
+            .Titled("Сумма")
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(item => RenderTotal(item.MainAmount, item.PercentAmount));
+
+        columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(item => RenderCancelAction(item));
+    })
+}

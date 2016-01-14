@@ -47,7 +47,7 @@ namespace BankSystem.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "Неправильный логин или пароль.");
             return View(model);
         }
 

@@ -35,7 +35,7 @@ namespace BLL.Models
 
         public DepositModel DepositModel { get; set; }
 
-        public String FormattedStartDate
+        public String FormattedDate
         {
             get
             {

@@ -531,6 +531,12 @@
     <Content Include="Views\Deposit\ClientDetails.cshtml" />
     <Content Include="Views\Deposit\IncomePayment.cshtml" />
     <Content Include="Views\Deposit\OutcomePayment.cshtml" />
+    <Content Include="Views\Credit\OpenCredit.cshtml" />
+    <Content Include="Views\Credit\EmployeeDetails.cshtml" />
+    <Content Include="Views\Credit\CreditsByClient.cshtml" />
+    <Content Include="Views\Credit\CreditsForClient.cshtml" />
+    <Content Include="Views\Credit\ClientDetails.cshtml" />
+    <Content Include="Views\Credit\IncomePayment.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

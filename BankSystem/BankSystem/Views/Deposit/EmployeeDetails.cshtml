@@ -41,7 +41,7 @@
 {
     @Html.Grid(Model.PaymentModels).Columns(columns =>
     {
-        columns.Add(item => item.FormattedStartDate)
+        columns.Add(item => item.FormattedDate)
             .Titled("Дата");
 
         columns.Add(item => item.TypeName)

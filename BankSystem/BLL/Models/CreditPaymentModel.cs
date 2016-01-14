@@ -45,7 +45,7 @@ namespace BLL.Models
                 switch (Type)
                 {
                     case CreditPaymentType.Payment:
-                        return "Плата";
+                        return "Платеж";
                     case CreditPaymentType.AutomaticPercents:
                         return "Проценты";
                 }
@@ -53,7 +53,7 @@ namespace BLL.Models
             }
         }
 
-        public String FormattedStartDate
+        public String FormattedDate
         {
             get
             {
