@@ -65,7 +65,7 @@
         </li>
         <li>
             <div>@Html.LabelFor(m => m.MobilePhone)</div>
-            <div>@Html.TextBoxFor(m => m.MobilePhone)</div>
+            <div>@Html.TextBoxFor(m => m.MobilePhone, new { placeholder = "+375DD-DDD-DD-DD"})</div>
             <div>@Html.ValidationMessageFor(m => m.MobilePhone)</div>
         </li>
         <li>
