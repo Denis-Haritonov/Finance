@@ -16,6 +16,7 @@ namespace DAL
     {
         public UserProfile()
         {
+            this.Client = new HashSet<Client>();
             this.Comment = new HashSet<Comment>();
             this.Credit = new HashSet<Credit>();
             this.Deposit = new HashSet<Deposit>();
@@ -30,7 +31,16 @@ namespace DAL
         public string UserLastName { get; set; }
         public Nullable<System.DateTime> UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
+        public string MobilePhone { get; set; }
+        public string Email { get; set; }
+        public string PassportIdentificationNumber { get; set; }
+        public string PassportApprovel { get; set; }
+        public Nullable<System.DateTime> PassportEndDate { get; set; }
+        public string RegistrationAddress { get; set; }
+        public string SecretPhrase { get; set; }
+        public string Login { get; set; }
     
+        public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Credit> Credit { get; set; }
         public virtual ICollection<Deposit> Deposit { get; set; }

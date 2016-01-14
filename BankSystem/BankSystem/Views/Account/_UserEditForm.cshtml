@@ -5,24 +5,29 @@
 <fieldset class="col-lg-6">
     <ol>
         <li>
+            <div>@Html.LabelFor(m => m.Login)</div>
+            <div>@Html.TextBoxFor(m => m.Login)</div>
+            <div>@Html.ValidationMessageFor(m => m.Login)</div>
+        </li>
+        <li>
             <div>@Html.LabelFor(m => m.UserName)</div>
             <div>@Html.TextBoxFor(m => m.UserName)</div>
             <div>@Html.ValidationMessageFor(m => m.UserName)</div>
         </li>
         <li>
-            <div>@Html.LabelFor(m => m.SurName)</div>
-            <div>@Html.TextBoxFor(m => m.SurName)</div>
-            <div>@Html.ValidationMessageFor(m => m.SurName)</div>
+            <div>@Html.LabelFor(m => m.UserSurName)</div>
+            <div>@Html.TextBoxFor(m => m.UserSurName)</div>
+            <div>@Html.ValidationMessageFor(m => m.UserSurName)</div>
         </li>
         <li>
-            <div>@Html.LabelFor(m => m.ThirdName)</div>
-            <div>@Html.TextBoxFor(m => m.ThirdName)</div>
-            <div>@Html.ValidationMessageFor(m => m.ThirdName)</div>
+            <div>@Html.LabelFor(m => m.UserLastName)</div>
+            <div>@Html.TextBoxFor(m => m.UserLastName)</div>
+            <div>@Html.ValidationMessageFor(m => m.UserLastName)</div>
         </li>
         <li>
-            <div>@Html.LabelFor(m => m.BirthDateTime)</div>
-            <div>@Html.TextBoxFor(m => m.BirthDateTime)</div>
-            <div>@Html.ValidationMessageFor(m => m.BirthDateTime)</div>
+            <div>@Html.LabelFor(m => m.UserBirthDate)</div>
+            <div>@Html.TextBoxFor(m => m.UserBirthDate, new {@class = "datepicker", autocomplete = "off", @readonly = "readonly"})</div>
+            <div>@Html.ValidationMessageFor(m => m.UserBirthDate)</div>
         </li>
         <li>
             <div>@Html.LabelFor(m => m.Password)</div>
@@ -34,14 +39,19 @@
             <div>@Html.PasswordFor(m => m.ConfirmPassword)</div>
             <div>@Html.ValidationMessageFor(m => m.ConfirmPassword)</div>
         </li>
+        <li>
+            <div>@Html.LabelFor(m => m.RegistrationAddress)</div>
+            <div>@Html.TextBoxFor(m => m.RegistrationAddress)</div>
+            <div>@Html.ValidationMessageFor(m => m.RegistrationAddress)</div>
+        </li>
     </ol>
 </fieldset>
 <fieldset class="col-lg-6">
     <ol>
         <li>
-            <div>@Html.LabelFor(m => m.PasportNumber)</div>
-            <div>@Html.TextBoxFor(m => m.PasportNumber)</div>
-            <div>@Html.ValidationMessageFor(m => m.PasportNumber)</div>
+            <div>@Html.LabelFor(m => m.UserPassportSerialNumber)</div>
+            <div>@Html.TextBoxFor(m => m.UserPassportSerialNumber)</div>
+            <div>@Html.ValidationMessageFor(m => m.UserPassportSerialNumber)</div>
         </li>
         <li>
             <div>@Html.LabelFor(m => m.PassportIdentificationNumber)</div>
@@ -55,22 +65,22 @@
         </li>
         <li>
             <div>@Html.LabelFor(m => m.MobilePhone)</div>
-            <div>@Html.TextBoxFor(m => m.MobilePhone)</div>
+            <div>@Html.TextBoxFor(m => m.MobilePhone, new { placeholder = "+375DD-DDD-DD-DD"})</div>
             <div>@Html.ValidationMessageFor(m => m.MobilePhone)</div>
         </li>
         <li>
             <div>@Html.LabelFor(m => m.SecretPhrase)</div>
-            <div>@Html.PasswordFor(m => m.SecretPhrase)</div>
+            <div>@Html.TextBoxFor(m => m.SecretPhrase)</div>
             <div>@Html.ValidationMessageFor(m => m.SecretPhrase)</div>
         </li>
         <li>
             <div>@Html.LabelFor(m => m.PassportApprovel)</div>
-            <div>@Html.PasswordFor(m => m.PassportApprovel)</div>
+            <div>@Html.TextBoxFor(m => m.PassportApprovel)</div>
             <div>@Html.ValidationMessageFor(m => m.PassportApprovel)</div>
         </li>
         <li>
             <div>@Html.LabelFor(m => m.PassportEndDate)</div>
-            <div>@Html.PasswordFor(m => m.PassportEndDate)</div>
+            <div>@Html.TextBoxFor(m => m.PassportEndDate, new { @class = "datepicker", autocomplete = "off", @readonly = "readonly" })</div>
             <div>@Html.ValidationMessageFor(m => m.PassportEndDate)</div>
         </li>
     </ol>
@@ -80,4 +90,5 @@
     <div>test</div>
 }
 @Html.Raw(Html.GenerateCaptcha())
+@Html.ValidationMessage("Captcha")
 <input type="submit" value="Сохранить" />

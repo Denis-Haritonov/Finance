@@ -63,26 +63,28 @@ namespace BankSystem.Models
 
     public class RegisterModel
     {
+        public int UserId { get; set; }
+
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
         [Display(Name = "Фамилия пользователя")]
-        public string SurName { get; set; }
+        public string UserSurName { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
         [Display(Name = "Отчество пользователя")]
-        public string ThirdName { get; set; }
+        public string UserLastName { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
-        public DateTime BirthDateTime { get; set; }
+        public DateTime UserBirthDate { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
         [Display(Name = "Мобильный телефон")]
-        [RegularExpression("\\+375(\\d){2}-(\\d){3}-(\\d){2}-(\\d){2}", ErrorMessage = "Неверный формат телефона")]
+        [RegularExpression("\\+375(\\d){2}-?(\\d){3}-?(\\d){2}-?(\\d){2}", ErrorMessage = "Неверный формат телефона")]
         public String MobilePhone { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
@@ -93,7 +95,7 @@ namespace BankSystem.Models
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
         [Display(Name = "Номер паспорта")]
         [RegularExpression("(ab|AB|BM|bm|HB|hb|KH|kh|MP|mp|MC|mc|KB|kb|pp|PP)(\\d){7}", ErrorMessage = "Недествительный номер паспорта")]
-        public String PasportNumber { get; set; }
+        public String UserPassportSerialNumber { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно запомнить")]
         [Display(Name = "Идентификационный номер")]
@@ -127,6 +129,10 @@ namespace BankSystem.Models
         [Display(Name = "Повторите пароль")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Логин")]
+        [Required(ErrorMessage = "Поле {0} нужно запомнить")]
+        public string Login { get; set; }
 
 
     }

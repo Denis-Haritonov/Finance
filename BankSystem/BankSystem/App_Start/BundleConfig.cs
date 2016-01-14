@@ -38,6 +38,14 @@ namespace BankSystem
                         "~/Scripts/jquery.uploadify-3.1.js",
                         "~/Scripts/retina.js"));
 
+            bundles.Add(new ScriptBundle("~/Jquery").Include(
+                        "~/Scripts/jquery-1.9.1.js",
+                        "~/Scripts/jquery-ui-1.10.0.custom.js",
+                        "~/Scripts/jquery.chosen.js"));
+
+            bundles.Add(new StyleBundle("~/JqueryStyles").Include(
+                        "~/Content/jquery-ui-1.8.21.custom.css"));
+
             bundles.Add(new StyleBundle("~/BotThemeStyle").Include(
                         "~/Content/Janux/bootstrap-responsive.css",
                         "~/Content/Janux/bootstrap.css",

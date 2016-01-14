@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using AutoMapper;
+using BankSystem.Models;
 using BLL.Interfaces;
 using BLL.Models.ViewModel;
 using DAL;
@@ -19,16 +23,15 @@ namespace BLL.Implementations
             this._userRepository = userRepository;
         }
 
-        public List<UserViewModel> GetUserViewModels()
+        public List<RegisterModel> GetUserViewModels()
         {
-            return this._userRepository.GetUsers().Select(U => Mapper.Map<UserProfile, UserViewModel>(U)).ToList();
+            return this._userRepository.GetUsers().Select(U => Mapper.Map<UserProfile, RegisterModel>(U)).ToList();
         }
 
-        public void AddClientUser(UserViewModel userModel)
+        public void AddClientUser(RegisterModel userModel)
         {
-            var dalUser = Mapper.Map<UserViewModel, UserProfile>(userModel);
-            //TODO: solve user-role dependency. Temporaly comented out.
-            //dalUser.UsersInRoles.Add(new UsersInRoles(){ RoleId = (int)Roles.Client, UserId  = dalUser.UserId });
+            var dalUser = Mapper.Map<RegisterModel, UserProfile>(userModel);
+            dalUser.webpages_Roles.Add(new webpages_Roles(){ RoleId = (int)Common.Enum.Roles.Client, });
             this._userRepository.AddOrUpdateUser(dalUser);
         }
 

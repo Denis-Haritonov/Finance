@@ -423,7 +423,8 @@ a.brand span {
 	text-decoration: none;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
-	border-radius: 0px;		
+	border-radius: 0px;
+    border-bottom: "1px #709DC3 solid";
 }
 
 .nav-tabs.nav-stacked > li:last-child > a {

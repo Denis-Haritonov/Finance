@@ -20,8 +20,12 @@ public class CaptchaValidatorAttribute : ActionFilterAttribute
             var recaptchaResponse = captchaValidtor.Validate();  
   
         // this will push the result value into a parameter in our Action  
-            filterContext.ActionParameters["captchaValid"] = recaptchaResponse.IsValid;  
-            filterContext.Controller.ViewData.ModelState.AddModelError("Captcha","Капча введена неверно");
+            filterContext.ActionParameters["captchaValid"] = recaptchaResponse.IsValid;
+        if (!recaptchaResponse.IsValid)
+        {
+            filterContext.Controller.ViewData.ModelState.AddModelError("Captcha", "Капча введена неверно");
+        }
+            
             base.OnActionExecuting(filterContext);  
         }
 }

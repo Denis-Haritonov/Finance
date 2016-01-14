@@ -78,14 +78,26 @@ namespace BankSystem.Controllers
         [CaptchaValidator]
         public ActionResult Register(RegisterModel model,bool captchaValid)
         {
-            if (ModelState.IsValid)
+            var values = ModelState.Values.Where(v => v.Errors.Count > 0).ToList();
+            if (ModelState.IsValid && captchaValid)
             {
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    if(this._userService.GetUserViewModels().FirstOrDefault(u => u.Login == model.Login) == null)
+                    {
+                    WebSecurity.CreateUserAndAccount(model.Login, model.Password);
+                    var userId = WebSecurity.GetUserId(model.Login);
+                        model.UserId = userId;
+                        _userService.AddClientUser(model);
+                    WebSecurity.Login(model.Login, model.Password);
+                        
                     return RedirectToAction("Index", "Home");
+                        }
+                    else
+                    {
+                        ModelState.AddModelError("Login","Юзер с таким логином уже существует");
+                    }
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -267,12 +279,12 @@ namespace BankSystem.Controllers
             if (ModelState.IsValid)
             {
 
-                    UserViewModel user = this._userService.GetUserViewModels().FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    RegisterModel user = this._userService.GetUserViewModels().FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        this._userService.AddClientUser(new UserViewModel() { UserName = model.UserName});
+                        this._userService.AddClientUser(new RegisterModel() { UserName = model.UserName});
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
