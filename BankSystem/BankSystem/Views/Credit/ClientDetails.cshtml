@@ -5,6 +5,11 @@
     ViewBag.Title = "Кредит";
 }
 
+@helper RenderTotal(decimal main, decimal percent)
+{
+    @((main + percent).ToString("N"))
+}
+
 <h2>Кредит</h2>
 <div>
     @Html.ActionLink("Личный кабинет", "Personal", "Client")
@@ -38,6 +43,9 @@
     columns.Add(item => item.TypeName)
         .Titled("Тип");
 
-    columns.Add(item => (item.MainAmount + item.PercentAmount).ToString("N"))
-        .Titled("Сумма");
+    columns.Add()
+            .Titled("Сумма")
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(item => RenderTotal(item.MainAmount, item.PercentAmount));
 })
