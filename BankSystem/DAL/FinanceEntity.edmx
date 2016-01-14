@@ -41,9 +41,10 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreditId" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="MainAmount" Type="money" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="PercentsAmount" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="CreditType">
           <Key>
@@ -145,6 +146,14 @@
           <Property Name="UserLastName" Type="nvarchar" MaxLength="56" Nullable="false" />
           <Property Name="UserBirthDate" Type="date" />
           <Property Name="UserPassportSerialNumber" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassportIdentificationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassportApprovel" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PassportEndDate" Type="date" />
+          <Property Name="RegistrationAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SecretPhrase" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -178,8 +187,6 @@
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="webpages_UsersInRoles">
           <Key>
             <PropertyRef Name="UserId" />
@@ -396,12 +403,7 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [webpages_UsersInRoles].[UserId] AS [UserId], 
-    [webpages_UsersInRoles].[RoleId] AS [RoleId]
-    FROM [dbo].[webpages_UsersInRoles] AS [webpages_UsersInRoles]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comment_Request" Association="Self.FK_Comment_Request">
             <End Role="Request" EntitySet="Request" />
             <End Role="Comment" EntitySet="Comment" />
@@ -591,9 +593,10 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CreditId" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="MainAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PercentsAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="Credit" Relationship="FinanceModel.FK_CreditPayment_Credit" FromRole="CreditPayment" ToRole="Credit" />
         </EntityType>
         <EntityType Name="CreditType">
@@ -712,6 +715,14 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
           <Property Name="UserBirthDate" Type="DateTime" Precision="0" />
           <Property Name="UserPassportSerialNumber" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportIdentificationNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportApprovel" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassportEndDate" Type="DateTime" Precision="0" />
+          <Property Name="RegistrationAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecretPhrase" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="UserProfile" ToRole="Comment" />
           <NavigationProperty Name="Credit" Relationship="FinanceModel.FK_Credit_Client" FromRole="UserProfile" ToRole="Credit" />
           <NavigationProperty Name="Deposit" Relationship="FinanceModel.FK_Deposit_Client" FromRole="UserProfile" ToRole="Deposit" />
@@ -966,9 +977,10 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySetMapping Name="CreditPayment">
             <EntityTypeMapping TypeName="FinanceModel.CreditPayment">
               <MappingFragment StoreEntitySet="CreditPayment">
+                <ScalarProperty Name="PercentsAmount" ColumnName="PercentsAmount" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="MainAmount" ColumnName="MainAmount" />
                 <ScalarProperty Name="CreditId" ColumnName="CreditId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1074,6 +1086,14 @@ warning 6002: The table/view 'Finance.dbo.webpages_UsersInRoles' does not have a
           <EntitySetMapping Name="UserProfile">
             <EntityTypeMapping TypeName="FinanceModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="SecretPhrase" ColumnName="SecretPhrase" />
+                <ScalarProperty Name="RegistrationAddress" ColumnName="RegistrationAddress" />
+                <ScalarProperty Name="PassportEndDate" ColumnName="PassportEndDate" />
+                <ScalarProperty Name="PassportApprovel" ColumnName="PassportApprovel" />
+                <ScalarProperty Name="PassportIdentificationNumber" ColumnName="PassportIdentificationNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
                 <ScalarProperty Name="UserPassportSerialNumber" ColumnName="UserPassportSerialNumber" />
                 <ScalarProperty Name="UserBirthDate" ColumnName="UserBirthDate" />
                 <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />

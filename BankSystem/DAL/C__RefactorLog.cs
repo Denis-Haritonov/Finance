@@ -12,15 +12,8 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CreditPayment
+    public partial class C__RefactorLog
     {
-        public int Id { get; set; }
-        public int CreditId { get; set; }
-        public decimal MainAmount { get; set; }
-        public int Type { get; set; }
-        public System.DateTime Date { get; set; }
-        public decimal PercentsAmount { get; set; }
-    
-        public virtual Credit Credit { get; set; }
+        public System.Guid OperationKey { get; set; }
     }
 }

@@ -13,13 +13,14 @@ namespace BLL.Models
         public CreditPaymentModel(CreditPayment payment)
         {
             Id = payment.Id;
-            Amount = payment.Amount;
+            MainAmount = payment.MainAmount;
+            PercentAmount = payment.PercentsAmount;
             Type = (CreditPaymentType) payment.Type;
             Date = payment.Date;
             CreditId = payment.CreditId;
             if (payment.Credit != null)
             {
-                Credit = new CreditModel(payment.Credit, takePayments: false);
+                CreditModel = new CreditModel(payment.Credit, takePayments: false);
             }
         }
 
@@ -27,13 +28,15 @@ namespace BLL.Models
         
         public int CreditId { get; set; }
         
-        public int Amount { get; set; }
+        public decimal MainAmount { get; set; }
+
+        public decimal PercentAmount { get; set; }
         
         public CreditPaymentType Type { get; set; }
         
         public DateTime Date { get; set; }
 
-        public CreditModel Credit { get; set; }
+        public CreditModel CreditModel { get; set; }
 
         public String TypeName
         {

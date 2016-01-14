@@ -25,8 +25,7 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<ClientInfo> ClientInfo { get; set; }
+        public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Credit> Credit { get; set; }
         public virtual DbSet<CreditPayment> CreditPayment { get; set; }
@@ -34,6 +33,8 @@ namespace DAL
         public virtual DbSet<Deposit> Deposit { get; set; }
         public virtual DbSet<DepositPayment> DepositPayment { get; set; }
         public virtual DbSet<DepositType> DepositType { get; set; }
+        public virtual DbSet<Membership> Membership { get; set; }
+        public virtual DbSet<OAuthMembership> OAuthMembership { get; set; }
         public virtual DbSet<Request> Request { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }

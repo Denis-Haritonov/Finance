@@ -16,7 +16,6 @@ namespace DAL
     {
         public UserProfile()
         {
-            this.Client = new HashSet<Client>();
             this.Comment = new HashSet<Comment>();
             this.Credit = new HashSet<Credit>();
             this.Deposit = new HashSet<Deposit>();
@@ -40,7 +39,6 @@ namespace DAL
         public string SecretPhrase { get; set; }
         public string Login { get; set; }
     
-        public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Credit> Credit { get; set; }
         public virtual ICollection<Deposit> Deposit { get; set; }

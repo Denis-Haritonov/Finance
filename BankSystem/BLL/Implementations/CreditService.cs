@@ -21,7 +21,7 @@ namespace BLL.Implementations
             this.creditTypeReporsitory = creditTypeReporsitory;
         }
 
-        public void CreateCredit(RequestModel request)
+        public void OpenCredit(RequestModel request)
         {
             if (request.Type != RequestType.Credit)
             {
@@ -50,9 +50,9 @@ namespace BLL.Implementations
             return null;
         }
 
-        public CreditModel GetDepositById(int depositId)
+        public CreditModel GetCreditById(int creditId)
         {
-            var credit = creditRepository.GetCreditById(depositId);
+            var credit = creditRepository.GetCreditById(creditId);
             if (credit != null)
             {
                 return new CreditModel(credit);

@@ -166,6 +166,7 @@ namespace BankSystem.Controllers
             return View(paymentModel);
         }
 
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         [HttpPost]
         public ActionResult IncomePayment(int depositId, DepositPaymentModel paymentModel)
         {
@@ -184,6 +185,7 @@ namespace BankSystem.Controllers
             return View(paymentModel);
         }
 
+        [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         [HttpPost]
         public ActionResult OutcomePayment(int depositId, DepositPaymentModel paymentModel)
         {

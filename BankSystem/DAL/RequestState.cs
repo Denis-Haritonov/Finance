@@ -10,14 +10,8 @@
 namespace DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ClientInfo
+    public enum RequestState : int
     {
-        public int Id { get; set; }
-        public string Data { get; set; }
-        public int ClientId { get; set; }
-    
-        public virtual Client Client { get; set; }
     }
 }

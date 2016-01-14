@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\CommentService.cs" />
+    <Compile Include="Implementations\CreditPaymentService.cs" />
     <Compile Include="Implementations\CreditService.cs" />
     <Compile Include="Implementations\CreditTypeService.cs" />
     <Compile Include="Implementations\DepositPaymentService.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Interfaces\ICommentService.cs" />
+    <Compile Include="Interfaces\ICreditPaymentService.cs" />
     <Compile Include="Interfaces\ICreditService.cs" />
     <Compile Include="Interfaces\ICreditTypeService.cs" />
     <Compile Include="Interfaces\IDepositPaymentService.cs" />

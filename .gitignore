@@ -6,3 +6,4 @@ obj
 *.pdb
 /BankSystem/DBProject/DBProject.dbmdl
 *.cache
+/BankSystem/DBProject/DBProject.refactorlog

@@ -235,6 +235,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\CreditController.cs" />
     <Compile Include="Controllers\CreditTypeController.cs" />
     <Compile Include="Controllers\DepositController.cs" />
     <Compile Include="Controllers\DepositTypeController.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuPoint.cs" />
     <Compile Include="Menu\MenuPointRenderTemplates.cs" />
+    <Compile Include="Models\ClientCreditsModel.cs" />
     <Compile Include="Models\ClientDepositsModel.cs" />
     <Compile Include="Models\ClientInfoModel.cs" />
     <Compile Include="Models\ClientSearchModel.cs" />
