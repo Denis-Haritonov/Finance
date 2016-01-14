@@ -16,20 +16,21 @@ namespace DAL
     {
         public Credit()
         {
-            this.Transaction = new HashSet<Transaction>();
+            this.CreditPayment = new HashSet<CreditPayment>();
         }
     
         public int Id { get; set; }
         public System.DateTime StartDate { get; set; }
         public decimal StartAmount { get; set; }
-        public decimal Debt { get; set; }
+        public decimal MainDebt { get; set; }
         public int CreditTypeId { get; set; }
         public Nullable<int> RequestId { get; set; }
         public int ClientId { get; set; }
+        public decimal PercentageDebt { get; set; }
     
         public virtual UserProfile UserProfile { get; set; }
         public virtual CreditType CreditType { get; set; }
         public virtual Request Request { get; set; }
-        public virtual ICollection<Transaction> Transaction { get; set; }
+        public virtual ICollection<CreditPayment> CreditPayment { get; set; }
     }
 }

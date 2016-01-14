@@ -5,33 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bba46ef0875c4487b17b4c777d9a7e5e" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="FinanceModel.C__RefactorLog" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="FinanceModel.Comment" Width="1.5" PointX="8.25" PointY="2.375" />
-        <EntityTypeShape EntityType="FinanceModel.Credit" Width="1.5" PointX="11.25" PointY="6.125" />
-        <EntityTypeShape EntityType="FinanceModel.CreditType" Width="1.5" PointX="3.75" PointY="1" />
-        <EntityTypeShape EntityType="FinanceModel.Deposit" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="FinanceModel.DepositPayment" Width="1.5" PointX="5.25" PointY="10.75" />
-        <EntityTypeShape EntityType="FinanceModel.DepositType" Width="1.5" PointX="0.75" PointY="6.125" />
-        <EntityTypeShape EntityType="FinanceModel.Membership" Width="1.5" PointX="7.75" PointY="10.75" />
-        <EntityTypeShape EntityType="FinanceModel.OAuthMembership" Width="1.5" PointX="10.75" PointY="2.75" />
-        <EntityTypeShape EntityType="FinanceModel.Request" Width="1.5" PointX="6" PointY="5.625" />
-        <EntityTypeShape EntityType="FinanceModel.Transaction" Width="1.5" PointX="8.25" PointY="6.5" />
-        <EntityTypeShape EntityType="FinanceModel.UserProfile" Width="1.5" PointX="0.75" PointY="2" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_Membership" Width="1.5" PointX="9.75" PointY="10.75" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_OAuthMembership" Width="1.5" PointX="11.75" PointY="10.75" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_Roles" Width="1.5" PointX="1.5" PointY="10.875" />
+        <EntityTypeShape EntityType="FinanceModel.C__RefactorLog" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.Comment" Width="1.5" PointX="5.25" PointY="1.375" />
+        <EntityTypeShape EntityType="FinanceModel.Credit" Width="1.5" PointX="5.25" PointY="9" />
+        <EntityTypeShape EntityType="FinanceModel.CreditPayment" Width="1.5" PointX="7.5" PointY="9.5" />
+        <EntityTypeShape EntityType="FinanceModel.CreditType" Width="1.5" PointX="0.75" PointY="13" />
+        <EntityTypeShape EntityType="FinanceModel.Deposit" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="FinanceModel.DepositPayment" Width="1.5" PointX="7.5" PointY="5.5" />
+        <EntityTypeShape EntityType="FinanceModel.DepositType" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="FinanceModel.Membership" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.OAuthMembership" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FinanceModel.Request" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="FinanceModel.UserProfile" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_Membership" Width="1.5" PointX="9.75" PointY="7.75" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_OAuthMembership" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_Roles" Width="1.5" PointX="1.5" PointY="9.75" />
         <AssociationConnector Association="FinanceModel.FK_Comment_Request" />
         <AssociationConnector Association="FinanceModel.FK_Comment_UserProfile" />
         <AssociationConnector Association="FinanceModel.FK_Credit_Client" />
         <AssociationConnector Association="FinanceModel.FK_Credit_CreditType" />
         <AssociationConnector Association="FinanceModel.FK_Credit_Request" />
-        <AssociationConnector Association="FinanceModel.FK_Transaction_Credit" />
+        <AssociationConnector Association="FinanceModel.FK_CreditPayment_Credit" />
         <AssociationConnector Association="FinanceModel.FK_Request_CreditType" />
         <AssociationConnector Association="FinanceModel.FK_Deposit_Client" />
         <AssociationConnector Association="FinanceModel.FK_Deposit_DepositType" />
         <AssociationConnector Association="FinanceModel.FK_Deposit_Request" />
         <AssociationConnector Association="FinanceModel.FK_DepositPayment_Deposit" />
-        <AssociationConnector Association="FinanceModel.FK_Transaction_Deposit" />
         <AssociationConnector Association="FinanceModel.FK_Request_DepositType" />
         <AssociationConnector Association="FinanceModel.FK_Request_Client" />
         <AssociationConnector Association="FinanceModel.FK_Request_Employee" />

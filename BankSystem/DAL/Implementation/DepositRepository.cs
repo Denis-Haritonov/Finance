@@ -50,7 +50,6 @@ namespace DAL.Implementation
             }
         }
 
-
         public List<Deposit> GetClientDeposits(int clientId)
         {
             using (var context = new FinanceEntities())

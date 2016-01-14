@@ -12,15 +12,14 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Transaction
+    public partial class CreditPayment
     {
         public int Id { get; set; }
-        public decimal Amount { get; set; }
-        public string Recipient { get; set; }
-        public Nullable<int> DepositId { get; set; }
-        public Nullable<int> CreditId { get; set; }
+        public int CreditId { get; set; }
+        public int Amount { get; set; }
+        public int Type { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual Credit Credit { get; set; }
-        public virtual Deposit Deposit { get; set; }
     }
 }

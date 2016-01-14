@@ -66,7 +66,6 @@
     <Build Include="dbo\CreditType.sql" />
     <Build Include="dbo\Deposit.sql" />
     <Build Include="dbo\DepositType.sql" />
-    <Build Include="dbo\Transaction.sql" />
     <Build Include="dbo\UserProfile.sql" />
     <Build Include="dbo\webpages_OAuthMembership.sql" />
     <Build Include="dbo\webpages_Membership.sql" />
@@ -75,6 +74,7 @@
     <Build Include="dbo\Request.sql" />
     <Build Include="dbo\Comment.sql" />
     <Build Include="dbo\DepositPayment.sql" />
+    <Build Include="dbo\CreditPayment.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DBProject.refactorlog" />

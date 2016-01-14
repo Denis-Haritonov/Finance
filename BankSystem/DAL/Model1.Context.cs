@@ -28,6 +28,7 @@ namespace DAL
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Credit> Credit { get; set; }
+        public virtual DbSet<CreditPayment> CreditPayment { get; set; }
         public virtual DbSet<CreditType> CreditType { get; set; }
         public virtual DbSet<Deposit> Deposit { get; set; }
         public virtual DbSet<DepositPayment> DepositPayment { get; set; }
@@ -35,7 +36,6 @@ namespace DAL
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<OAuthMembership> OAuthMembership { get; set; }
         public virtual DbSet<Request> Request { get; set; }
-        public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
         public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }

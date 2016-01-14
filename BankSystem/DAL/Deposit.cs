@@ -17,7 +17,6 @@ namespace DAL
         public Deposit()
         {
             this.DepositPayment = new HashSet<DepositPayment>();
-            this.Transaction = new HashSet<Transaction>();
         }
     
         public int Id { get; set; }
@@ -32,6 +31,5 @@ namespace DAL
         public virtual DepositType DepositType { get; set; }
         public virtual Request Request { get; set; }
         public virtual ICollection<DepositPayment> DepositPayment { get; set; }
-        public virtual ICollection<Transaction> Transaction { get; set; }
     }
 }
