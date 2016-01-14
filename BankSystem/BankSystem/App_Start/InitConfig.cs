@@ -21,7 +21,7 @@ namespace BankSystem
             CultureInfo cultureInfo = new CultureInfo("ru-RU");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            WebSecurity.InitializeDatabaseConnection("DefaultConnection","UserProfile","UserId","UserName",false);
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection","UserProfile","UserId","Login",false);
         }
     }
 }

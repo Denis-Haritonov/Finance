@@ -19,7 +19,7 @@ namespace DAL
             this.Client = new HashSet<Client>();
             this.Comment = new HashSet<Comment>();
             this.Request = new HashSet<Request>();
-            this.UsersInRoles = new HashSet<UsersInRoles>();
+            this.webpages_Roles = new HashSet<webpages_Roles>();
         }
     
         public int UserId { get; set; }
@@ -28,10 +28,18 @@ namespace DAL
         public string UserLastName { get; set; }
         public Nullable<System.DateTime> UserBirthDate { get; set; }
         public string UserPassportSerialNumber { get; set; }
+        public string MobilePhone { get; set; }
+        public string Email { get; set; }
+        public string PassportIdentificationNumber { get; set; }
+        public string PassportApprovel { get; set; }
+        public Nullable<System.DateTime> PassportEndDate { get; set; }
+        public string RegistrationAddress { get; set; }
+        public string SecretPhrase { get; set; }
+        public string Login { get; set; }
     
         public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Request> Request { get; set; }
-        public virtual ICollection<UsersInRoles> UsersInRoles { get; set; }
+        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

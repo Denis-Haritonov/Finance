@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using BankSystem.Models;
 using BLL.Models.ViewModel;
 
 namespace BLL.Interfaces
 {
     public interface IUserService
     {
-        List<UserViewModel> GetUserViewModels();
+        List<RegisterModel> GetUserViewModels();
 
-        void AddClientUser(UserViewModel userModel);
+        void AddClientUser(RegisterModel userModel);
     }
 }

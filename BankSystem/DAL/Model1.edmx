@@ -127,20 +127,20 @@
           <Property Name="UserLastName" Type="nvarchar" MaxLength="56" Nullable="false" />
           <Property Name="UserBirthDate" Type="date" />
           <Property Name="UserPassportSerialNumber" Type="nvarchar" MaxLength="9" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UsersInRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassportIdentificationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassportApprovel" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PassportEndDate" Type="date" />
+          <Property Name="RegistrationAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SecretPhrase" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
           <Property Name="IsConfirmed" Type="bit" />
@@ -167,6 +167,14 @@
           </Key>
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Client_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
@@ -300,14 +308,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_RoleId">
+        <Association Name="fk_RoleIdk">
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
-          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="webpages_Roles">
               <PropertyRef Name="RoleId" />
             </Principal>
-            <Dependent Role="UsersInRoles">
+            <Dependent Role="webpages_UsersInRoles">
               <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
@@ -336,14 +344,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_UserId">
+        <Association Name="fk_UserIdk">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
-          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="UsersInRoles">
+            <Dependent Role="webpages_UsersInRoles">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -361,10 +369,10 @@
           <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Client_UserProfile" Association="Self.FK_Client_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Client" EntitySet="Client" />
@@ -409,9 +417,9 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+          <AssociationSet Name="fk_RoleIdk" Association="Self.fk_RoleIdk">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Transaction_Credit" Association="Self.FK_Transaction_Credit">
             <End Role="Credit" EntitySet="Credit" />
@@ -421,9 +429,9 @@
             <End Role="Deposit" EntitySet="Deposit" />
             <End Role="Transaction" EntitySet="Transaction" />
           </AssociationSet>
-          <AssociationSet Name="fk_UserId" Association="Self.fk_UserId">
+          <AssociationSet Name="fk_UserIdk" Association="Self.fk_UserIdk">
             <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -441,10 +449,8 @@
           <EntitySet Name="Request" EntityType="FinanceModel.Request" />
           <EntitySet Name="Transaction" EntityType="FinanceModel.Transaction" />
           <EntitySet Name="UserProfile" EntityType="FinanceModel.UserProfile" />
-          <EntitySet Name="UsersInRoles" EntityType="FinanceModel.UsersInRoles" />
           <EntitySet Name="webpages_Membership" EntityType="FinanceModel.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="FinanceModel.webpages_OAuthMembership" />
-          <EntitySet Name="webpages_Roles" EntityType="FinanceModel.webpages_Roles" />
           <AssociationSet Name="FK_Client_UserProfile" Association="FinanceModel.FK_Client_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Client" EntitySet="Client" />
@@ -481,14 +487,6 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="fk_UserId" Association="FinanceModel.fk_UserId">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
-          </AssociationSet>
-          <AssociationSet Name="fk_RoleId" Association="FinanceModel.fk_RoleId">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
-          </AssociationSet>
           <AssociationSet Name="ClientCredit" Association="FinanceModel.ClientCredit">
             <End Role="Client" EntitySet="Client" />
             <End Role="Credit" EntitySet="Credit" />
@@ -496,6 +494,11 @@
           <AssociationSet Name="ClientDeposit" Association="FinanceModel.ClientDeposit">
             <End Role="Client" EntitySet="Client" />
             <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
+          <EntitySet Name="webpages_Roles" EntityType="FinanceModel.webpages_Roles" />
+          <AssociationSet Name="webpages_UsersInRoles" Association="FinanceModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="RequestState" />
@@ -624,26 +627,24 @@
           <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
           <Property Name="UserBirthDate" Type="DateTime" Precision="0" />
           <Property Name="UserPassportSerialNumber" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportIdentificationNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportApprovel" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassportEndDate" Type="DateTime" Precision="0" />
+          <Property Name="RegistrationAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecretPhrase" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Client" Relationship="FinanceModel.FK_Client_UserProfile" FromRole="UserProfile" ToRole="Client" />
           <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_UserProfile" FromRole="UserProfile" ToRole="Comment" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_UserProfile" FromRole="UserProfile" ToRole="Request" />
-          <NavigationProperty Name="UsersInRoles" Relationship="FinanceModel.fk_UserId" FromRole="UserProfile" ToRole="UsersInRoles" />
-        </EntityType>
-        <EntityType Name="UsersInRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.fk_UserId" FromRole="UsersInRoles" ToRole="UserProfile" />
-          <NavigationProperty Name="webpages_Roles" Relationship="FinanceModel.fk_RoleId" FromRole="UsersInRoles" ToRole="webpages_Roles" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="webpages_Roles" Relationship="FinanceModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IsConfirmed" Type="Boolean" />
@@ -663,14 +664,6 @@
           <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_Roles">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UsersInRoles" Relationship="FinanceModel.fk_RoleId" FromRole="webpages_Roles" ToRole="UsersInRoles" />
         </EntityType>
         <Association Name="FK_Client_UserProfile">
           <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
@@ -780,30 +773,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_UserId">
-          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="1" />
-          <End Type="FinanceModel.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UsersInRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_RoleId">
-          <End Type="FinanceModel.webpages_Roles" Role="webpages_Roles" Multiplicity="1" />
-          <End Type="FinanceModel.UsersInRoles" Role="UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Roles">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UsersInRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ClientCredit">
           <End Type="FinanceModel.Client" Role="Client" Multiplicity="*" />
           <End Type="FinanceModel.Credit" Role="Credit" Multiplicity="*" />
@@ -811,6 +780,18 @@
         <Association Name="ClientDeposit">
           <End Type="FinanceModel.Client" Role="Client" Multiplicity="*" />
           <End Type="FinanceModel.Deposit" Role="Deposit" Multiplicity="*" />
+        </Association>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfile" Relationship="FinanceModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="FinanceModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -926,21 +907,20 @@
           <EntitySetMapping Name="UserProfile">
             <EntityTypeMapping TypeName="FinanceModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="SecretPhrase" ColumnName="SecretPhrase" />
+                <ScalarProperty Name="RegistrationAddress" ColumnName="RegistrationAddress" />
+                <ScalarProperty Name="PassportEndDate" ColumnName="PassportEndDate" />
+                <ScalarProperty Name="PassportApprovel" ColumnName="PassportApprovel" />
+                <ScalarProperty Name="PassportIdentificationNumber" ColumnName="PassportIdentificationNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
                 <ScalarProperty Name="UserPassportSerialNumber" ColumnName="UserPassportSerialNumber" />
                 <ScalarProperty Name="UserBirthDate" ColumnName="UserBirthDate" />
                 <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
                 <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsersInRoles">
-            <EntityTypeMapping TypeName="FinanceModel.UsersInRoles">
-              <MappingFragment StoreEntitySet="UsersInRoles">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -971,14 +951,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="webpages_Roles">
-            <EntityTypeMapping TypeName="FinanceModel.webpages_Roles">
-              <MappingFragment StoreEntitySet="webpages_Roles">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="ClientCredit" TypeName="FinanceModel.ClientCredit" StoreEntitySet="ClientCredit">
             <EndProperty Name="Credit">
               <ScalarProperty Name="Id" ColumnName="CreditId" />
@@ -993,6 +965,22 @@
             </EndProperty>
             <EndProperty Name="Client">
               <ScalarProperty Name="Id" ColumnName="ClientId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="FinanceModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="FinanceModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
