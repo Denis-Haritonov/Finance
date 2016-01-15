@@ -25,8 +25,6 @@ namespace DAL
         public double Percent { get; set; }
         public double OverduePercent { get; set; }
         public long ReturnTerm { get; set; }
-        public string StartAmountInfo { get; set; }
-        public string RulesInfo { get; set; }
         public bool IsActive { get; set; }
         public string Description { get; set; }
         public string CurrencyShort { get; set; }

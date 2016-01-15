@@ -36,6 +36,14 @@ namespace BLL.Implementations
             }
             credit.MainDebt -= mainMinus;
             credit.PercentageDebt -= percentMinus;
+            if (credit.MainDebt < 1)
+            {
+                credit.MainDebt = 0;
+            }
+            if (credit.PercentageDebt < 1)
+            {
+                credit.PercentageDebt = 0;
+            }
             creditRepository.UpdateCredit(credit);
             var payment = new CreditPayment
             {

@@ -24,6 +24,10 @@
         .Titled("Дата открытия");
 
     columns.Add()
+        .Titled("Номер договора")
+        .RenderValueAs(item => String.Format("123001{0}", item.Id));
+
+    columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .RenderValueAs(item => RenderViewAction(item.Id));

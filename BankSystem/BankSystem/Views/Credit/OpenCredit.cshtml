@@ -8,7 +8,7 @@
 <div>
     Название: @Model.TypeName
 </div>
-<div>Сумма денег: @Model.Amount</div>
+<div>Сумма денег: @Model.Amount.ToString("N")</div>
 @using (Html.BeginForm("ConfirmCredit", "Credit", new { requestId = Model.Id }))
 {
     @Html.AntiForgeryToken()

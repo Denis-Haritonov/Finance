@@ -33,8 +33,6 @@ namespace DAL
         public virtual DbSet<Deposit> Deposit { get; set; }
         public virtual DbSet<DepositPayment> DepositPayment { get; set; }
         public virtual DbSet<DepositType> DepositType { get; set; }
-        public virtual DbSet<Membership> Membership { get; set; }
-        public virtual DbSet<OAuthMembership> OAuthMembership { get; set; }
         public virtual DbSet<Request> Request { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }

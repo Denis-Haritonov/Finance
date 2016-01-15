@@ -175,7 +175,7 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && paymentModel.Amount > 0)
             {
                 paymentModel.Type = DepositPaymentType.Income;
                 depositPaymentService.AddPayment(paymentModel);
@@ -194,7 +194,7 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && paymentModel.Amount > 0 && paymentModel.Amount <= deposit.Balance)
             {
                 paymentModel.Type = DepositPaymentType.Outcome;
                 depositPaymentService.AddPayment(paymentModel);

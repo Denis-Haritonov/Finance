@@ -30,6 +30,10 @@ namespace BLL.Implementations
             {
                 deposit.Balance -= paymentModel.Amount;
             }
+            if (deposit.Balance < 1)
+            {
+                deposit.Balance = 0;
+            }
             depositRepository.UpdateDeposit(deposit);
             var payment = new DepositPayment
             {

@@ -6,7 +6,7 @@
 
 <h2>Внести платеж</h2>
 <div>
-    @Html.ActionLink("К вкладу", "EmployeeDetails", new { creditId = Model.CreditId })
+    @Html.ActionLink("К кредиту", "EmployeeDetails", new { creditId = Model.CreditId })
 </div>
 <div>
     Общий долг: @((Model.CreditModel.MainDebt + Model.CreditModel.PercentageDebt).ToString("N"))
