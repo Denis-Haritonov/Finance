@@ -3006,3 +3006,107 @@ ul.messagesList li span.date {
 .navbar .brand{
 	font-size: 35px;
 }
+
+/* tables */
+th,
+td,
+.table-bordered {
+  border-radius: 0 !important;
+}
+.table > thead > tr {
+  color: #707070;
+  font-weight: normal;
+  background: #F2F2F2;
+  background-image: -webkit-linear-gradient(top, #f8f8f8 0%, #ececec 100%);
+  background-image: -o-linear-gradient(top, #f8f8f8 0%, #ececec 100%);
+  background-image: linear-gradient(to bottom, #f8f8f8 0%, #ececec 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', endColorstr='#ffececec', GradientType=0);
+}
+.table > thead > tr > th {
+  border-color: #dddddd;
+  font-weight: bold;
+}
+.table > thead > tr > th .ace-icon:first-child {
+  margin-right: 2px;
+}
+.table > thead > tr > th:first-child {
+  border-left-color: #F1F1F1;
+}
+.table > thead > tr > th:last-child {
+  border-right-color: #F1F1F1;
+}
+.table.table-bordered > thead > tr > th {
+  /* border-color: @table-border-color; */
+  vertical-align: middle;
+}
+.table.table-bordered > thead > tr > th:first-child {
+  border-left-color: #dddddd;
+}
+th.center,
+td.center {
+  text-align: center;
+}
+th .lbl,
+td .lbl {
+  margin-bottom: 0;
+}
+th .lbl:only-child,
+td .lbl:only-child {
+  vertical-align: top;
+}
+.table-header {
+  background-color: #307ecc;
+  color: #FFF;
+  font-size: 14px;
+  line-height: 38px;
+  padding-left: 12px;
+  margin-bottom: 1px;
+}
+.table-header .close {
+  margin-right: 8px;
+  margin-top: 0;
+  opacity: 0.45;
+  filter: alpha(opacity=45);
+}
+.table-header .close:hover {
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+}
+
+.page-content {
+  overflow-x: auto;
+  background-color: #ffffff;
+  position: relative;
+  margin: 0;
+  padding: 8px 20px 24px;
+}
+.page-header {
+  margin: 0 0 12px;
+  border-bottom: 1px dotted #e2e2e2;
+  padding-bottom: 16px;
+  padding-top: 7px;
+}
+.page-header h1 {
+  padding: 0;
+  margin: 0 8px;
+  font-size: 24px;
+  font-weight: lighter;
+  color: #2679b5;
+}
+.page-header h1 small {
+  margin: 0 6px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #8089a0;
+}
+
+.entity-grid a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.entity-grid a:hover {
+        color: #23527c;
+        text-decoration: underline;
+}

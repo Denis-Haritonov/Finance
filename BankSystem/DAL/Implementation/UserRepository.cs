@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using Common.Enum;
 using DAL.Interfaces;
 
 namespace DAL.Implementation
@@ -71,6 +72,17 @@ namespace DAL.Implementation
             using (var context = new FinanceEntities())
             {
                 return context.UserProfile.FirstOrDefault(user => user.UserId == userId);
+            }
+        }
+
+        public List<UserProfile> GetUsers(int page, string sortColumnName)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return context.UserProfile
+                    .Include(u => u.webpages_Roles)
+                    .OrderBy(sortColumnName)
+                    .Skip((page - 1) * 20).Take(20).ToList();
             }
         }
     }

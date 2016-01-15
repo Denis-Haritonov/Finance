@@ -14,5 +14,7 @@ namespace DAL.Interfaces
         void AddOrUpdateUser(UserProfile user);
 
         UserProfile GetUserById(int userId);
+
+        List<UserProfile> GetUsers(int page, string sortColumnName);
     }
 }

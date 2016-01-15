@@ -1,5 +1,7 @@
 ﻿using BLL.Implementations;
 using BLL.Interfaces;
+using Common.Grid;
+using Common.Grid.Interfaces;
 using Ninject.Modules;
 
 namespace DependensyResolver
@@ -16,7 +18,9 @@ namespace DependensyResolver
             this.Bind<IDepositService>().To<DepositService>().InSingletonScope();
             this.Bind<ICreditService>().To<CreditService>().InSingletonScope();
             this.Bind<IDepositPaymentService>().To<DepositPaymentService>().InSingletonScope();
-            this.Bind<ICreditPaymentService>().To<CreditPaymentService>().InSingletonScope();
+            this.Bind<ICreditPaymentService>().To<CreditPaymentService>().InSingletonScope(); 
+            this.Bind<IGridRenderer>().To<GridRenderer>().InSingletonScope();
+            this.Bind<IGridReflector>().To<GridEntityReflector>().InSingletonScope();
         }
     }
 }

@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using BankSystem.Models;
 using BLL.Interfaces;
+using BLL.Models.GridModels;
 using BLL.Models.ViewModel;
+using Common.Common;
 using DAL;
 using DAL.Interfaces;
 using Roles = Common.Enum.Roles;
@@ -63,6 +67,31 @@ namespace BLL.Implementations
                 return new UserViewModel(user);
             }
             return null;
+        }
+
+        public PagingCollection<object> GetUsers(int page, string columnName, string link)
+        {
+            var dalUsers = _userRepository.GetUsers(page, columnName);
+            var usersCount = _userRepository.GetUsers().Count;
+            List<UserGridRowViewModel> gridUsers = new List<UserGridRowViewModel>();
+
+            foreach (var dalUser in dalUsers)
+            {
+                var gridUser = Mapper.Map<UserProfile, UserGridRowViewModel>(dalUser);
+                var role = dalUser.webpages_Roles.FirstOrDefault();
+                gridUser.Login = "<a href=" + link + ">" + gridUser.Login + "</a>";
+                if (role == null)
+                {
+                    gridUser.Role = "Client";
+                }
+                else
+                {
+                    gridUser.Role = role.RoleName;
+                }
+                gridUsers.Add(gridUser);
+            }
+
+            return new PagingCollection<object>(gridUsers, usersCount);
         }
     }
 }

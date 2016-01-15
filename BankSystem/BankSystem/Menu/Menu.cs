@@ -75,17 +75,10 @@ namespace Pl.Web.Portal.Menu
             var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             var index = new MenuPoint(new List<string>() { "Admin" })
             {
-                Name = "Index",
+                Name = "Пользователи",
                 PointUrl = urlHelper.Action("Index","Admin")
             };
             menuPoints.Add(index);
-
-            var test = new MenuPoint(new List<string>() { "Admin" })
-            {
-                Name = "Test",
-                PointUrl = urlHelper.Action("Test", "Admin")
-            };
-            menuPoints.Add(test);
         }
     }
 }

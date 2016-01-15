@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,8 +40,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\EnumExtensions.cs" />
+    <Compile Include="Enum\GridColumnTypes.cs" />
     <Compile Include="Enum\Roles.cs" />
-    <Compile Include="Interfaces\IAutoMapperConfiguration.cs" />
+    <Compile Include="Enum\Interfaces\IAutoMapperConfiguration.cs" />
+    <Compile Include="Enum\TemplateMode.cs" />
+    <Compile Include="Grid\AdditionalClasses\EditWithList.cs" />
+    <Compile Include="Grid\AdditionalClasses\GridSorting.cs" />
+    <Compile Include="Grid\AdditionalClasses\PagingCollection.cs" />
+    <Compile Include="Grid\AdditionalClasses\Price.cs" />
+    <Compile Include="Grid\AdditionalClasses\TestEntity.cs" />
+    <Compile Include="Grid\Attributes\GridPropertiesAttribute.cs" />
+    <Compile Include="Grid\Attributes\RowDisplayAttribute.cs" />
+    <Compile Include="Grid\Grid.cs" />
+    <Compile Include="Grid\GridEntityReflector.cs" />
+    <Compile Include="Grid\GridRenderer.cs" />
+    <Compile Include="Grid\GridRow.cs" />
+    <Compile Include="Grid\Html\HtmlTable.cs" />
+    <Compile Include="Grid\Html\HtmlTableCell.cs" />
+    <Compile Include="Grid\Html\HtmlTableHeaderCell.cs" />
+    <Compile Include="Grid\Html\HtmlTag.cs" />
+    <Compile Include="Grid\Interfaces\IGridReflector.cs" />
+    <Compile Include="Grid\Interfaces\IGridRenderer.cs" />
+    <Compile Include="Grid\Interfaces\IRenderTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\BaseTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\BooleanTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\CalendarTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\CheckBoxTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\DateTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\DropDownTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\EmptyTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\InputTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\LinkItem.cs" />
+    <Compile Include="Grid\RenderTemplates\LinkTemplate.cs" />
+    <Compile Include="Grid\RenderTemplates\PercentInputTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

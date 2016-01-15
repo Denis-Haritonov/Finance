@@ -1,4 +1,5 @@
 ﻿using BankSystem.Models;
+using BLL.Models.GridModels;
 using BLL.Models.ViewModel;
 using DAL;
 
@@ -21,6 +22,8 @@ namespace BusinesLogicLayer.Entities
             Mapper.CreateMap<UserViewModel, UserProfile>().ForMember(u => u.webpages_Roles, opt => opt.Ignore());
             Mapper.CreateMap<UserProfile, RegisterModel>();
             Mapper.CreateMap<RegisterModel, UserProfile>();
+            Mapper.CreateMap<UserGridRowViewModel, UserProfile>();
+            Mapper.CreateMap<UserProfile, UserGridRowViewModel>();
         }
     }
 }
