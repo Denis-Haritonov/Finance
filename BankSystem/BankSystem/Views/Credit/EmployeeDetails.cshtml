@@ -48,9 +48,18 @@
         Ежемесячный платеж: @Model.MonthlyPayment.Value.ToString("N")
     </div>
 }
-<div>
-    @Html.ActionLink("Внести платеж", "IncomePayment", new { creditId = Model.Id })
-</div>
+@if (Model.MainDebt > 0)
+{
+    <div>
+        @Html.ActionLink("Внести платеж", "IncomePayment", new {creditId = Model.Id})
+    </div>
+}
+else
+{
+    <text>
+        Кредит закрыт
+    </text>
+}
 @if (Model.PaymentModels.Any())
 {
     @Html.Grid(Model.PaymentModels).Columns(columns =>

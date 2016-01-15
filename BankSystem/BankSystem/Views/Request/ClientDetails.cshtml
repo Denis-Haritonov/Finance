@@ -25,7 +25,7 @@
         Статус заявки: @Model.StatusString
     </div>
     <div>
-        Заявленная сумма: @Model.Amount
+        Заявленная сумма: @Model.Amount.ToString("N")
     </div>
     @if (Model.Comments != null && Model.Comments.Any())
     {
