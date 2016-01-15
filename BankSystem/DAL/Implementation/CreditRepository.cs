@@ -61,5 +61,13 @@ namespace DAL.Implementation
                         .ToList();
             }
         }
+
+        public void Percents()
+        {
+            using (var context = new FinanceEntities())
+            {
+                context.Database.ExecuteSqlCommand("exec CreditOvercharge");
+            }
+        }
     }
 }

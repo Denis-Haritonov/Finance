@@ -13,5 +13,7 @@ namespace DAL.Interfaces
         Credit FindByRequestId(int requestId);
 
         List<Credit> GetClientCredits(int clientId);
+
+        void Percents();
     }
 }

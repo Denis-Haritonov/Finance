@@ -76,6 +76,11 @@ namespace BLL.Implementations
             var k = Math.Pow(monthPercent, monthCount);
             var result = amount*(decimal) (k*(monthPercent - 1)/(k - 1));
             return result;
-        } 
+        }
+
+        public void Percents()
+        {
+            creditRepository.Percents();
+        }
     }
 }

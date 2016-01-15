@@ -15,5 +15,7 @@ namespace BLL.Interfaces
         List<CreditModel> GetClientCredits(int clientId);
 
         decimal CalculateMonthPayment(decimal amount, TimeSpan returnTerm, double yearPercent);
+
+        void Percents();
     }
 }

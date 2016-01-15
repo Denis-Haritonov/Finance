@@ -13,5 +13,7 @@ namespace DAL.Interfaces
         Deposit GetDepositById(int depositId);
 
         List<Deposit> GetClientDeposits(int clientId);
+
+        void Percents();
     }
 }
