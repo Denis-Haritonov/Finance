@@ -12,5 +12,7 @@ namespace BLL.Interfaces
         DepositModel GetDepositById(int depositId);
 
         List<DepositModel> GetClientDeposits(int clientId);
+
+        void Percents();
     }
 }

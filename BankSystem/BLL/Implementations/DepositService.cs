@@ -67,6 +67,11 @@ namespace BLL.Implementations
                     .OrderByDescending(item => item.StartDate)
                     .Select(item => new DepositModel(item))
                     .ToList();
-        } 
+        }
+
+        public void Percents()
+        {
+            depositRepository.Percents();
+        }
     }
 }

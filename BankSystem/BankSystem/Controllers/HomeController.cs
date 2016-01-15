@@ -10,9 +10,15 @@ namespace BankSystem.Controllers
     {
         private IUserService service;
 
-        public HomeController(IUserService _userService)
+        private IDepositService depositService;
+
+        private ICreditService creditService;
+
+        public HomeController(IUserService _userService, ICreditService creditService, IDepositService depositService)
         {
             this.service = _userService;
+            this.creditService = creditService;
+            this.depositService = depositService;
         }
 
         public ActionResult Index()
@@ -31,6 +37,35 @@ namespace BankSystem.Controllers
         public ActionResult Currency()
         {
             return View();
+        }
+
+        public ActionResult Maintain()
+        {
+            return View();
+        }
+
+        public ActionResult CreditPercent()
+        {
+            try
+            {
+                creditService.Percents();
+            }
+            catch (Exception)
+            {
+            }
+            return RedirectToAction("Maintain");
+        }
+
+        public ActionResult DepositPercent()
+        {
+            try
+            {
+                depositService.Percents();
+            }
+            catch (Exception)
+            {
+            }
+            return RedirectToAction("Maintain");
         }
     }
 }
