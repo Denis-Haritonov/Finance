@@ -28,10 +28,16 @@
 </div>
 <div>
     Долг по процентам: @Model.PercentageDebt.ToString("N")
-</div>  
+</div>
 <div>
     Общий долг: @((Model.MainDebt + Model.PercentageDebt).ToString("N"))
 </div>
+@if (Model.MonthlyPayment.HasValue)
+{
+    <div>
+        Ежемесячный платеж: @Model.MonthlyPayment.Value.ToString("N")
+    </div>
+}
 <div>
     Действия:
 </div>

@@ -67,6 +67,15 @@ namespace BLL.Implementations
                     .OrderByDescending(item => item.StartDate)
                     .Select(item => new CreditModel(item))
                     .ToList();
+        }
+
+        public decimal CalculateMonthPayment(decimal amount, TimeSpan returnTerm, double yearPercent)
+        {
+            var monthCount = 12*returnTerm.TotalDays/365.0;
+            var monthPercent = Math.Pow(1 + yearPercent, 1.0 / 12);
+            var k = Math.Pow(monthPercent, monthCount);
+            var result = amount*(decimal) (k*(monthPercent - 1)/(k - 1));
+            return result;
         } 
     }
 }

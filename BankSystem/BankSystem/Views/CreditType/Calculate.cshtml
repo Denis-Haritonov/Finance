@@ -1,0 +1,32 @@
+﻿@model BankSystem.Models.CalculationModel
+
+@{
+    ViewBag.Title = "Калькулятор";
+}
+
+<h2>Калькулятор по кредиту</h2>
+<div>
+    @Html.ActionLink("Назад к кредитам", "ViewCreditTypes")
+</div>
+<div>
+    Название: @Model.CreditType.Name
+</div>
+<div>
+    Валюта: @Model.CreditType.CurrencyShort
+</div>
+<div>
+    @Model.CreditType.Description
+</div>
+@Html.ValidationSummary()
+@using (Html.BeginForm(new {creditTypeId = Model.CreditType.Id}))
+{
+    @Html.TextBoxFor(model => model.Amount, new {@class = "form-control"})
+    <br/>
+    <button type="submit" class="btn btn-default">Подтвердить</button>
+}
+@if (Model.Result > 0)
+{
+    <div>
+        Ежемесячный платеж: @Model.Result.ToString("N")
+    </div>
+}

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Security;
 using BLL.Interfaces;
 using WebMatrix.WebData;
@@ -23,6 +24,7 @@ namespace BankSystem.Controllers
             //var b = User.IsInRole("Operator");
             //var c = Roles.IsUserInRole("Client");
             //var d = Roles.IsUserInRole("Operator");
+            var x = TimeSpan.FromDays(365).Ticks;
             return View();
         }
 

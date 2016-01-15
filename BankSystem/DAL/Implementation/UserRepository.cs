@@ -62,7 +62,7 @@ namespace DAL.Implementation
         {
             using (var context = new FinanceEntities())
             {
-                return context.UserProfile.FirstOrDefault(user => user.UserPassportSerialNumber == passportNumber);
+                return context.UserProfile.FirstOrDefault(user => user.PassportIdentificationNumber == passportNumber);
             }
         }
 

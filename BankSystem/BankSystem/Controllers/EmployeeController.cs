@@ -28,7 +28,7 @@ namespace BankSystem.Controllers
         {
             if (!String.IsNullOrWhiteSpace(model.SearchTerm))
             {
-                var user = userService.GetUserByLogin(model.SearchTerm);
+                var user = userService.FindClientByPassportNumber(model.SearchTerm);
                 if (user != null)
                 {
                     return RedirectToAction("ClientDetails", new {clientId = user.UserId});

@@ -42,6 +42,12 @@
 <div>
     Общий долг: @((Model.MainDebt + Model.PercentageDebt).ToString("N"))
 </div>
+@if (Model.MonthlyPayment.HasValue)
+{
+    <div>
+        Ежемесячный платеж: @Model.MonthlyPayment.Value.ToString("N")
+    </div>
+}
 <div>
     @Html.ActionLink("Внести платеж", "IncomePayment", new { creditId = Model.Id })
 </div>

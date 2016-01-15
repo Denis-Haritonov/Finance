@@ -67,5 +67,7 @@ namespace BLL.Models
                 return StartDate.ToString("dd.MM.yyyy hh:mm");
             }
         }
+
+        public decimal? MonthlyPayment { get; set; }
     }
 }

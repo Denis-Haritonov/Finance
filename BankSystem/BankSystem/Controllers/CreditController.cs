@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
@@ -69,6 +70,15 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
+            try
+            {
+                credit.MonthlyPayment = creditService.CalculateMonthPayment(credit.MainDebt + credit.PercentageDebt,
+                    credit.CreditType.ReturnTerm, credit.CreditType.Percent);
+            }
+            catch (Exception)
+            {
+                credit.MonthlyPayment = null;
+            }
             return View(credit);
         }
 
@@ -107,6 +117,15 @@ namespace BankSystem.Controllers
             if (credit.ClientId != CurrentUser.UserId)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                credit.MonthlyPayment = creditService.CalculateMonthPayment(credit.MainDebt + credit.PercentageDebt,
+                    credit.CreditType.ReturnTerm, credit.CreditType.Percent);
+            }
+            catch (Exception)
+            {
+                credit.MonthlyPayment = null;
             }
             return View(credit);
         }

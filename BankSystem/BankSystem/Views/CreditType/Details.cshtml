@@ -17,3 +17,6 @@
 <div>
     @Model.Description
 </div>
+<div>
+    @Html.ActionLink("Калькулятор по кредиту", "Calculate", "CreditType", new { creditTypeId = Model.Id }, null)
+</div>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BLL.Models;
 
 namespace BLL.Interfaces
@@ -12,5 +13,7 @@ namespace BLL.Interfaces
         CreditModel GetCreditById(int depositId);
 
         List<CreditModel> GetClientCredits(int clientId);
+
+        decimal CalculateMonthPayment(decimal amount, TimeSpan returnTerm, double yearPercent);
     }
 }
