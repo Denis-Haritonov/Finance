@@ -84,19 +84,29 @@ namespace BankSystem.Controllers
                 // Attempt to register the user
                 try
                 {
-                    if(this._userService.GetUserViewModels().FirstOrDefault(u => u.Login == model.Login) == null)
+                    if (this._userService.GetUserViewModels().FirstOrDefault(u => u.Login == model.Login) == null)
                     {
-                    WebSecurity.CreateUserAndAccount(model.Login, model.Password);
-                    var userId = WebSecurity.GetUserId(model.Login);
-                        model.UserId = userId;
-                        _userService.AddClientUser(model);
-                    WebSecurity.Login(model.Login, model.Password);
-                        
-                    return RedirectToAction("Index", "Home");
+                        if (
+                            this._userService.GetUserViewModels()
+                                .FirstOrDefault(
+                                    u => u.PassportIdentificationNumber == model.PassportIdentificationNumber) == null)
+                        {
+                            WebSecurity.CreateUserAndAccount(model.Login, model.Password);
+                            var userId = WebSecurity.GetUserId(model.Login);
+                            model.UserId = userId;
+                            _userService.AddClientUser(model);
+                            WebSecurity.Login(model.Login, model.Password);
+
+                            return RedirectToAction("Index", "Home");
                         }
+                        else
+                        {
+                            ModelState.AddModelError("PassportIdentificationNumber", "Пользователь с идентификационным номером уже существует");
+                        }
+                    }
                     else
                     {
-                        ModelState.AddModelError("Login","Юзер с таким логином уже существует");
+                        ModelState.AddModelError("Login", "Пользователь с идентификационным номером уже существует");
                     }
                 }
                 catch (MembershipCreateUserException e)

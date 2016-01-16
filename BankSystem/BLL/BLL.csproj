@@ -99,6 +99,8 @@
     <Compile Include="Models\Enums\RequestType.cs" />
     <Compile Include="Models\GridModels\UserGridRowViewModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
+    <Compile Include="Models\ViewModel\CurrencyModel.cs" />
+    <Compile Include="Models\ViewModel\RefreshCodeModel.cs" />
     <Compile Include="Models\ViewModel\UserGridModel.cs" />
     <Compile Include="Models\ViewModel\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

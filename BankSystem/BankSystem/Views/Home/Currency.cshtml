@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BLL.Models.ViewModel.CurrencyModel
+@{
     ViewBag.Title = "Курс валют";
 }
 
@@ -8,13 +9,13 @@
 </div>
 <div role="tabpanel" class="tab-pane" id="currency">
     <div>
-        USD 18 700 / 18 900
+        USD @Model.MinDollarPrice / @Model.MaxDollarPrice
     </div>
     <div>
-        EUR 20 000 / 20 350
+        EUR @Model.MinEuroPrice / @Model.AvrEuroPrice
     </div>
     <div>
-        RUB 245.00 / 257.00
+        RUB @Model.MinEuroPrice / @Model.MaxEuroPrice
     </div>
     <div class="row">
         <div class="col-lg-2">
@@ -22,9 +23,9 @@
                 <div class="form-group">
                     <select class="form-control" id="currency-1-name">
                         <option value="1">BYR</option>
-                        <option value="18700">USD</option>
-                        <option value="20000">EUR</option>
-                        <option value="245">RUB</option>
+                        <option value="@Model.AvrDollarPrice">USD</option>
+                        <option value="@Model.AvrEuroPrice">EUR</option>
+                        <option value="@Model.AvrRublePrice">RUB</option>
                     </select>
                 </div>
                 <input type="text" required class="form-control" id="currency-1">
@@ -35,10 +36,10 @@
                 <div class="input-group">
                     <div class="form-group">
                         <select class="form-control" id="currency-2-name">
-                            <option value="18700">USD</option>
+                            <option value="@Model.AvrDollarPrice">USD</option>
                             <option value="1">BYR</option>
-                            <option value="20000">EUR</option>
-                            <option value="245">RUB</option>
+                            <option value="@Model.AvrEuroPrice">EUR</option>
+                            <option value="@Model.AvrRublePrice">RUB</option>
                         </select>
                     </div>
                     <input type="text" readonly="readonly" class="form-control" id="currency-2">

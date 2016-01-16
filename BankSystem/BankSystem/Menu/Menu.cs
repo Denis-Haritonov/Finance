@@ -79,6 +79,20 @@ namespace Pl.Web.Portal.Menu
                 PointUrl = urlHelper.Action("Index","Admin")
             };
             menuPoints.Add(index);
+
+            var currency = new MenuPoint(new List<string>() { "Admin" })
+            {
+                Name = "Курсы валют",
+                PointUrl = urlHelper.Action("Currency", "Admin")
+            };
+            menuPoints.Add(currency);
+
+            var closecode = new MenuPoint(new List<string>() { "Admin" })
+            {
+                Name = "Код отмены платежа",
+                PointUrl = urlHelper.Action("RefreshCode", "Admin")
+            };
+            menuPoints.Add(closecode);
         }
     }
 }

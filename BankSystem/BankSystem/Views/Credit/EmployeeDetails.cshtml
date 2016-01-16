@@ -3,6 +3,8 @@
 @using GridMvc.Html
 @model CreditModel
 
+@Scripts.Render("~/Scripts/CreditDetails.js")
+
 @{
     ViewBag.Title = "Кредит";
 }
@@ -11,7 +13,7 @@
 {
     if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != CreditPaymentType.AutomaticPercents && paymentModel.Date.Date == DateTime.Today)
     {
-        @Html.ActionLink("Отменить", "CancelPayment", "Credit", new { paymentId = paymentModel.Id }, null)
+        <button type="button" class="btn btn-default remove-payment" data-url="@Url.Action( "CancelPayment", "Credit", new { paymentId = paymentModel.Id })" data-toggle="modal" data-target="#myModal">Отменить</button>
     }
 }
 
@@ -81,4 +83,8 @@ else
             .Sanitized(false)
             .RenderValueAs(item => RenderCancelAction(item));
     })
+}
+
+@{
+    Html.RenderPartial("_CodeCheck", Model.ReturnCodeModel);
 }

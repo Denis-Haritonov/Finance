@@ -16,5 +16,7 @@ namespace DAL.Interfaces
         UserProfile GetUserById(int userId);
 
         List<UserProfile> GetUsers(int page, string sortColumnName);
+
+        void RemoveUser(int userId);
     }
 }

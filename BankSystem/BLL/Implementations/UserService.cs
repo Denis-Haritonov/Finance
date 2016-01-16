@@ -27,6 +27,33 @@ namespace BLL.Implementations
             this._userRepository = userRepository;
         }
 
+        public RegisterModel GetRegisterModelUserById(int userId)
+        {
+            if (userId == 0)
+            {
+                return new RegisterModel();
+            }
+            else
+            {
+                var dalUser = _userRepository.GetUserById(userId);
+                var registerModel = Mapper.Map<UserProfile, RegisterModel>(dalUser);
+                registerModel.UserRole = (Roles) dalUser.webpages_Roles.First().RoleId;
+                return registerModel;
+            }
+        }
+
+        public void RemoveUser(int userId)
+        {
+            
+        }
+
+        public void AdminSaveUser(RegisterModel userModel)
+        {
+            var dalUser = Mapper.Map<RegisterModel, UserProfile>(userModel);
+            dalUser.webpages_Roles.Add(new webpages_Roles() { RoleId = (int)userModel.UserRole });
+            this._userRepository.AddOrUpdateUser(dalUser);
+        }
+
         public List<RegisterModel> GetUserViewModels()
         {
             return this._userRepository.GetUsers().Select(U => Mapper.Map<UserProfile, RegisterModel>(U)).ToList();
@@ -79,7 +106,7 @@ namespace BLL.Implementations
             {
                 var gridUser = Mapper.Map<UserProfile, UserGridRowViewModel>(dalUser);
                 var role = dalUser.webpages_Roles.FirstOrDefault();
-                gridUser.Login = "<a href=" + link + ">" + gridUser.Login + "</a>";
+                gridUser.Login = "<a href=" + link + "?userId=" + dalUser.UserId + ">" + gridUser.Login + "</a>";
                 if (role == null)
                 {
                     gridUser.Role = "Client";

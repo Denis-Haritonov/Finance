@@ -1,0 +1,26 @@
+﻿@using BLL.Models.ViewModel
+@model RefreshCodeModel  
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Код отмены</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" class="remove-link"/>
+                @Html.HiddenFor(m => m.Code, new { @class = "code-value"})
+                <p>Введите код подтверждения отмены</p>
+                <p><input type="text" class="code-input" /></p>
+                <button class="btn btn-danger code-button">Ввести</button>
+            </div>
+            <div class="modal-footer">
+                <span class="message pull-left" style="color:red"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+
+    </div>
+</div>

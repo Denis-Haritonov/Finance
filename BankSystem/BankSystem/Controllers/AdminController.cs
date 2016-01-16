@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
 using BLL.Models.GridModels;
 using BLL.Models.ViewModel;
+using Ninject.Activation.Caching;
 using WebMatrix.WebData;
 
 namespace BankSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         //
@@ -23,7 +26,7 @@ namespace BankSystem.Controllers
             this.userService = userService;
         }
 
-        public ActionResult Index(int page = 1,string columnName = "UserId" )
+        public ActionResult Index(int page = 1, string columnName = "UserId")
         {
             var gridUsers = userService.GetUsers(page, columnName, Url.Action("CreateEditUser"));
             var model = new UserGridModel();
@@ -33,18 +36,70 @@ namespace BankSystem.Controllers
 
         public ActionResult CreateEditUser(int userId = 0)
         {
-            return View("Index");
+            RegisterModel model = userService.GetRegisterModelUserById(userId);
+            return View(model);
         }
 
         public ActionResult DeleteUser(int userId)
         {
-            return View("Index");
+            this.userService.RemoveUser(userId);
+            return RedirectToAction("Index");
         }
 
-        [CaptchaValidator]
-        public ActionResult SaveUser(RegisterModel model,bool captchaValid)
+        public ActionResult SaveUser(RegisterModel model)
         {
-            return View("Index");
+            this.userService.AdminSaveUser(model);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Currency()
+        {
+            var cache = MemoryCache.Default;
+            var currencyModel = cache.Get("Currency");
+            if (currencyModel == null)
+            {
+                currencyModel = new CurrencyModel(); ;
+            }
+            return View(currencyModel);
+        }
+
+        [HttpPost]
+        public ActionResult Currency(CurrencyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var cache = MemoryCache.Default;
+                cache.Remove("Currency");
+                cache.Add("Currency", model, DateTimeOffset.UtcNow.AddMinutes(8000));
+            }
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public ActionResult RefreshCode()
+        {
+            var cache = MemoryCache.Default;
+            var currencyModel = cache.Get("RefreshCode");
+            if (currencyModel == null)
+            {
+                currencyModel = new RefreshCodeModel(); ;
+            }
+            return View(currencyModel);
+        }
+
+        [HttpPost]
+        public ActionResult RefreshCode(RefreshCodeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var cache = MemoryCache.Default;
+                cache.Remove("RefreshCode");
+                cache.Add("RefreshCode", model, DateTimeOffset.UtcNow.AddMinutes(8000));
+            }
+            return View(model);
         }
     }
 }
+

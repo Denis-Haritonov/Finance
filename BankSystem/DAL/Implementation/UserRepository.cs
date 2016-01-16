@@ -33,7 +33,7 @@ namespace DAL.Implementation
                     {
                         var dbuser = context.UserProfile.Include(u => u.webpages_Roles).Single(u => u.UserId == user.UserId);
                         context.Entry(dbuser).CurrentValues.SetValues(user);
-                        context.webpages_Roles.RemoveRange(dbuser.webpages_Roles);
+                        dbuser.webpages_Roles = new List<webpages_Roles>();
                         foreach (var role in user.webpages_Roles)
                         {
                             dbuser.webpages_Roles.Add(context.webpages_Roles.Single(r => r.RoleId == role.RoleId));
@@ -71,7 +71,9 @@ namespace DAL.Implementation
         {
             using (var context = new FinanceEntities())
             {
-                return context.UserProfile.FirstOrDefault(user => user.UserId == userId);
+                return context.UserProfile
+                    .Include(user => user.webpages_Roles)
+                    .FirstOrDefault(user => user.UserId == userId);
             }
         }
 
@@ -83,6 +85,14 @@ namespace DAL.Implementation
                     .Include(u => u.webpages_Roles)
                     .OrderBy(sortColumnName)
                     .Skip((page - 1) * 20).Take(20).ToList();
+            }
+        }
+
+        public void RemoveUser(int userId)
+        {
+            using (var context = new FinanceEntities())
+            {
+                context.UserProfile.Remove(context.UserProfile.First(u => u.UserId == userId));
             }
         }
     }

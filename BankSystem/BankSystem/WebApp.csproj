@@ -53,6 +53,14 @@
       <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mvc.Bootstrap.Core, Version=3.0.5.21425, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc.Bootstrap.Core.3.0.5.21425\lib\net40\Mvc.Bootstrap.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -87,12 +95,17 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -111,9 +124,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -130,10 +140,6 @@
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -242,7 +248,6 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,6 +289,19 @@
     <Content Include="Content\halflings.css" />
     <Content Include="Content\ie.css" />
     <Content Include="Content\ie9.css" />
+    <Content Include="Content\img\accent.png" />
+    <Content Include="Content\img\bullet.png" />
+    <Content Include="Content\img\heroAccent.png" />
+    <Content Include="Content\img\orderedList0.png" />
+    <Content Include="Content\img\orderedList1.png" />
+    <Content Include="Content\img\orderedList2.png" />
+    <Content Include="Content\img\orderedList3.png" />
+    <Content Include="Content\img\orderedList4.png" />
+    <Content Include="Content\img\orderedList5.png" />
+    <Content Include="Content\img\orderedList6.png" />
+    <Content Include="Content\img\orderedList7.png" />
+    <Content Include="Content\img\orderedList8.png" />
+    <Content Include="Content\img\orderedList9.png" />
     <Content Include="Content\Janux\bootstrap-responsive.css" />
     <Content Include="Content\Janux\bootstrap-responsive.min.css" />
     <Content Include="Content\Janux\bootstrap.css" />
@@ -380,6 +398,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\counter.js" />
+    <Content Include="Scripts\CreditDetails.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\excanvas.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
@@ -483,6 +502,7 @@
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_AdminLogin.cshtml" />
     <Content Include="Views\Request\RequestsQue.cshtml" />
+    <Content Include="Views\Shared\_CodeCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -516,7 +536,7 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Request\ClientViewRequests.cshtml" />
-    <Content Include="Views\Account\_UserEditForm.cshtml" />
+    <Content Include="Views\Shared\_UserEditForm.cshtml" />
     <Content Include="Views\Request\ClientDetails.cshtml" />
     <Content Include="Views\Employee\FindClient.cshtml" />
     <Content Include="Views\Employee\ClientDetails.cshtml" />
@@ -542,6 +562,9 @@
     <Content Include="Views\Credit\IncomePayment.cshtml" />
     <Content Include="Views\CreditType\Calculate.cshtml" />
     <Content Include="Views\Home\Maintain.cshtml" />
+    <Content Include="Views\Admin\CreateEditUser.cshtml" />
+    <Content Include="Views\Admin\Currency.cshtml" />
+    <Content Include="Views\Admin\RefreshCode.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

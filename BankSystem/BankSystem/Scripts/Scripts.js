@@ -26,3 +26,19 @@ $(".datepicker").datepicker({
     changeMonth: true,
     changeYear: true
 })
+
+$(".birthdate").datepicker({
+    dateFormat: 'dd-mm-yy',
+    changeMonth: true,
+    changeYear: true,
+    minDate: '-120Y',
+    maxDate: '-18Y'
+});
+$(".passport-date").datepicker({
+    dateFormat: 'dd-mm-yy',
+    changeMonth: true,
+    changeYear: true,
+    minDate: '+1D',
+    maxDate: '+98Y'
+});
+

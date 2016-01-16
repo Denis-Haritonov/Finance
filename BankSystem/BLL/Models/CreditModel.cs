@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BankSystem.Models;
 using BLL.Models.ViewModel;
 using DAL;
 
@@ -37,6 +38,8 @@ namespace BLL.Models
                         .ToList();
             }
         }
+
+        public RefreshCodeModel ReturnCodeModel { get; set; }
 
         public int Id { get; set; }
 

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.Caching;
 using System.Web.Mvc;
 using System.Web.Security;
 using BLL.Interfaces;
+using BLL.Models.ViewModel;
 using WebMatrix.WebData;
 
 namespace BankSystem.Controllers
@@ -36,7 +38,13 @@ namespace BankSystem.Controllers
 
         public ActionResult Currency()
         {
-            return View();
+            var cache = MemoryCache.Default;
+            var currencyModel = cache.Get("Currency");
+            if (currencyModel == null)
+            {
+                currencyModel = new CurrencyModel(); ;
+            }
+            return View(currencyModel);
         }
 
         public ActionResult Maintain()

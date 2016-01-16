@@ -64,7 +64,7 @@ namespace BankSystem.Models
 
     public class RegisterModel
     {
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public Roles UserRole { get; set; }
 
@@ -98,12 +98,12 @@ namespace BankSystem.Models
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Номер паспорта")]
-        [RegularExpression("(ab|AB|BM|bm|HB|hb|KH|kh|MP|mp|MC|mc|KB|kb|pp|PP)(\\d){7}", ErrorMessage = "Недествительный номер паспорта")]
+        [RegularExpression("(ab|AB|BM|bm|HB|hb|KH|kh|MP|mp|MC|mc|KB|kb|pp|PP)(\\d){7}", ErrorMessage = "Недействительный номер паспорта")]
         public String UserPassportSerialNumber { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Идентификационный номер")]
-        [StringLength(14,ErrorMessage = "Идентификационный номер содержит 14 символов")]
+        [RegularExpression("(\\d){7}[A-Z](\\d){3}[A-Z]{2}\\d", ErrorMessage = "Недействительный Идентификационный номер")]
         public String PassportIdentificationNumber { get; set; }
         
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]

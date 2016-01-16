@@ -13,6 +13,10 @@ namespace BLL.Interfaces
 
         void AddClientUser(RegisterModel userModel);
 
+        void AdminSaveUser(RegisterModel userModel);
+
+        RegisterModel GetRegisterModelUserById(int userId);
+        
         UserViewModel GetUserByLogin(String login);
 
         UserViewModel FindClientByPassportNumber(String searchTerm);
@@ -20,5 +24,7 @@ namespace BLL.Interfaces
         UserViewModel GetUserById(int userId);
 
         PagingCollection<object> GetUsers(int page, string columnName, string link);
+
+        void RemoveUser(int userId);
     } 
 }

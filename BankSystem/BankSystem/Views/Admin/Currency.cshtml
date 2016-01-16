@@ -1,0 +1,59 @@
+﻿@model BLL.Models.ViewModel.CurrencyModel
+@{
+    ViewBag.Title = "Курсы валют";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+      <h1>Курсы валют</h1>
+</div>
+
+@using (Html.BeginForm("Currency", "Admin", FormMethod.Post))
+{
+    <div class="page-content">
+        <div>
+            <div class="span4">
+                @Html.LabelFor(m => m.MinDollarPrice, "Курс покупки доллара")
+                @Html.EditorFor(m => m.MinDollarPrice, new {htmlAttributes = new {min = 0}})
+            </div>
+            <div class="span4">
+                @Html.LabelFor(m => m.AvrDollarPrice, "Курс доллара")
+                @Html.EditorFor(m => m.AvrDollarPrice, new {htmlAttributes = new {min = 0}})
+            </div>
+            <div class="span4">
+                @Html.LabelFor(m => m.MaxDollarPrice, "Курс продажи доллара")
+                @Html.EditorFor(m => m.MaxDollarPrice, new {htmlAttributes = new {min = 0}})
+            </div>
+        </div>
+        <div>
+            <div class="span4">
+                @Html.LabelFor(m => m.MinEuroPrice, "Курс покупки евро")
+                @Html.EditorFor(m => m.MinEuroPrice, new {htmlAttributes = new {min = 0}})
+            </div>
+            <div class="span4">
+                @Html.LabelFor(m => m.AvrEuroPrice, "Курс евро")
+                @Html.EditorFor(m => m.AvrEuroPrice, new {htmlAttributes = new {min = 0}})
+            </div>
+            <div class="span4">
+                @Html.LabelFor(m => m.MaxEuroPrice, "Курс продажи евро")
+                @Html.EditorFor(m => m.MaxEuroPrice, new {htmlAttributes = new {min = 0}})
+            </div>
+        </div>
+
+        <div>
+            <div class="span4">
+                @Html.LabelFor(m => m.MaxRublePrice)
+                @Html.EditorFor(m => m.MaxRublePrice, new { htmlAttributes = new { min = 0 } })
+            </div>
+            <div class="span4">
+                @Html.LabelFor(m => m.AvrRublePrice)
+                @Html.EditorFor(m => m.AvrRublePrice, new { htmlAttributes = new { min = 0 } })
+            </div>
+            <div class="span4">
+                @Html.LabelFor(m => m.MinRublePrice)
+                @Html.EditorFor(m => m.MinRublePrice, new { htmlAttributes = new { min = 0 } })
+            </div>
+        </div>
+        <div><button type="submit" class="btn btn-success">Сохранить</button></div>
+    </div>
+}

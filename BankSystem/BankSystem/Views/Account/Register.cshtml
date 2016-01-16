@@ -1,4 +1,5 @@
-﻿@model BankSystem.Models.RegisterModel
+﻿@using BankSystem.Captcha
+@model BankSystem.Models.RegisterModel
 @{
     ViewBag.Title = "Регистрация";
 }
@@ -6,8 +7,11 @@
 @using (Html.BeginForm("Register", "Account"))
 {
     <legend>Регистрация</legend>
-        Html.RenderPartial("_UserEditForm", @Model);
-    
+    Html.RenderPartial("_UserEditForm", @Model);
+    @Html.Raw(Html.GenerateCaptcha())
+    @Html.ValidationMessage("Captcha")
+    <br />
+    <input type="submit" class="btn btn-default" value="Сохранить" />
 }
 
 

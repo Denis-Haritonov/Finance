@@ -2,13 +2,19 @@
 @using Pl.Web.Portal
 @model BLL.Models.ViewModel.UserGridModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Пользователи";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="page-header">
     <h1>Пользователи</h1>
 </div>
+
 <div class="page-content">
-    @Html.Gridd(Model.users,TemplateMode.Display)
+    <div>
+        <a class="btn btn-success" href="@Url.Action("CreateEditUser")">Создать</a>
+    </div>
+    <div style="margin-top:15px">
+        @Html.Gridd(Model.users, TemplateMode.Display)
+    </div>
 </div>

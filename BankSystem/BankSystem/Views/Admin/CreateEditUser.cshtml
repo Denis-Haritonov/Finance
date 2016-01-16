@@ -1,0 +1,42 @@
+﻿@using Pl.Web.Portal
+@model BankSystem.Models.RegisterModel
+@{
+    ViewBag.Title = "Редактировать пользователя";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    @if (Model.UserId == 0)
+    {
+        <h1>Cоздать Пользователя</h1>
+    }
+    else
+    {
+        <h1>Редактировать Пользавателя</h1>
+    }
+</div>
+
+@using (Html.BeginForm("SaveUser","Admin"))
+{
+    <div class="page-content">
+        @{
+            Html.RenderPartial("_UserEditForm");
+        }
+        <div style="margin-top: 20px">
+            @if (Model.UserId == 0)
+            {
+                <div class="span12">
+                    <button class="btn btn-success">Создать</button>
+                </div>
+            }
+            
+            @if (Model.UserId != 0 && !Roles.IsUserInRole(Model.Login, Common.Enum.Roles.Admin.ToString()))
+            {
+                <div class="span12">
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteUser", new {userId = Model.UserId})">Удалить</a>
+                </div>
+            }
+        </div>
+    </div>
+}
