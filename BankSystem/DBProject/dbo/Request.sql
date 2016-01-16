@@ -2,7 +2,7 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
     [ClientId] INT NOT NULL, 
-    [Amount] MONEY NOT NULL, 
+    [Amount] INT NOT NULL, 
     [State] INT NOT NULL, 
     [Type] INT NOT NULL, 
     [CreditTypeId] INT NULL, 

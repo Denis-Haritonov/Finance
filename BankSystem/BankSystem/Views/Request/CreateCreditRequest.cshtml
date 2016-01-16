@@ -1,4 +1,5 @@
-﻿@model BankSystem.Models.CreditRequestVM
+﻿
+@model BankSystem.Models.CreditRequestVM
 
 @{
     ViewBag.Title = "Заявка на кредит";
@@ -16,5 +17,6 @@
         <label>Сумма кредита</label>
         @Html.TextBoxFor(m => m.RequestModel.Amount, new {@class = "form-control"})
     </div>
+    @Html.ValidationSummary()
     <button class="btn btn-success">Отправить заявку</button>
 }

@@ -55,8 +55,6 @@
           <Property Name="Percent" Type="float" Nullable="false" />
           <Property Name="OverduePercent" Type="float" Nullable="false" />
           <Property Name="ReturnTerm" Type="bigint" Nullable="false" />
-          <Property Name="StartAmountInfo" Type="nvarchar(max)" />
-          <Property Name="RulesInfo" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CurrencyShort" Type="varchar" MaxLength="3" Nullable="false" />
@@ -91,8 +89,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ReturnTerm" Type="bigint" Nullable="false" />
           <Property Name="Percent" Type="float" Nullable="false" />
-          <Property Name="TermInfo" Type="nvarchar(max)" />
-          <Property Name="RulesInfo" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CurrencyShort" Type="varchar" MaxLength="3" Nullable="false" />
@@ -103,7 +99,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="State" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="CreditTypeId" Type="int" />
@@ -599,8 +595,6 @@
           <Property Name="Percent" Type="Double" Nullable="false" />
           <Property Name="OverduePercent" Type="Double" Nullable="false" />
           <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
-          <Property Name="StartAmountInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CurrencyShort" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
@@ -642,8 +636,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ReturnTerm" Type="Int64" Nullable="false" />
           <Property Name="Percent" Type="Double" Nullable="false" />
-          <Property Name="TermInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RulesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CurrencyShort" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
@@ -656,7 +648,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="State" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="CreditTypeId" Type="Int32" />
@@ -973,8 +965,6 @@
                 <ScalarProperty Name="CurrencyShort" ColumnName="CurrencyShort" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
-                <ScalarProperty Name="StartAmountInfo" ColumnName="StartAmountInfo" />
                 <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
                 <ScalarProperty Name="OverduePercent" ColumnName="OverduePercent" />
                 <ScalarProperty Name="Percent" ColumnName="Percent" />
@@ -1013,8 +1003,6 @@
                 <ScalarProperty Name="CurrencyShort" ColumnName="CurrencyShort" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RulesInfo" ColumnName="RulesInfo" />
-                <ScalarProperty Name="TermInfo" ColumnName="TermInfo" />
                 <ScalarProperty Name="Percent" ColumnName="Percent" />
                 <ScalarProperty Name="ReturnTerm" ColumnName="ReturnTerm" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

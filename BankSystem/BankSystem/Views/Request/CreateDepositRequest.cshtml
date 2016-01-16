@@ -16,5 +16,6 @@
         <label>Сумма депозита</label>
         @Html.TextBoxFor(m => m.RequestModel.Amount, new {@class = "form-control"})
     </div>
+    @Html.ValidationSummary()
     <button class="btn btn-success">Отправить заявку</button>
 }

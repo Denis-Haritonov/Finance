@@ -6,6 +6,6 @@ namespace BankSystem.Models
     {
         public RequestModel RequestModel { get; set; }
 
-        public decimal Amount { get; set; }
+        public int Amount { get; set; }
     }
 }

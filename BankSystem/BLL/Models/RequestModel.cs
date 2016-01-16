@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using BLL.Models.Enums;
 using DAL;
@@ -51,7 +52,7 @@ namespace BLL.Models
 
         public RequestState State { get; set; }
 
-        public decimal Amount { get; set; }
+        public int Amount { get; set; }
 
         public int? CreditTypeId { get; set; }
 

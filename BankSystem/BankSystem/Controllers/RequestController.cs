@@ -52,16 +52,19 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCreditRequest(CreditRequestVM model)
         {
-            if (ModelState.IsValid)
-            {
-                model.RequestModel.ClientId = CurrentUser.UserId;
-                model.RequestModel.State = RequestState.Pending;
-                model.RequestModel.Type = RequestType.Credit;
-                requestService.CreateRequest(model.RequestModel);
-                return RedirectToAction("ClientViewRequests");
-            }
             model.CreditTypes = GetCreditTypesListItems();
-            return View(model);
+            if (!ModelState.IsValidField("Amount") || model.RequestModel.Amount < 1 ||
+                model.RequestModel.Amount > 1000000000)
+            {
+                ModelState.Clear();
+                ModelState.AddModelError("", "Некорректное значение суммы");
+                return View(model);
+            }
+            model.RequestModel.ClientId = CurrentUser.UserId;
+            model.RequestModel.State = RequestState.Pending;
+            model.RequestModel.Type = RequestType.Credit;
+            requestService.CreateRequest(model.RequestModel);
+            return RedirectToAction("ClientViewRequests");
         }
 
         [Authorize(Roles = "Client")]
@@ -86,7 +89,7 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDepositRequest(DepositRequestVM model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !(model.RequestModel.Amount < 1 || model.RequestModel.Amount > 1000000000))
             {
                 model.RequestModel.ClientId = CurrentUser.UserId;
                 model.RequestModel.State = RequestState.Pending;
@@ -94,6 +97,8 @@ namespace BankSystem.Controllers
                 requestService.CreateRequest(model.RequestModel);
                 return RedirectToAction("ClientViewRequests");
             }
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
             model.DepositTypes = GetDepositTypesListItems();
             return View(model);
         }
