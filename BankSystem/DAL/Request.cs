@@ -29,7 +29,8 @@ namespace DAL
         public Nullable<int> CreditTypeId { get; set; }
         public Nullable<int> DepositTypeId { get; set; }
         public System.DateTime Date { get; set; }
-        public Nullable<int> AssignedEmployeeId { get; set; }
+        public Nullable<int> AssignedOperatorId { get; set; }
+        public Nullable<int> AssignedSecurityWorkerId { get; set; }
     
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Credit> Credit { get; set; }
@@ -38,5 +39,6 @@ namespace DAL
         public virtual DepositType DepositType { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual UserProfile UserProfile1 { get; set; }
+        public virtual UserProfile UserProfile2 { get; set; }
     }
 }

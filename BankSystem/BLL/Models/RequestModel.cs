@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using BLL.Models.Enums;
 using DAL;
-using RequestState = BLL.Models.Enums.RequestState;
 
 namespace BLL.Models
 {
@@ -21,7 +20,8 @@ namespace BLL.Models
             State = (RequestState) request.State;
             Amount = request.Amount;
             Date = request.Date;
-            AssignedEmployeeId = request.AssignedEmployeeId;
+            AssignedOperatorId = request.AssignedOperatorId;
+            AssignedSecurityWorkerId = request.AssignedSecurityWorkerId;
             ClientId = request.ClientId;
             if (Type == RequestType.Credit && request.CreditTypeId.HasValue)
             {
@@ -63,7 +63,9 @@ namespace BLL.Models
 
         public String TypeName { get; set; }
 
-        public int? AssignedEmployeeId { get; set; }
+        public int? AssignedOperatorId { get; set; }
+
+        public int? AssignedSecurityWorkerId { get; set; }
 
         public int ClientId { get; set; }
 
@@ -74,6 +76,9 @@ namespace BLL.Models
                 switch (State)
                 {
                     case RequestState.Pending:
+                    case RequestState.SecurityCheck:
+                    case RequestState.SecurityApproved:
+                    case RequestState.SecurityRejected:
                         return "Рассматривается";
                     case RequestState.Approved:
                         return "Подтверждена";

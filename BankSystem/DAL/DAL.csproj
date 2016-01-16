@@ -111,9 +111,6 @@
     <Compile Include="Request.cs">
       <DependentUpon>FinanceEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="RequestState.cs">
-      <DependentUpon>FinanceEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserProfile.cs">
       <DependentUpon>FinanceEntity.tt</DependentUpon>
     </Compile>

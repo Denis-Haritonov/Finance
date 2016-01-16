@@ -20,22 +20,6 @@
     }
 }
 
-@helper RenderRequestState(RequestState state)
-{
-    switch (state)
-    {
-        case RequestState.Pending:
-            <span>Рассматривается</span>
-            break;
-        case RequestState.Approved:
-            <span>Подтверждена</span>
-            break;
-        case RequestState.Rejected:
-            <span>Отклонена</span>
-            break;
-    }
-}
-
 @helper RenderAction(int requestId)
 {
     @Html.ActionLink("Просмотр", "ClientDetails", new { requestId = requestId })
@@ -58,11 +42,8 @@
     columns.Add(item => item.TypeName)
         .Titled("Название");
 
-    columns.Add()
-        .Titled("Статус")
-        .Encoded(false)
-        .Sanitized(false)
-        .RenderValueAs(item => RenderRequestState(item.State));
+    columns.Add(item => item.StatusString)
+        .Titled("Статус");
 
     columns.Add()
         .Encoded(false)

@@ -12,6 +12,8 @@ namespace DAL.Interfaces
 
         Request GetRequestById(int requestId);
 
-        List<Request> GetUnassignedAndPersonalRequests(int employeeId);
+        List<Request> GetUnassignedAndPersonalRequests(int employeeId, int state);
+
+        List<Request> GetSecurityChechedRequests(int employeeId);
     }
 }

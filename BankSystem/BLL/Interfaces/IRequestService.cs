@@ -14,8 +14,14 @@ namespace BLL.Interfaces
 
         List<RequestModel> GetRequestQueForEmployee(int employeeId);
 
-        void AssignRequestToEmployee(int requestId, int employeeId);
+        void AssignRequestToOperator(int requestId, int employeeId);
+
+        void AssignRequestToSecurityWorker(int requestId, int employeeId);
 
         void ChangeRequestState(int requsetId, RequestState state);
+
+        List<RequestModel> GetRequestsQueForSecurityWorker(int employeeId);
+
+        List<RequestModel> GetCheckedRequestQueForEmployee(int employeeId);
     }
 }

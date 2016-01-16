@@ -51,14 +51,34 @@ namespace BLL.Implementations
 
         public List<RequestModel> GetRequestQueForEmployee(int employeeId)
         {
-            var requests = requestRepository.GetUnassignedAndPersonalRequests(employeeId);
+            var requests = requestRepository.GetUnassignedAndPersonalRequests(employeeId, (int) RequestState.Pending);
             return requests.Select(item => new RequestModel(item)).OrderBy(item => item.Date).ToList();
         }
 
-        public void AssignRequestToEmployee(int requestId, int employeeId)
+        public List<RequestModel> GetCheckedRequestQueForEmployee(int employeeId)
+        {
+            var requests = requestRepository.GetSecurityChechedRequests(employeeId);
+            return requests.Select(item => new RequestModel(item)).OrderBy(item => item.Date).ToList();
+        }
+
+        public List<RequestModel> GetRequestsQueForSecurityWorker(int employeeId)
+        {
+            var requests = requestRepository.GetUnassignedAndPersonalRequests(employeeId,
+                (int) RequestState.SecurityCheck);
+            return requests.Select(item => new RequestModel(item)).OrderBy(item => item.Date).ToList();
+        }
+
+        public void AssignRequestToOperator(int requestId, int employeeId)
         {
             var request = requestRepository.GetRequestById(requestId);
-            request.AssignedEmployeeId = employeeId;
+            request.AssignedOperatorId = employeeId;
+            requestRepository.UpdateRequest(request);
+        }
+
+        public void AssignRequestToSecurityWorker(int requestId, int employeeId)
+        {
+            var request = requestRepository.GetRequestById(requestId);
+            request.AssignedSecurityWorkerId = employeeId;
             requestRepository.UpdateRequest(request);
         }
 

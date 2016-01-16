@@ -7,12 +7,33 @@
 
 <h2>Заявка</h2>
 <div>
-    <div>
-        @Html.ActionLink("Очередь заявок", "RequestsQue")
-    </div>
+    @if (User.IsInRole("Operator"))
+    {
+        <div>
+            @Html.ActionLink("Очередь заявок", "RequestsQue")
+        </div>
+    }
+    @if (User.IsInRole("SecurityWorker"))
+    {
+        <div>
+            @Html.ActionLink("Очередь заявок", "ApproveQue", "SecurityWorker")
+        </div>
+    }
     <div>
         @Html.ActionLink("Пользователь", "ClientDetails", "Employee", new {clientId = Model.RequestModel.ClientId}, null)
     </div>
+    @if (Model.RequestModel.State == RequestState.SecurityApproved)
+    {
+        <div>
+            Заявка одобрена сотрудником безопасности
+        </div>
+    }
+    @if (Model.RequestModel.State == RequestState.SecurityRejected)
+    {
+    <div>
+        Заявка отклонена сотрудником безопасности
+    </div>
+    }
     @if (Model.DepositModel != null)
     {
         <div>
@@ -36,13 +57,24 @@
     <div>
         Заявленная сумма: @Model.RequestModel.Amount
     </div>
-    @if (Model.IsAssignedToCurrent && Model.RequestModel.State == RequestState.Pending)
+    @if (Model.IsAssignedToCurrent)
     {
         <div>
-            @Html.ActionLink("Подтвердить", "ApproveRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
-            @Html.ActionLink("Отклонить", "RejectRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
+            @if ((Model.RequestModel.State == RequestState.SecurityApproved && User.IsInRole("Operator")) || (Model.RequestModel.State == RequestState.SecurityCheck && User.IsInRole("SecurityWorker")))
+            {
+                @Html.ActionLink("Подтвердить", "ApproveRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
+            }
+            @if (((Model.RequestModel.State == RequestState.Pending || Model.RequestModel.State == RequestState.SecurityApproved || Model.RequestModel.State == RequestState.SecurityRejected) && User.IsInRole("Operator")) || (Model.RequestModel.State == RequestState.SecurityCheck && User.IsInRole("SecurityWorker")))
+            {
+                @Html.ActionLink("Отклонить", "RejectRequest", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
+            }
+            @if (Model.RequestModel.State == RequestState.Pending)
+            {
+                @Html.ActionLink("На проверку", "ToSecurityWorker", new {requestId = Model.RequestModel.Id}, new {@class = "btn btn-sm btn-default"})
+            }
         </div>
     }
+    
     @if (Model.RequestModel.State == RequestState.Approved && Model.RequestModel.Type == RequestType.Deposit && Model.DepositModel == null)
     {
         <div>

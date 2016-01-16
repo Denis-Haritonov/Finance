@@ -3,7 +3,7 @@
 @model BankSystem.Models.RequestsQueVM
 
 @{
-    ViewBag.Title = "Очередь заявок";
+    ViewBag.Title = "Подтвержденные заявки";
 }
 
 @helper RenderAssignLinkAction(RequestModel request)
@@ -14,18 +14,18 @@
     }
     else if (!request.AssignedOperatorId.HasValue)
     {
-        @Html.ActionLink("Рассмотреть заявку", "AssignRequest", new {requestId = request.Id})
+        @Html.ActionLink("Рассмотреть заявку", "AssignRequest", new { requestId = request.Id })
     }
 }
 
 @helper RenderRequestDetailsAction(int requestId)
 {
-    @Html.ActionLink("Просмотр", "EmployeeDetails", new {requestId = requestId})
+    @Html.ActionLink("Просмотр", "EmployeeDetails", new { requestId = requestId })
 }
 
-<h2>Очередь заявок</h2>
+<h2>Подтвержденные заявки</h2>
 <div>
-    @Html.ActionLink("Рассмотрены специалистом по безопасности", "ToApprove")
+    @Html.ActionLink("Очередь заявок", "RequestsQue")
 </div>
 @Html.Grid(Model.Requests).Columns(columns =>
 {
