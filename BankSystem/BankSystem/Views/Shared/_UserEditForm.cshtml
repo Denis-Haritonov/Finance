@@ -7,7 +7,7 @@
 <div>
     <fieldset class="col-lg-6 span6">
         <ul>
-            @if (User.IsInRole("Admin") && (Model.UserId != 0 && !Roles.IsUserInRole(Model.Login, "Admin")))
+            @if (User.IsInRole("Admin") && (Model.UserId != null && !Roles.IsUserInRole(Model.Login, "Admin")))
             {
                 <li>
                     <div>@Html.LabelFor(m => m.UserRole)</div>
@@ -36,19 +36,22 @@
             </li>
             <li>
                 <div>@Html.LabelFor(m => m.UserBirthDate)</div>
-                <div>@Html.TextBoxFor(m => m.UserBirthDate, new { @class = "birthdate form-control", autocomplete = "off", @readonly = "readonly" })</div>
+                <div>@Html.TextBoxFor(m => m.UserBirthDate, new {@class = "birthdate form-control", autocomplete = "off", @readonly = "readonly"})</div>
                 <div>@Html.ValidationMessageFor(m => m.UserBirthDate)</div>
             </li>
-            <li>
-                <div>@Html.LabelFor(m => m.Password)</div>
-                <div>@Html.PasswordFor(m => m.Password, new { @class = "form-control" })</div>
-                <div>@Html.ValidationMessageFor(m => m.Password)</div>
-            </li>
-            <li>
-                <div>@Html.LabelFor(m => m.ConfirmPassword)</div>
-                <div>@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })</div>
-                <div>@Html.ValidationMessageFor(m => m.ConfirmPassword)</div>
-            </li>
+            @if (!User.IsInRole(Common.Enum.Roles.Admin.ToString()))
+            {
+                <li>
+                    <div>@Html.LabelFor(m => m.Password)</div>
+                    <div>@Html.PasswordFor(m => m.Password, new {@class = "form-control"})</div>
+                    <div>@Html.ValidationMessageFor(m => m.Password)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.ConfirmPassword)</div>
+                    <div>@Html.PasswordFor(m => m.ConfirmPassword, new {@class = "form-control"})</div>
+                    <div>@Html.ValidationMessageFor(m => m.ConfirmPassword)</div>
+                </li>
+            }
             <li>
                 <div>@Html.LabelFor(m => m.RegistrationAddress)</div>
                 <div>@Html.TextBoxFor(m => m.RegistrationAddress, new { @class = "form-control" })</div>

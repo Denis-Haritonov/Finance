@@ -23,7 +23,7 @@ namespace BLL.Models.GridModels
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
-        [RowDisplay(ColumnDisplayType = GridColumnTypes.Base, ColumnEditType = GridColumnTypes.Base, ColumnName = "Номер ползователя", IsKey = true, Order = 1, IsSortable = true, DataField = "UserId", ModelField = "UserId")]
+        [RowDisplay(ColumnDisplayType = GridColumnTypes.Base, ColumnEditType = GridColumnTypes.Base, ColumnName = "Номер пользователя", IsKey = true, Order = 1, IsSortable = true, DataField = "UserId", ModelField = "UserId")]
         public int UserId { get; set; }
 
         /// <summary>

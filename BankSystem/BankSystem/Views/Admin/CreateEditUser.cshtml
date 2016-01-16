@@ -30,7 +30,7 @@
                 </div>
             }
             
-            @if (Model.UserId != 0 && !Roles.IsUserInRole(Model.Login, Common.Enum.Roles.Admin.ToString()))
+            @if (Model.UserId != null && !Roles.IsUserInRole(Model.Login, Common.Enum.Roles.Admin.ToString()))
             {
                 <div class="span12">
                     <button type="submit" class="btn btn-success">Сохранить</button>

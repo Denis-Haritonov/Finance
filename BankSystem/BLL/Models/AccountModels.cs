@@ -70,14 +70,17 @@ namespace BankSystem.Models
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Имя пользователя")]
+        [RegularExpression("[а-яА-ЯёЁa-zA-Z]+", ErrorMessage = "Имя должно состоять из букв")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Фамилия пользователя")]
+        [RegularExpression("[а-яА-ЯёЁa-zA-Z]+", ErrorMessage = "Фамилия должна состоять из букв")]
         public string UserSurName { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Отчество пользователя")]
+        [RegularExpression("[а-яА-ЯёЁa-zA-Z ]+", ErrorMessage = "Отчество должно состоять из букв")]
         public string UserLastName { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
