@@ -33,6 +33,14 @@
                                 <li>@Html.ActionLink("Очередь заявок", "RequestsQue", "Request")</li>
                                 <li>@Html.ActionLink("Поиск по клиентам", "FindClient", "Employee")</li>
                             }
+                            @if (User.IsInRole("SecurityWorker"))
+                            {
+                                <li>@Html.ActionLink("Очередь заявок", "ApproveQue", "SecurityWorker")</li>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li>@Html.ActionLink("Управление", "Index", "Admin")</li>
+                            }
                         </ul>
                         @Html.Partial("_LoginPartial")
                     </div>

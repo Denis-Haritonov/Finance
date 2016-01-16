@@ -21,6 +21,7 @@ namespace DAL
             this.Deposit = new HashSet<Deposit>();
             this.Request = new HashSet<Request>();
             this.Request1 = new HashSet<Request>();
+            this.Request2 = new HashSet<Request>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
         }
     
@@ -44,6 +45,7 @@ namespace DAL
         public virtual ICollection<Deposit> Deposit { get; set; }
         public virtual ICollection<Request> Request { get; set; }
         public virtual ICollection<Request> Request1 { get; set; }
+        public virtual ICollection<Request> Request2 { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

@@ -50,19 +50,48 @@ namespace DAL.Implementation
             }
         }
 
-        public List<Request> GetUnassignedAndPersonalRequests(int employeeId)
+        public List<Request> GetUnassignedAndPersonalRequests(int employeeId, int state)
+        {
+            using (var context = new FinanceEntities())
+            {
+                var query = context.Request.Include(item => item.CreditType).Include(item => item.DepositType);
+                query = SetEmployeeCriteria(query, employeeId, state);
+                return query.ToList();
+            }
+        }
+
+        public List<Request> GetSecurityChechedRequests(int employeeId)
         {
             using (var context = new FinanceEntities())
             {
                 return
                     context.Request.Include(item => item.CreditType)
                         .Include(item => item.DepositType)
-                        .Where(
-                            item =>
-                                item.State == 0 &&
-                                (!item.AssignedEmployeeId.HasValue || item.AssignedEmployeeId.Value == employeeId))
+                        .Where(item => item.AssignedOperatorId == employeeId && (item.State == 4 || item.State == 5))
                         .ToList();
             }
-        }
+        } 
+
+        private IQueryable<Request> SetEmployeeCriteria(IQueryable<Request> query, int employeeId, int state)
+        {
+            if (state == 0)
+            {
+                return
+                    query.Where(
+                        item =>
+                            item.State == state &&
+                            (!item.AssignedOperatorId.HasValue || item.AssignedOperatorId.Value == employeeId));
+            }
+            if (state == 3)
+            {
+                return
+                    query.Where(
+                        item =>
+                            item.State == 3 &&
+                            (!item.AssignedSecurityWorkerId.HasValue ||
+                             item.AssignedSecurityWorkerId.Value == employeeId));
+            }
+            return query;
+        } 
     }
 }

@@ -4,8 +4,6 @@
     [Percent]         FLOAT (53)     NOT NULL,
     [OverduePercent]  FLOAT (53)     NOT NULL,
     [ReturnTerm]      BIGINT         NOT NULL,
-    [StartAmountInfo] NVARCHAR (MAX) NULL,
-    [RulesInfo]       NVARCHAR (MAX) NULL,
     [IsActive] BIT NOT NULL, 
     [Description] NVARCHAR(MAX) NOT NULL, 
     [CurrencyShort] VARCHAR(3) NOT NULL, 

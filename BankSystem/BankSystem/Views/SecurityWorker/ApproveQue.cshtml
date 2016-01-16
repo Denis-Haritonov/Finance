@@ -8,25 +8,22 @@
 
 @helper RenderAssignLinkAction(RequestModel request)
 {
-    if (request.AssignedOperatorId == Model.CurrentUser.UserId)
+    if (request.AssignedSecurityWorkerId == Model.CurrentUser.UserId)
     {
         <text>На моем рассмотрении</text>
     }
-    else if (!request.AssignedOperatorId.HasValue)
+    else if (!request.AssignedSecurityWorkerId.HasValue)
     {
-        @Html.ActionLink("Рассмотреть заявку", "AssignRequest", new {requestId = request.Id})
+        @Html.ActionLink("Рассмотреть заявку", "AssignRequest", new { requestId = request.Id })
     }
 }
 
 @helper RenderRequestDetailsAction(int requestId)
 {
-    @Html.ActionLink("Просмотр", "EmployeeDetails", new {requestId = requestId})
+    @Html.ActionLink("Просмотр", "EmployeeDetails", "Request", new { requestId = requestId }, null)
 }
 
 <h2>Очередь заявок</h2>
-<div>
-    @Html.ActionLink("Рассмотрены специалистом по безопасности", "ToApprove")
-</div>
 @Html.Grid(Model.Requests).Columns(columns =>
 {
     columns.Add(item => item.TypeName)

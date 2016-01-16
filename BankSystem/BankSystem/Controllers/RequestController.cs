@@ -52,16 +52,19 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCreditRequest(CreditRequestVM model)
         {
-            if (ModelState.IsValid)
-            {
-                model.RequestModel.ClientId = CurrentUser.UserId;
-                model.RequestModel.State = RequestState.Pending;
-                model.RequestModel.Type = RequestType.Credit;
-                requestService.CreateRequest(model.RequestModel);
-                return RedirectToAction("ClientViewRequests");
-            }
             model.CreditTypes = GetCreditTypesListItems();
-            return View(model);
+            if (!ModelState.IsValidField("Amount") || model.RequestModel.Amount < 1 ||
+                model.RequestModel.Amount > 1000000000)
+            {
+                ModelState.Clear();
+                ModelState.AddModelError("", "Некорректное значение суммы");
+                return View(model);
+            }
+            model.RequestModel.ClientId = CurrentUser.UserId;
+            model.RequestModel.State = RequestState.Pending;
+            model.RequestModel.Type = RequestType.Credit;
+            requestService.CreateRequest(model.RequestModel);
+            return RedirectToAction("ClientViewRequests");
         }
 
         [Authorize(Roles = "Client")]
@@ -86,7 +89,7 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDepositRequest(DepositRequestVM model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !(model.RequestModel.Amount < 1 || model.RequestModel.Amount > 1000000000))
             {
                 model.RequestModel.ClientId = CurrentUser.UserId;
                 model.RequestModel.State = RequestState.Pending;
@@ -94,6 +97,8 @@ namespace BankSystem.Controllers
                 requestService.CreateRequest(model.RequestModel);
                 return RedirectToAction("ClientViewRequests");
             }
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
             model.DepositTypes = GetDepositTypesListItems();
             return View(model);
         }
@@ -126,7 +131,7 @@ namespace BankSystem.Controllers
             var viewModel = new EmployeeRequestDetailsVM
             {
                 RequestModel = requestModel,
-                IsAssignedToCurrent = CurrentUser.UserId == requestModel.AssignedEmployeeId,
+                IsAssignedToCurrent = CurrentUser.UserId == requestModel.AssignedOperatorId || CurrentUser.UserId == requestModel.AssignedSecurityWorkerId,
                 DepositModel = deposit,
                 CreditModel = credit
             };
@@ -146,33 +151,71 @@ namespace BankSystem.Controllers
             return View(requestsQueModel);
         }
 
+        [Authorize(Roles = "Operator")]
+        public ActionResult ToApprove()
+        {
+            var userId = CurrentUser.UserId;
+            var requests =
+                requestService.GetCheckedRequestQueForEmployee(userId).ToList();
+            var requestsQueModel = new RequestsQueVM
+            {
+                Requests = requests,
+                CurrentUser = CurrentUser
+            };
+            return View(requestsQueModel);
+        }
+
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult AssignRequest(int requestId)
         {
-            requestService.AssignRequestToEmployee(requestId, CurrentUser.UserId);
+            requestService.AssignRequestToOperator(requestId, CurrentUser.UserId);
             return RedirectToAction("EmployeeDetails", new {requestId = requestId});
         }
 
-        [Authorize(Roles = "Operator")]
+        [Authorize(Roles = "Operator, SecurityWorker")]
         public ActionResult ApproveRequest(int requestId)
         {
             var request = requestService.GetRequestDetails(requestId);
-            if (request.AssignedEmployeeId == CurrentUser.UserId)
+            if (request.AssignedOperatorId == CurrentUser.UserId)
             {
                 requestService.ChangeRequestState(requestId, RequestState.Approved);
             }
-            return RedirectToAction("RequestsQue");
+            if (request.AssignedSecurityWorkerId == CurrentUser.UserId)
+            {
+                requestService.ChangeRequestState(requestId, RequestState.SecurityApproved);
+            }
+            if (User.IsInRole("Operator"))
+            {
+                return RedirectToAction("RequestsQue");
+            }
+            return RedirectToAction("ApproveQue", "SecurityWorker");
         }
 
-        [Authorize(Roles = "Operator")]
+        [Authorize(Roles = "Operator, SecurityWorker")]
         public ActionResult RejectRequest(int requestId)
         {
             var request = requestService.GetRequestDetails(requestId);
-            if (request.AssignedEmployeeId == CurrentUser.UserId)
+            if (request.AssignedOperatorId == CurrentUser.UserId)
             {
                 requestService.ChangeRequestState(requestId, RequestState.Rejected);
             }
-            return RedirectToAction("RequestsQue");
+            if (request.AssignedSecurityWorkerId == CurrentUser.UserId)
+            {
+                requestService.ChangeRequestState(requestId, RequestState.SecurityRejected);
+            }
+            if (User.IsInRole("Operator"))
+            {
+                return RedirectToAction("RequestsQue");
+            }
+            return RedirectToAction("ApproveQue", "SecurityWorker");
+        }
+
+        [Authorize(Roles = "Operator")]
+        public ActionResult ToSecurityWorker(int requestId)
+        {
+            var request = requestService.GetRequestDetails(requestId);
+            requestService.ChangeRequestState(requestId, RequestState.SecurityCheck);
+            return RedirectToAction("RequestsQue", "Request");
         }
 
         private List<SelectListItem> GetDepositTypesListItems()

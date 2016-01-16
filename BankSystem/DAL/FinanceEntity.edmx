@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FinanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
@@ -99,13 +99,14 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="State" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="CreditTypeId" Type="int" />
           <Property Name="DepositTypeId" Type="int" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="AssignedEmployeeId" Type="int" />
+          <Property Name="AssignedOperatorId" Type="int" />
+          <Property Name="AssignedSecurityWorkerId" Type="int" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -330,7 +331,19 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Request">
-              <PropertyRef Name="AssignedEmployeeId" />
+              <PropertyRef Name="AssignedOperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_SecuriryWorker">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="AssignedSecurityWorkerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -429,6 +442,10 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
+          <AssociationSet Name="FK_Request_SecuriryWorker" Association="Self.FK_Request_SecuriryWorker">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
           <AssociationSet Name="fk_RoleIdk" Association="Self.fk_RoleIdk">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
@@ -512,12 +529,15 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
+          <AssociationSet Name="FK_Request_SecuriryWorker" Association="FinanceModel.FK_Request_SecuriryWorker">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
           <AssociationSet Name="webpages_UsersInRoles" Association="FinanceModel.webpages_UsersInRoles">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
         </EntityContainer>
-        <EnumType Name="RequestState" />
         <EntityType Name="C__RefactorLog">
           <Key>
             <PropertyRef Name="OperationKey" />
@@ -628,13 +648,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="State" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="CreditTypeId" Type="Int32" />
           <Property Name="DepositTypeId" Type="Int32" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="AssignedEmployeeId" Type="Int32" />
+          <Property Name="AssignedOperatorId" Type="Int32" />
+          <Property Name="AssignedSecurityWorkerId" Type="Int32" />
           <NavigationProperty Name="Comment" Relationship="FinanceModel.FK_Comment_Request" FromRole="Request" ToRole="Comment" />
           <NavigationProperty Name="Credit" Relationship="FinanceModel.FK_Credit_Request" FromRole="Request" ToRole="Credit" />
           <NavigationProperty Name="CreditType" Relationship="FinanceModel.FK_Request_CreditType" FromRole="Request" ToRole="CreditType" />
@@ -642,6 +663,7 @@
           <NavigationProperty Name="DepositType" Relationship="FinanceModel.FK_Request_DepositType" FromRole="Request" ToRole="DepositType" />
           <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_Client" FromRole="Request" ToRole="UserProfile" />
           <NavigationProperty Name="UserProfile1" Relationship="FinanceModel.FK_Request_Employee" FromRole="Request" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile2" Relationship="FinanceModel.FK_Request_SecuriryWorker" FromRole="Request" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -666,6 +688,7 @@
           <NavigationProperty Name="Deposit" Relationship="FinanceModel.FK_Deposit_Client" FromRole="UserProfile" ToRole="Deposit" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Request_Client" FromRole="UserProfile" ToRole="Request" />
           <NavigationProperty Name="Request1" Relationship="FinanceModel.FK_Request_Employee" FromRole="UserProfile" ToRole="Request" />
+          <NavigationProperty Name="Request2" Relationship="FinanceModel.FK_Request_SecuriryWorker" FromRole="UserProfile" ToRole="Request" />
           <NavigationProperty Name="webpages_Roles" Relationship="FinanceModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
         </EntityType>
         <EntityType Name="webpages_Membership">
@@ -865,7 +888,19 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Request">
-              <PropertyRef Name="AssignedEmployeeId" />
+              <PropertyRef Name="AssignedOperatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_SecuriryWorker">
+          <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+          <End Type="FinanceModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="AssignedSecurityWorkerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -978,7 +1013,8 @@
           <EntitySetMapping Name="Request">
             <EntityTypeMapping TypeName="FinanceModel.Request">
               <MappingFragment StoreEntitySet="Request">
-                <ScalarProperty Name="AssignedEmployeeId" ColumnName="AssignedEmployeeId" />
+                <ScalarProperty Name="AssignedSecurityWorkerId" ColumnName="AssignedSecurityWorkerId" />
+                <ScalarProperty Name="AssignedOperatorId" ColumnName="AssignedOperatorId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="DepositTypeId" ColumnName="DepositTypeId" />
                 <ScalarProperty Name="CreditTypeId" ColumnName="CreditTypeId" />

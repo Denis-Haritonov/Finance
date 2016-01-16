@@ -248,6 +248,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\SecurityWorkerController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -503,6 +504,8 @@
     <Content Include="Views\Shared\_AdminLogin.cshtml" />
     <Content Include="Views\Request\RequestsQue.cshtml" />
     <Content Include="Views\Shared\_CodeCheck.cshtml" />
+    <Content Include="Views\SecurityWorker\ApproveQue.cshtml" />
+    <Content Include="Views\Request\ToApprove.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
