@@ -24,6 +24,7 @@ namespace BLL.Models
             AssignedOperatorId = request.AssignedOperatorId;
             AssignedSecurityWorkerId = request.AssignedSecurityWorkerId;
             ClientId = request.ClientId;
+            MonthIncome = request.MonthIncome;
             if (Type == RequestType.Credit && request.CreditTypeId.HasValue)
             {
                 CreditTypeId = request.CreditTypeId.Value;
@@ -69,6 +70,8 @@ namespace BLL.Models
         public int? AssignedSecurityWorkerId { get; set; }
 
         public int ClientId { get; set; }
+
+        public int? MonthIncome { get; set; }
 
         public String StatusString
         {

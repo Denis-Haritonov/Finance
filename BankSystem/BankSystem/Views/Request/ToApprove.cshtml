@@ -30,7 +30,7 @@
 @Html.Grid(Model.Requests).Columns(columns =>
 {
     columns.Add(item => item.TypeName)
-        .Titled("Тип");
+        .Titled("Название");
 
     columns.Add(item => item.FormattedDate)
         .Titled("Дата");

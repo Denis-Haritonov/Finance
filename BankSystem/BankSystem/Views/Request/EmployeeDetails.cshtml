@@ -57,6 +57,12 @@
     <div>
         Заявленная сумма: @Model.RequestModel.Amount.ToString("N")
     </div>
+    @if (Model.RequestModel.Type == RequestType.Credit)
+    {
+        <div>
+            Среднемесячный доход: @Model.RequestModel.MonthIncome
+        </div>
+    }
     @if (Model.IsAssignedToCurrent)
     {
         if (Model.RequestModel.Type == RequestType.Credit)

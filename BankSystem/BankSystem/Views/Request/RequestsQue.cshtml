@@ -1,4 +1,5 @@
 ﻿@using BLL.Models
+@using BLL.Models.Enums
 @using GridMvc.Html
 @model BankSystem.Models.RequestsQueVM
 
@@ -18,6 +19,19 @@
     }
 }
 
+@helper RenderRequestType(RequestType type)
+{
+    switch (type)
+    {
+        case RequestType.Credit:
+            <span>Кредит</span>
+            break;
+        case RequestType.Deposit:
+        <span>Депозит</span>
+            break;
+    }
+}
+
 @helper RenderRequestDetailsAction(int requestId)
 {
     @Html.ActionLink("Просмотр", "EmployeeDetails", new {requestId = requestId})
@@ -29,12 +43,18 @@
 </div>
 @Html.Grid(Model.Requests).Columns(columns =>
 {
-    columns.Add(item => item.TypeName)
-        .Titled("Тип");
-
     columns.Add(item => item.FormattedDate)
         .Titled("Дата");
 
+    columns.Add()
+        .Titled("Тип")
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(item => RenderRequestType(item.Type));
+
+    columns.Add(item => item.TypeName)
+        .Titled("Название");
+    
     columns.Add()
         .Encoded(false)
         .Sanitized(false)

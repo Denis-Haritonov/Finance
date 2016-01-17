@@ -29,6 +29,7 @@ namespace BLL.Implementations
                 Type = (int) requestModel.Type,
                 State = (int) requestModel.State,
                 Amount = requestModel.Amount,
+                MonthIncome = requestModel.MonthIncome,
                 CreditTypeId = requestModel.CreditTypeId,
                 DepositTypeId = requestModel.DepositTypeId,
                 Date = date

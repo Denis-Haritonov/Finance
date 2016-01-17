@@ -10,6 +10,7 @@
     [Date] DATETIME NOT NULL, 
     [AssignedOperatorId] INT NULL, 
     [AssignedSecurityWorkerId] INT NULL, 
+    [MonthIncome] INT NULL, 
     CONSTRAINT [FK_Request_Client] FOREIGN KEY ([ClientId]) REFERENCES [UserProfile]([UserId]), 
     CONSTRAINT [FK_Request_CreditType] FOREIGN KEY ([CreditTypeId]) REFERENCES [CreditType]([Id]), 
     CONSTRAINT [FK_Request_DepositType] FOREIGN KEY ([DepositTypeId]) REFERENCES [DepositType]([Id]), 
