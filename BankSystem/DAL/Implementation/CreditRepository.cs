@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DAL.Interfaces;
@@ -57,7 +58,7 @@ namespace DAL.Implementation
                     context.Credit.Include(item => item.CreditType)
                         .Include(item => item.UserProfile)
                         .Include(item => item.CreditPayment)
-                        .Where(item => item.ClientId == clientId)
+                        .Where(item => item.ClientId == clientId && item.IsClosed == false)
                         .ToList();
             }
         }
@@ -67,6 +68,18 @@ namespace DAL.Implementation
             using (var context = new FinanceEntities())
             {
                 context.Database.ExecuteSqlCommand("exec CreditOvercharge");
+            }
+        }
+
+        public List<Credit> GetOverdueCredits(DateTime date)
+        {
+            using (var context = new FinanceEntities())
+            {
+                return context.Credit
+                    .Include(item => item.CreditType)
+                    .Include(item => item.UserProfile)
+                    .Include(item => item.CreditPayment)
+                    .Where(item => item.EndDate < date && item.MainDebt > 0 && item.IsClosed == false).ToList();
             }
         }
     }

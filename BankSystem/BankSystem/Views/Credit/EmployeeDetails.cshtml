@@ -57,6 +57,12 @@
         <div>
             Срок кредита вышел. Будут начисляться штрафные проценты.
         </div>
+        if (User.IsInRole("SecurityWorker"))
+        {
+            <div>
+                @Html.ActionLink("Закрыть кредит", "CloseCredit", "SecurityWorker", new {creditId = Model.Id}, null)
+            </div>
+        }
     }
     <div>
         @Html.ActionLink("Внести платеж", "IncomePayment", new {creditId = Model.Id})

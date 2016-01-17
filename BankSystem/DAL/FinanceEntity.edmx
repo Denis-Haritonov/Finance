@@ -35,6 +35,7 @@
           <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="PercentageDebt" Type="money" Nullable="false" />
           <Property Name="EndDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="IsClosed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CreditPayment">
           <Key>
@@ -584,6 +585,7 @@
           <NavigationProperty Name="CreditType" Relationship="FinanceModel.FK_Credit_CreditType" FromRole="Credit" ToRole="CreditType" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Credit_Request" FromRole="Credit" ToRole="Request" />
           <NavigationProperty Name="CreditPayment" Relationship="FinanceModel.FK_CreditPayment_Credit" FromRole="Credit" ToRole="CreditPayment" />
+          <Property Name="IsClosed" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="CreditPayment">
           <Key>
@@ -954,6 +956,7 @@
           <EntitySetMapping Name="Credit">
             <EntityTypeMapping TypeName="FinanceModel.Credit">
               <MappingFragment StoreEntitySet="Credit">
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="PercentageDebt" ColumnName="PercentageDebt" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />

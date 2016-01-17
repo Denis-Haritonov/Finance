@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DAL.Interfaces
 {
@@ -15,5 +16,7 @@ namespace DAL.Interfaces
         List<Credit> GetClientCredits(int clientId);
 
         void Percents();
+
+        List<Credit> GetOverdueCredits(DateTime date);
     }
 }

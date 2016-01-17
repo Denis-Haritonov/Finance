@@ -93,5 +93,22 @@ namespace BLL.Implementations
         {
             creditRepository.Percents();
         }
+
+        public List<CreditModel> GetOverdueCredits()
+        {
+            var date = dateService.GetCurrentDate();
+            return
+                creditRepository.GetOverdueCredits(date)
+                    .Select(item => new CreditModel(item))
+                    .OrderByDescending(item => item.StartDate)
+                    .ToList();
+        }
+
+        public void CloseCredit(int creditId)
+        {
+            var credit = creditRepository.GetCreditById(creditId);
+            credit.IsClosed = true;
+            creditRepository.UpdateCredit(credit);
+        }
     }
 }

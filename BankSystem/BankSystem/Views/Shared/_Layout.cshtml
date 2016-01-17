@@ -36,6 +36,7 @@
                             @if (User.IsInRole("SecurityWorker"))
                             {
                                 <li>@Html.ActionLink("Очередь заявок", "ApproveQue", "SecurityWorker")</li>
+                                <li>@Html.ActionLink("Просроченные кредиты", "OverdueCredits", "SecurityWorker")</li>
                             }
                             @if (User.IsInRole("Admin"))
                             {
