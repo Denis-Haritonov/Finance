@@ -53,8 +53,8 @@ namespace BankSystem.Controllers
         public ActionResult CreateCreditRequest(CreditRequestVM model)
         {
             model.CreditTypes = GetCreditTypesListItems();
-            if (!ModelState.IsValidField("Amount") || model.RequestModel.Amount < 1 ||
-                model.RequestModel.Amount > 1000000000)
+            if (!ModelState.IsValidField("Amount") || model.RequestModel.Amount <= 1 ||
+                model.RequestModel.Amount >= 1000000000)
             {
                 ModelState.Clear();
                 ModelState.AddModelError("", "Некорректное значение суммы");
@@ -89,7 +89,7 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDepositRequest(DepositRequestVM model)
         {
-            if (ModelState.IsValid && !(model.RequestModel.Amount < 1 || model.RequestModel.Amount > 1000000000))
+            if (ModelState.IsValid && !(model.RequestModel.Amount <= 1 || model.RequestModel.Amount >= 1000000000))
             {
                 model.RequestModel.ClientId = CurrentUser.UserId;
                 model.RequestModel.State = RequestState.Pending;

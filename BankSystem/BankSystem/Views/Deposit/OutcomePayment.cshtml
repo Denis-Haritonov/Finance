@@ -16,10 +16,11 @@
     <div class="form-inline">
         <div class="form-group">
             <label>Сумма</label>
-            @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", id = "amount" })
+            @Html.TextBoxFor(model => model.Amount, new {@class = "form-control", id = "amount"})
             <a class="btn btn-sm btn-default" id="all">Снять все</a>
         </div>
     </div>
+    @Html.ValidationSummary()
     <br/>
     <button type="submit" class="btn btn-sm btn-default">Подтвердить</button>
 }
