@@ -74,6 +74,11 @@ namespace BLL.Models
             }
         }
 
+        public String FormattedEndDate
+        {
+            get { return EndDate.ToString("dd.MM.yyyy"); }
+        }
+
         public decimal? MonthlyPayment { get; set; }
     }
 }
