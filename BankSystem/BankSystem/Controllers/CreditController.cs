@@ -195,13 +195,15 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValidField("MainAmount") && paymentModel.MainAmount > 0 && paymentModel.MainAmount <= 1000000000)
             {
                 paymentModel.Type = CreditPaymentType.Payment;
                 creditPaymentService.AddPayment(paymentModel);
                 return RedirectToAction("EmployeeDetails", new { creditId = creditId });
             }
             paymentModel.CreditModel = credit;
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
             return View(paymentModel);
         }
     }
