@@ -38,6 +38,8 @@ namespace BLL.Models
             }
         }
 
+        public RefreshCodeModel ReturnCodeModel { get; set; }
+
         public int Id { get; set; }
 
         public DateTime StartDate { get; set; }

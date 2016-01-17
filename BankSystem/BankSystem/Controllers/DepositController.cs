@@ -1,9 +1,11 @@
 ﻿using System.Net;
+using System.Runtime.Caching;
 using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
 using BLL.Models;
 using BLL.Models.Enums;
+using BLL.Models.ViewModel;
 
 namespace BankSystem.Controllers
 {
@@ -86,6 +88,13 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
+            var cache = MemoryCache.Default;
+            var refreshCode = cache.Get("RefreshCode");
+            if (refreshCode == null)
+            {
+                refreshCode = new RefreshCodeModel();
+            }
+            deposit.ReturnCodeModel = (RefreshCodeModel)refreshCode;
             return View(deposit);
         }
 
