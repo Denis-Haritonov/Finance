@@ -32,7 +32,7 @@ $(".birthdate").datepicker({
     changeMonth: true,
     changeYear: true,
     minDate: '-120Y',
-    maxDate: '-18Y'
+    maxDate: '-1Y'
 });
 $(".passport-date").datepicker({
     dateFormat: 'dd-mm-yy',
