@@ -9,7 +9,7 @@
     @Html.ActionLink("К вкладу", "EmployeeDetails", new { depositId = Model.DepositId })
 </div>
 <div>
-    Текущий баланс: <span id="balance">@Model.DepositModel.Balance</span>
+    Текущий баланс: <span id="balance">@Model.DepositModel.Balance.ToString("N")</span>
 </div>
 @using (Html.BeginForm(new { depositId = Model.DepositId }))
 {

@@ -55,7 +55,7 @@
         Статус заявки: @Model.RequestModel.StatusString
     </div>
     <div>
-        Заявленная сумма: @Model.RequestModel.Amount
+        Заявленная сумма: @Model.RequestModel.Amount.ToString("N")
     </div>
     @if (Model.IsAssignedToCurrent)
     {

@@ -29,7 +29,7 @@
     Открыт: @Model.FormattedStartDate
 </div>
 <div>
-    Баланс: @Model.Balance
+    Баланс: @Model.Balance.ToString("N")
 </div>
 @if (@Model.Balance > 0)
 {
@@ -54,8 +54,9 @@ else
         columns.Add(item => item.TypeName)
             .Titled("Тип");
 
-        columns.Add(item => item.Amount)
-            .Titled("Сумма");
+        columns.Add()
+            .Titled("Сумма")
+            .RenderValueAs(item => item.Amount.ToString("N"));
 
         columns.Add()
             .Encoded(false)
