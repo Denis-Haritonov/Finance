@@ -15,12 +15,15 @@ namespace BankSystem.Controllers
 
         private IDepositPaymentService depositPaymentService;
 
+        private IDateService dateService;
+
         public DepositController(IDepositService depositService, IUserService userService,
-            IRequestService requestService, IDepositPaymentService depositPaymentService) : base(userService)
+            IRequestService requestService, IDepositPaymentService depositPaymentService, IDateService dateService) : base(userService)
         {
             this.depositService = depositService;
             this.requestService = requestService;
             this.depositPaymentService = depositPaymentService;
+            this.dateService = dateService;
         }
 
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
@@ -75,6 +78,7 @@ namespace BankSystem.Controllers
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult EmployeeDetails(int depositId)
         {
+            ViewBag.CurrentDate = dateService.GetCurrentDate().Date;
             var deposit = depositService.GetDepositById(depositId);
             if (deposit == null)
             {

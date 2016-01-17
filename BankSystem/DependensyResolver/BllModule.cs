@@ -21,6 +21,7 @@ namespace DependensyResolver
             this.Bind<ICreditPaymentService>().To<CreditPaymentService>().InSingletonScope(); 
             this.Bind<IGridRenderer>().To<GridRenderer>().InSingletonScope();
             this.Bind<IGridReflector>().To<GridEntityReflector>().InSingletonScope();
+            this.Bind<IDateService>().To<DateService>().InSingletonScope();
         }
     }
 }

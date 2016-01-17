@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,6 +72,7 @@
     <Compile Include="Implementations\CreditPaymentService.cs" />
     <Compile Include="Implementations\CreditService.cs" />
     <Compile Include="Implementations\CreditTypeService.cs" />
+    <Compile Include="Implementations\DateService.cs" />
     <Compile Include="Implementations\DepositPaymentService.cs" />
     <Compile Include="Implementations\DepositService.cs" />
     <Compile Include="Implementations\DepositTypeService.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Interfaces\ICreditPaymentService.cs" />
     <Compile Include="Interfaces\ICreditService.cs" />
     <Compile Include="Interfaces\ICreditTypeService.cs" />
+    <Compile Include="Interfaces\IDateService.cs" />
     <Compile Include="Interfaces\IDepositPaymentService.cs" />
     <Compile Include="Interfaces\IDepositService.cs" />
     <Compile Include="Interfaces\IDepositTypeService.cs" />

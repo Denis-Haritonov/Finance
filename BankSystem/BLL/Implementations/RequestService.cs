@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Models.Enums;
 using DAL;
 using DAL.Interfaces;
-using RequestState = BLL.Models.Enums.RequestState;
 
 namespace BLL.Implementations
 {
@@ -13,13 +12,17 @@ namespace BLL.Implementations
     {
         private IRequestRepository requestRepository;
 
-        public RequestService(IRequestRepository requestRepository)
+        private IDateService dateService;
+
+        public RequestService(IRequestRepository requestRepository, IDateService dateService)
         {
             this.requestRepository = requestRepository;
+            this.dateService = dateService;
         }
 
         public void CreateRequest(RequestModel requestModel)
         {
+            var date = dateService.GetCurrentDate();
             var request = new Request
             {
                 ClientId = requestModel.ClientId,
@@ -28,7 +31,7 @@ namespace BLL.Implementations
                 Amount = requestModel.Amount,
                 CreditTypeId = requestModel.CreditTypeId,
                 DepositTypeId = requestModel.DepositTypeId,
-                Date = DateTime.Now
+                Date = date
             };
             requestRepository.CreateRequest(request);
         }

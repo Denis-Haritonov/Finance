@@ -15,10 +15,13 @@ namespace BLL.Implementations
 
         private IDepositRepository depositRepository;
 
-        public DepositService(IDepositTypeRepository depositTypeRepository, IDepositRepository depositRepository)
+        private IDateService dateService;
+
+        public DepositService(IDepositTypeRepository depositTypeRepository, IDepositRepository depositRepository, IDateService dateService)
         {
             this.depositTypeRepository = depositTypeRepository;
             this.depositRepository = depositRepository;
+            this.dateService = dateService;
         }
 
         public void OpenDeposit(RequestModel request)
@@ -28,12 +31,13 @@ namespace BLL.Implementations
                 return;
             }
             var depositType = depositTypeRepository.GetDepositTypeById(request.DepositTypeId.Value);
+            var date = dateService.GetCurrentDate();
             var deposit = new Deposit
             {
                 Balance = request.Amount,
                 DepositTypeId = depositType.Id,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now + TimeSpan.FromTicks(depositType.ReturnTerm),
+                StartDate = date,
+                EndDate = date + TimeSpan.FromTicks(depositType.ReturnTerm) + TimeSpan.FromDays(1),
                 RequestId = request.Id,
                 ClientId = request.ClientId
             };

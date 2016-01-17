@@ -17,6 +17,7 @@ namespace BLL.Models
         {
             Id = credit.Id;
             StartDate = credit.StartDate;
+            EndDate = credit.EndDate;
             StartAmount = credit.StartAmount;
             MainDebt = credit.MainDebt;
             PercentageDebt = credit.PercentageDebt;
@@ -44,6 +45,8 @@ namespace BLL.Models
         public int Id { get; set; }
 
         public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
 
         public decimal StartAmount { get; set; }
 

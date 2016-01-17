@@ -34,6 +34,7 @@
           <Property Name="RequestId" Type="int" />
           <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="PercentageDebt" Type="money" Nullable="false" />
+          <Property Name="EndDate" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="CreditPayment">
           <Key>
@@ -92,6 +93,13 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CurrencyShort" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GlobalDate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -380,6 +388,7 @@
           <EntitySet Name="Deposit" EntityType="Self.Deposit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepositPayment" EntityType="Self.DepositPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepositType" EntityType="Self.DepositType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GlobalDate" EntityType="Self.GlobalDate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
@@ -537,6 +546,7 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
+          <EntitySet Name="GlobalDate" EntityType="FinanceModel.GlobalDate" />
         </EntityContainer>
         <EntityType Name="C__RefactorLog">
           <Key>
@@ -569,6 +579,7 @@
           <Property Name="RequestId" Type="Int32" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
           <Property Name="PercentageDebt" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Credit_Client" FromRole="Credit" ToRole="UserProfile" />
           <NavigationProperty Name="CreditType" Relationship="FinanceModel.FK_Credit_CreditType" FromRole="Credit" ToRole="CreditType" />
           <NavigationProperty Name="Request" Relationship="FinanceModel.FK_Credit_Request" FromRole="Credit" ToRole="Request" />
@@ -908,6 +919,13 @@
           <End Type="FinanceModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="FinanceModel.UserProfile" Role="UserProfile" Multiplicity="*" />
         </Association>
+        <EntityType Name="GlobalDate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -936,6 +954,7 @@
           <EntitySetMapping Name="Credit">
             <EntityTypeMapping TypeName="FinanceModel.Credit">
               <MappingFragment StoreEntitySet="Credit">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="PercentageDebt" ColumnName="PercentageDebt" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="RequestId" ColumnName="RequestId" />
@@ -1089,6 +1108,14 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="GlobalDate">
+            <EntityTypeMapping TypeName="FinanceModel.GlobalDate">
+              <MappingFragment StoreEntitySet="GlobalDate">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

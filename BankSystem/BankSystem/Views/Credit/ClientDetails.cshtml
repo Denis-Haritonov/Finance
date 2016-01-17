@@ -34,6 +34,12 @@
 </div>
 @if (Model.MonthlyPayment.HasValue)
 {
+    if (Model.EndDate < ViewBag.CurrentDate)
+    {
+        <div>
+            Срок кредита вышел. Будут начисляться штрафные проценты.
+        </div>
+    }
     <div>
         Ежемесячный платеж: @Model.MonthlyPayment.Value.ToString("N")
     </div>

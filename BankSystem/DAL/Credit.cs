@@ -27,6 +27,7 @@ namespace DAL
         public Nullable<int> RequestId { get; set; }
         public int ClientId { get; set; }
         public decimal PercentageDebt { get; set; }
+        public System.DateTime EndDate { get; set; }
     
         public virtual UserProfile UserProfile { get; set; }
         public virtual CreditType CreditType { get; set; }

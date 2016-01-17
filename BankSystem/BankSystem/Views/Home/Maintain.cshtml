@@ -4,8 +4,14 @@
 
 <h2>Управление</h2>
 <div>
-    @Html.ActionLink("Проценты по депозитам", "DepositPercent")
+    Дата: @ViewBag.CurrentDate
 </div>
 <div>
-    @Html.ActionLink("Проценты по кредитам", "CreditPercent")
+    @Html.ActionLink("День вперед", "DayForward")
+</div>
+<div>
+    @Html.ActionLink("Месяц вперед", "MonthForward")
+</div>
+<div>
+    @Html.ActionLink("Год вперед", "YearForward")
 </div>

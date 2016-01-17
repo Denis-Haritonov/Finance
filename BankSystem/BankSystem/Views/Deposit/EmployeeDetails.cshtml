@@ -9,7 +9,7 @@
 
 @helper RenderCancelAction(DepositPaymentModel paymentModel)
 {
-    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != DepositPaymentType.AutomaticIncome && paymentModel.Date.Date == DateTime.Today)
+    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != DepositPaymentType.AutomaticIncome && paymentModel.Date.Date == (DateTime)ViewBag.CurrentDate)
     {
         @Html.ActionLink("Отменить", "CancelPayment", "Deposit", new {paymentId = paymentModel.Id}, null)
     }

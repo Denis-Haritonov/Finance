@@ -10,16 +10,20 @@ namespace BLL.Implementations
     {
         private ICommentRepository commentRepository;
 
-        public CommentService(ICommentRepository commentRepository)
+        private IDateService dateService;
+
+        public CommentService(ICommentRepository commentRepository, IDateService dateService)
         {
             this.commentRepository = commentRepository;
+            this.dateService = dateService;
         }
 
         public void AddComment(CommentModel commentModel)
         {
+            var date = dateService.GetCurrentDate();
             var comment = new Comment
             {
-                Date = DateTime.Now,
+                Date = date,
                 IsInternal = commentModel.IsInternal,
                 RequestId = commentModel.RequestId,
                 Text = commentModel.Text,

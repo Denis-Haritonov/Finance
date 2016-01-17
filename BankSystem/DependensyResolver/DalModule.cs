@@ -18,6 +18,7 @@ namespace DependensyResolver
             this.Bind<ICreditRepository>().To<CreditRepository>().InSingletonScope();
             this.Bind<IDepositPaymentRepository>().To<DepositPaymentRepository>().InSingletonScope();
             this.Bind<ICreditPaymentRepository>().To<CreditPaymentRepository>().InSingletonScope();
+            this.Bind<IDateRepository>().To<DateRepository>().InSingletonScope();
         }
     }
 }

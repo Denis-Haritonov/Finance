@@ -15,10 +15,13 @@ namespace BLL.Implementations
 
         private ICreditRepository creditRepository;
 
-        public CreditService(ICreditRepository creditRepository, ICreditTypeReporsitory creditTypeReporsitory)
+        private IDateService dateService;
+
+        public CreditService(ICreditRepository creditRepository, ICreditTypeReporsitory creditTypeReporsitory, IDateService dateService)
         {
             this.creditRepository = creditRepository;
             this.creditTypeReporsitory = creditTypeReporsitory;
+            this.dateService = dateService;
         }
 
         public void OpenCredit(RequestModel request)
@@ -28,11 +31,14 @@ namespace BLL.Implementations
                 return;
             }
             var creditType = creditTypeReporsitory.GetCreditTypeById(request.CreditTypeId.Value);
+            var date = dateService.GetCurrentDate();
             var credit = new Credit
             {
                 ClientId = request.ClientId,
+                StartAmount =  request.Amount,
                 MainDebt = request.Amount,
-                StartDate = DateTime.Now,
+                StartDate = date,
+                EndDate = date + TimeSpan.FromTicks(creditType.ReturnTerm) + TimeSpan.FromDays(1),
                 CreditTypeId = creditType.Id,
                 RequestId = request.Id,
                 PercentageDebt = 0
@@ -71,7 +77,12 @@ namespace BLL.Implementations
 
         public decimal CalculateMonthPayment(decimal amount, TimeSpan returnTerm, double yearPercent)
         {
-            var monthCount = 12*returnTerm.TotalDays/365.0;
+            var monthCount = 12*returnTerm.TotalDays/360.0;
+            return CalculateMonthPayment(amount, (int) monthCount, yearPercent);
+        }
+
+        public decimal CalculateMonthPayment(decimal amount, int monthCount, double yearPercent)
+        {
             var monthPercent = Math.Pow(1 + yearPercent, 1.0 / 12);
             var k = Math.Pow(monthPercent, monthCount);
             var result = amount*(decimal) (k*(monthPercent - 1)/(k - 1));

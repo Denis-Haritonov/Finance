@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[GlobalDate]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
+    [Date] DATETIME NOT NULL
+)
