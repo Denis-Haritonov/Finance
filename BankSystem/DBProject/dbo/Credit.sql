@@ -7,6 +7,8 @@
     [RequestId] INT NULL, 
     [ClientId] INT NOT NULL, 
     [PercentageDebt] MONEY NOT NULL, 
+    [EndDate] SMALLDATETIME NOT NULL, 
+    [IsClosed] BIT NOT NULL, 
     CONSTRAINT [PK_Credit] PRIMARY KEY CLUSTERED ([Id] ASC), 
     CONSTRAINT [FK_Credit_CreditType] FOREIGN KEY ([CreditTypeId]) REFERENCES [CreditType]([Id]), 
     CONSTRAINT [FK_Credit_Request] FOREIGN KEY ([RequestId]) REFERENCES [Request]([Id]), 

@@ -15,6 +15,7 @@
 {
     <label>Сумма</label>
     @Html.TextBoxFor(model => model.MainAmount, new { @class = "form-control" })
+    @Html.ValidationSummary()
     <br />
     <button type="submit" class="btn btn-sm btn-default">Подтвердить</button>
 }

@@ -10,15 +10,12 @@ namespace BankSystem.Controllers
     {
         private IUserService service;
 
-        private IDepositService depositService;
+        private IDateService dateService;
 
-        private ICreditService creditService;
-
-        public HomeController(IUserService _userService, ICreditService creditService, IDepositService depositService)
+        public HomeController(IUserService _userService, IDateService dateService)
         {
             this.service = _userService;
-            this.creditService = creditService;
-            this.depositService = depositService;
+            this.dateService = dateService;
         }
 
         public ActionResult Index()
@@ -39,30 +36,31 @@ namespace BankSystem.Controllers
 
         public ActionResult Maintain()
         {
+            ViewBag.CurrentDate = dateService.GetCurrentDate();
             return View();
         }
 
-        public ActionResult CreditPercent()
+        public ActionResult DayForward()
         {
-            try
-            {
-                creditService.Percents();
-            }
-            catch (Exception)
-            {
-            }
+            dateService.DayForward();
             return RedirectToAction("Maintain");
         }
 
-        public ActionResult DepositPercent()
+        public ActionResult MonthForward()
         {
-            try
-            {
-                depositService.Percents();
-            }
-            catch (Exception)
-            {
-            }
+            dateService.MonthForward();
+            return RedirectToAction("Maintain");
+        }
+
+        public ActionResult YearForward()
+        {
+            dateService.YearForward();
+            return RedirectToAction("Maintain");
+        }
+
+        public ActionResult ResetDate()
+        {
+            dateService.Reset();
             return RedirectToAction("Maintain");
         }
     }

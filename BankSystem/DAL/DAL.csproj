@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -89,9 +90,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FinanceEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="GlobalDate.cs">
+      <DependentUpon>FinanceEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Implementation\CommentRepository.cs" />
     <Compile Include="Implementation\CreditRepository.cs" />
     <Compile Include="Implementation\CreditTypeRepository.cs" />
+    <Compile Include="Implementation\DateRepository.cs" />
     <Compile Include="Implementation\DepositPaymentRepository.cs" />
     <Compile Include="Implementation\DepositRepository.cs" />
     <Compile Include="Implementation\DepositTypeRepository.cs" />
@@ -102,6 +107,7 @@
     <Compile Include="Interfaces\ICreditPaymentRepository.cs" />
     <Compile Include="Interfaces\ICreditRepository.cs" />
     <Compile Include="Interfaces\ICreditTypeReporsitory.cs" />
+    <Compile Include="Interfaces\IDateRepository.cs" />
     <Compile Include="Interfaces\IDepositPaymentRepository.cs" />
     <Compile Include="Interfaces\IDepositRepository.cs" />
     <Compile Include="Interfaces\IDepositTypeRepository.cs" />

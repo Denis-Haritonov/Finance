@@ -11,7 +11,7 @@
 
 @helper RenderCancelAction(CreditPaymentModel paymentModel)
 {
-    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != CreditPaymentType.AutomaticPercents && paymentModel.Date.Date == DateTime.Today)
+    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != CreditPaymentType.AutomaticPercents && paymentModel.Date.Date == (DateTime)ViewBag.CurrentDate)
     {
         <button type="button" class="btn btn-default remove-payment" data-url="@Url.Action( "CancelPayment", "Credit", new { paymentId = paymentModel.Id })" data-toggle="modal" data-target="#myModal">Отменить</button>
     }
@@ -36,6 +36,9 @@
     Открыт: @Model.FormattedStartDate
 </div>
 <div>
+    Дата завершения: @Model.FormattedEndDate
+</div>
+<div>
     Основной долг: @Model.MainDebt.ToString("N")
 </div>
 <div>
@@ -52,6 +55,18 @@
 }
 @if (Model.MainDebt > 0)
 {
+    if (Model.EndDate < ViewBag.CurrentDate)
+    {
+        <div>
+            Срок кредита вышел. Будут начисляться штрафные проценты.
+        </div>
+        if (User.IsInRole("SecurityWorker"))
+        {
+            <div>
+                @Html.ActionLink("Закрыть кредит", "CloseCredit", "SecurityWorker", new {creditId = Model.Id}, null)
+            </div>
+        }
+    }
     <div>
         @Html.ActionLink("Внести платеж", "IncomePayment", new {creditId = Model.Id})
     </div>

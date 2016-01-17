@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bba46ef0875c4487b17b4c777d9a7e5e" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="FinanceModel.C__RefactorLog" Width="1.5" PointX="7.75" PointY="3.25" />
-        <EntityTypeShape EntityType="FinanceModel.Comment" Width="1.5" PointX="5.25" PointY="3.875" />
-        <EntityTypeShape EntityType="FinanceModel.Credit" Width="1.5" PointX="5.25" PointY="11.5" />
-        <EntityTypeShape EntityType="FinanceModel.CreditPayment" Width="1.5" PointX="7.5" PointY="12" />
-        <EntityTypeShape EntityType="FinanceModel.CreditType" Width="1.5" PointX="0.75" PointY="11.625" />
-        <EntityTypeShape EntityType="FinanceModel.Deposit" Width="1.5" PointX="5.25" PointY="7.5" />
-        <EntityTypeShape EntityType="FinanceModel.DepositPayment" Width="1.5" PointX="7.5" PointY="8" />
-        <EntityTypeShape EntityType="FinanceModel.DepositType" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="FinanceModel.Request" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="FinanceModel.C__RefactorLog" Width="1.5" PointX="7.75" PointY="11.125" />
+        <EntityTypeShape EntityType="FinanceModel.Comment" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="FinanceModel.Credit" Width="1.5" PointX="5.25" PointY="7.25" />
+        <EntityTypeShape EntityType="FinanceModel.CreditPayment" Width="1.5" PointX="7.5" PointY="7.875" />
+        <EntityTypeShape EntityType="FinanceModel.CreditType" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="FinanceModel.Deposit" Width="1.5" PointX="8.25" PointY="3.5" />
+        <EntityTypeShape EntityType="FinanceModel.DepositPayment" Width="1.5" PointX="10.5" PointY="4" />
+        <EntityTypeShape EntityType="FinanceModel.DepositType" Width="1.5" PointX="0.75" PointY="11.625" />
+        <EntityTypeShape EntityType="FinanceModel.Request" Width="1.5" PointX="3" PointY="6.75" />
         <EntityTypeShape EntityType="FinanceModel.UserProfile" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_Membership" Width="1.5" PointX="9.75" PointY="3.25" />
-        <EntityTypeShape EntityType="FinanceModel.webpages_OAuthMembership" Width="1.5" PointX="9.75" PointY="7.25" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_Membership" Width="1.5" PointX="2.75" PointY="12.125" />
+        <EntityTypeShape EntityType="FinanceModel.webpages_OAuthMembership" Width="1.5" PointX="4.75" PointY="12.125" />
         <EntityTypeShape EntityType="FinanceModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="4.625" />
         <AssociationConnector Association="FinanceModel.FK_Comment_Request" />
         <AssociationConnector Association="FinanceModel.FK_Comment_UserProfile" />
@@ -34,6 +34,7 @@
         <AssociationConnector Association="FinanceModel.FK_Request_Employee" />
         <AssociationConnector Association="FinanceModel.FK_Request_SecuriryWorker" />
         <AssociationConnector Association="FinanceModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="FinanceModel.GlobalDate" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

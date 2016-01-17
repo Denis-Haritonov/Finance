@@ -13,10 +13,13 @@ namespace BLL.Implementations
 
         private IDepositRepository depositRepository;
 
-        public DepositPaymentService(IDepositPaymentRepository depositPaymentRepository, IDepositRepository depositRepository)
+        private IDateService dateService;
+
+        public DepositPaymentService(IDepositPaymentRepository depositPaymentRepository, IDepositRepository depositRepository, IDateService dateService)
         {
             this.depositPaymentRepository = depositPaymentRepository;
             this.depositRepository = depositRepository;
+            this.dateService = dateService;
         }
 
         public void AddPayment(DepositPaymentModel paymentModel)
@@ -35,12 +38,13 @@ namespace BLL.Implementations
                 deposit.Balance = 0;
             }
             depositRepository.UpdateDeposit(deposit);
+            var date = dateService.GetCurrentDate();
             var payment = new DepositPayment
             {
                 Amount = paymentModel.Amount,
                 DepositId = paymentModel.DepositId,
                 Type = (int) paymentModel.Type,
-                Date = DateTime.Now
+                Date = date
             };
             depositPaymentRepository.CreatePayment(payment);
         }

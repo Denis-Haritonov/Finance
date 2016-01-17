@@ -3,15 +3,17 @@
 @using GridMvc.Html
 @model DepositModel
 
+@Scripts.Render("~/Scripts/CreditDetails.js")
+
 @{
     ViewBag.Title = "Вклад";
 }
 
 @helper RenderCancelAction(DepositPaymentModel paymentModel)
 {
-    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != DepositPaymentType.AutomaticIncome && paymentModel.Date.Date == DateTime.Today)
+    if (Model.PaymentModels.IndexOf(paymentModel) == 0 && paymentModel.Type != DepositPaymentType.AutomaticIncome && paymentModel.Date.Date == (DateTime)ViewBag.CurrentDate)
     {
-        @Html.ActionLink("Отменить", "CancelPayment", "Deposit", new {paymentId = paymentModel.Id}, null)
+        <button type="button" class="btn btn-default remove-payment" data-url="@Url.Action("CancelPayment", "Deposit", new { paymentId = paymentModel.Id })" data-toggle="modal" data-target="#myModal">Отменить</button>
     }
 }
 
@@ -29,7 +31,7 @@
     Открыт: @Model.FormattedStartDate
 </div>
 <div>
-    Баланс: @Model.Balance
+    Баланс: @Model.Balance.ToString("N")
 </div>
 @if (@Model.Balance > 0)
 {
@@ -54,12 +56,17 @@ else
         columns.Add(item => item.TypeName)
             .Titled("Тип");
 
-        columns.Add(item => item.Amount)
-            .Titled("Сумма");
+        columns.Add()
+            .Titled("Сумма")
+            .RenderValueAs(item => item.Amount.ToString("N"));
 
         columns.Add()
             .Encoded(false)
             .Sanitized(false)
             .RenderValueAs(item=> RenderCancelAction(item));
     })
+}
+
+@{
+    Html.RenderPartial("_CodeCheck", Model.ReturnCodeModel);
 }

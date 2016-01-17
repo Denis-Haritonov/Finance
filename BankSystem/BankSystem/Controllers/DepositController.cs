@@ -1,9 +1,11 @@
 ﻿using System.Net;
+using System.Runtime.Caching;
 using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
 using BLL.Models;
 using BLL.Models.Enums;
+using BLL.Models.ViewModel;
 
 namespace BankSystem.Controllers
 {
@@ -15,12 +17,15 @@ namespace BankSystem.Controllers
 
         private IDepositPaymentService depositPaymentService;
 
+        private IDateService dateService;
+
         public DepositController(IDepositService depositService, IUserService userService,
-            IRequestService requestService, IDepositPaymentService depositPaymentService) : base(userService)
+            IRequestService requestService, IDepositPaymentService depositPaymentService, IDateService dateService) : base(userService)
         {
             this.depositService = depositService;
             this.requestService = requestService;
             this.depositPaymentService = depositPaymentService;
+            this.dateService = dateService;
         }
 
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
@@ -57,7 +62,7 @@ namespace BankSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (ModelState.IsValidField("Amount"))
+            if (ModelState.IsValidField("Amount") && model.Amount >= 1 && model.Amount <= 1000000000 && model.Amount - decimal.Round(model.Amount) == 0)
             {
                 request.Amount = model.Amount;
                 depositService.OpenDeposit(request);
@@ -69,17 +74,27 @@ namespace BankSystem.Controllers
                 return RedirectToAction("Index", "Home");
             }
             model.RequestModel = request;
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
             return View(model);
         }
 
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult EmployeeDetails(int depositId)
         {
+            ViewBag.CurrentDate = dateService.GetCurrentDate().Date;
             var deposit = depositService.GetDepositById(depositId);
             if (deposit == null)
             {
                 return new HttpNotFoundResult();
             }
+            var cache = MemoryCache.Default;
+            var refreshCode = cache.Get("RefreshCode");
+            if (refreshCode == null)
+            {
+                refreshCode = new RefreshCodeModel();
+            }
+            deposit.ReturnCodeModel = (RefreshCodeModel)refreshCode;
             return View(deposit);
         }
 
@@ -175,13 +190,15 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (ModelState.IsValid && paymentModel.Amount > 0)
+            if (ModelState.IsValidField("Amount") && paymentModel.Amount > 0 && paymentModel.Amount <= 1000000000 && paymentModel.Amount - decimal.Round(paymentModel.Amount) == 0)
             {
                 paymentModel.Type = DepositPaymentType.Income;
                 depositPaymentService.AddPayment(paymentModel);
                 return RedirectToAction("EmployeeDetails", new {depositId = depositId});
             }
             paymentModel.DepositModel = deposit;
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
             return View(paymentModel);
         }
 
@@ -194,13 +211,15 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (ModelState.IsValid && paymentModel.Amount > 0 && paymentModel.Amount <= deposit.Balance)
+            if (ModelState.IsValidField("Amount") && paymentModel.Amount > 0 && paymentModel.Amount <= 1000000000)
             {
                 paymentModel.Type = DepositPaymentType.Outcome;
                 depositPaymentService.AddPayment(paymentModel);
                 return RedirectToAction("EmployeeDetails", new { depositId = depositId });
             }
             paymentModel.DepositModel = deposit;
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
             return View(paymentModel);
         }
     }

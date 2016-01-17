@@ -13,6 +13,7 @@
     @Html.AntiForgeryToken()
     <div>Сумма денег</div>
     @Html.TextBoxFor(model => model.Amount, new {@class = "form-control"})
+    @Html.ValidationSummary()
     <br/>
     <button type="submit" class="btn btn-sm btn-success">Подтвердить</button>
 }

@@ -18,12 +18,15 @@ namespace BankSystem.Controllers
 
         private ICreditPaymentService creditPaymentService;
 
+        private IDateService dateService;
+
         public CreditController(IUserService userService, IRequestService requestService, ICreditService creditService,
-            ICreditPaymentService creditPaymentService) : base(userService)
+            ICreditPaymentService creditPaymentService, IDateService dateService) : base(userService)
         {
             this.requestService = requestService;
             this.creditService = creditService;
             this.creditPaymentService = creditPaymentService;
+            this.dateService = dateService;
         }
 
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
@@ -67,6 +70,8 @@ namespace BankSystem.Controllers
         [Authorize(Roles = "Admin, Operator, SecurityWorker")]
         public ActionResult EmployeeDetails(int creditId)
         {
+            var currentDate = dateService.GetCurrentDate();
+            ViewBag.CurrentDate = currentDate.Date;
             var credit = creditService.GetCreditById(creditId);
             if (credit == null)
             {
@@ -74,8 +79,14 @@ namespace BankSystem.Controllers
             }
             try
             {
-                credit.MonthlyPayment = creditService.CalculateMonthPayment(credit.MainDebt + credit.PercentageDebt,
-                    credit.CreditType.ReturnTerm, credit.CreditType.Percent);
+                if (credit.EndDate > currentDate)
+                {
+                    credit.MonthlyPayment = creditService.CalculateMonthPayment(credit.StartAmount, credit.CreditType.ReturnTerm, credit.CreditType.Percent);
+                }
+                else
+                {
+                    credit.MonthlyPayment = null;
+                }
                 var cache = MemoryCache.Default;
                 var refreshCode = cache.Get("RefreshCode");
                 if (refreshCode == null)
@@ -118,6 +129,8 @@ namespace BankSystem.Controllers
         [Authorize(Roles = "Client")]
         public ActionResult ClientDetails(int creditId)
         {
+            var currentDate = dateService.GetCurrentDate();
+            ViewBag.CurrentDate = currentDate.Date;
             var credit = creditService.GetCreditById(creditId);
             if (credit == null)
             {
@@ -129,8 +142,14 @@ namespace BankSystem.Controllers
             }
             try
             {
-                credit.MonthlyPayment = creditService.CalculateMonthPayment(credit.MainDebt + credit.PercentageDebt,
-                    credit.CreditType.ReturnTerm, credit.CreditType.Percent);
+                if (credit.EndDate > currentDate)
+                {
+                    credit.MonthlyPayment = creditService.CalculateMonthPayment(credit.StartAmount, credit.CreditType.ReturnTerm, credit.CreditType.Percent);
+                }
+                else
+                {
+                    credit.MonthlyPayment = null;
+                }
             }
             catch (Exception)
             {
@@ -176,13 +195,15 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValidField("MainAmount") && paymentModel.MainAmount > 0 && paymentModel.MainAmount <= 1000000000)
             {
                 paymentModel.Type = CreditPaymentType.Payment;
                 creditPaymentService.AddPayment(paymentModel);
                 return RedirectToAction("EmployeeDetails", new { creditId = creditId });
             }
             paymentModel.CreditModel = credit;
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
             return View(paymentModel);
         }
     }

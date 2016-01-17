@@ -13,10 +13,13 @@ namespace BLL.Implementations
 
         private ICreditRepository creditRepository;
 
-        public CreditPaymentService(ICreditRepository creditRepository, ICreditPaymentRepository creditPaymentRepository)
+        private IDateService dateService;
+
+        public CreditPaymentService(ICreditRepository creditRepository, ICreditPaymentRepository creditPaymentRepository, IDateService dateService)
         {
             this.creditRepository = creditRepository;
             this.creditPaymentRepository = creditPaymentRepository;
+            this.dateService = dateService;
         }
 
         public void AddPayment(CreditPaymentModel paymentModel)
@@ -45,13 +48,14 @@ namespace BLL.Implementations
                 credit.PercentageDebt = 0;
             }
             creditRepository.UpdateCredit(credit);
+            var date = dateService.GetCurrentDate();
             var payment = new CreditPayment
             {
                 MainAmount = mainMinus,
                 PercentsAmount = percentMinus,
                 CreditId = paymentModel.CreditId,
                 Type = (int)paymentModel.Type,
-                Date = DateTime.Now,
+                Date = date,
             };
             creditPaymentRepository.CreatePayment(payment);
         }

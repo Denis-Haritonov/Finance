@@ -9,9 +9,12 @@ namespace BankSystem.Controllers
     {
         private IRequestService requestService;
 
-        public SecurityWorkerController(IUserService userService, IRequestService requestService) : base(userService)
+        private ICreditService creditService;
+
+        public SecurityWorkerController(IUserService userService, IRequestService requestService, ICreditService creditService) : base(userService)
         {
             this.requestService = requestService;
+            this.creditService = creditService;
         }
 
         public ActionResult ApproveQue()
@@ -30,6 +33,18 @@ namespace BankSystem.Controllers
         {
             requestService.AssignRequestToSecurityWorker(requestId, CurrentUser.UserId);
             return RedirectToAction("EmployeeDetails", "Request", new { requestId = requestId });
+        }
+
+        public ActionResult OverdueCredits()
+        {
+            var credits = creditService.GetOverdueCredits();
+            return View(credits);
+        }
+
+        public ActionResult CloseCredit(int creditId)
+        {
+            creditService.CloseCredit(creditId);
+            return RedirectToAction("OverdueCredits");
         }
     }
 }

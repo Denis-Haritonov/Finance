@@ -80,15 +80,6 @@ namespace Pl.Web.Portal.Menu
             };
             menuPoints.Add(index);
 
-
-
-            var credits = new MenuPoint(new List<string>() { "Admin" })
-            {
-                Name = "Кредиты",
-                PointUrl = urlHelper.Action("CreditGrids", "Admin")
-            };
-            menuPoints.Add(credits);
-
             var creditTypes = new MenuPoint(new List<string>() { "Admin" })
             {
                 Name = "Типы кредитов",
@@ -108,10 +99,7 @@ namespace Pl.Web.Portal.Menu
                 Name = "Код отмены платежа",
                 PointUrl = urlHelper.Action("RefreshCode", "Admin")
             };
-            menuPoints.Add(closecode);
-            
-
-            
+            menuPoints.Add(closecode);                     
         }
     }
 }

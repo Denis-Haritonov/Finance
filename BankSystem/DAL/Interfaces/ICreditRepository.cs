@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Remoting.Lifetime;
 
 namespace DAL.Interfaces
@@ -18,5 +19,7 @@ namespace DAL.Interfaces
         List<Credit> GetCredits();
 
         void Percents();
+
+        List<Credit> GetOverdueCredits(DateTime date);
     }
 }

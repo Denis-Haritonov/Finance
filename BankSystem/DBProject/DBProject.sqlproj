@@ -75,6 +75,7 @@
     <Build Include="dbo\Comment.sql" />
     <Build Include="dbo\DepositPayment.sql" />
     <Build Include="dbo\CreditPayment.sql" />
+    <Build Include="dbo\GlobalDate.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DBProject.publish.xml" />

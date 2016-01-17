@@ -166,7 +166,6 @@ namespace BankSystem.Controllers
             else
             {
                 return RedirectToAction("SaveCreditType");
-
             }
         }
 

@@ -19,6 +19,12 @@ namespace BLL.Interfaces
 
         decimal CalculateMonthPayment(decimal amount, TimeSpan returnTerm, double yearPercent);
 
+        decimal CalculateMonthPayment(decimal amount, int monthCount, double yearPercent);
+
         void Percents();
+
+        List<CreditModel> GetOverdueCredits();
+
+        void CloseCredit(int creditId);
     }
 }
