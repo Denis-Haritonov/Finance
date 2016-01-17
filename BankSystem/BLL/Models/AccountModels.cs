@@ -62,7 +62,21 @@ namespace BankSystem.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterModel
+    public class RegisterModel : CutRegisterModel
+    {
+        [Required(ErrorMessage = "Поле {0} нужно заполнить")]
+        [StringLength(100, ErrorMessage = "Пароль {0} должен быть не меньше {2} символов.", MinimumLength = 8)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Повторите пароль")]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public class CutRegisterModel
     {
         public int? UserId { get; set; }
 
@@ -108,34 +122,25 @@ namespace BankSystem.Models
         [Display(Name = "Идентификационный номер")]
         [RegularExpression("(\\d){7}[A-Z](\\d){3}[A-Z]{2}\\d", ErrorMessage = "Недействительный Идентификационный номер")]
         public String PassportIdentificationNumber { get; set; }
-        
+
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Кем выдан")]
         public String PassportApprovel { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [DataType(DataType.Date)]
-        [Display(Name = "Выдан до")]       
+        [Display(Name = "Выдан до")]
         public DateTime PassportEndDate { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
-        [Display(Name = "Адресс регистрации")] 
+        [Display(Name = "Адресс регистрации")]
         public String RegistrationAddress { get; set; }
 
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Ceкретная фраза")]
         public String SecretPhrase { get; set; }
 
-        [Required(ErrorMessage = "Поле {0} нужно заполнить")]
-        [StringLength(100, ErrorMessage = "Пароль {0} должен быть не меньше {2} символов.", MinimumLength = 8)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Повторите пароль")]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
-        public string ConfirmPassword { get; set; }
+        
 
         [Display(Name = "Логин")]
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]

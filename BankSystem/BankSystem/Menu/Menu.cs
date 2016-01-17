@@ -80,6 +80,22 @@ namespace Pl.Web.Portal.Menu
             };
             menuPoints.Add(index);
 
+
+
+            var credits = new MenuPoint(new List<string>() { "Admin" })
+            {
+                Name = "Кредиты",
+                PointUrl = urlHelper.Action("CreditGrids", "Admin")
+            };
+            menuPoints.Add(credits);
+
+            var creditTypes = new MenuPoint(new List<string>() { "Admin" })
+            {
+                Name = "Типы кредитов",
+                PointUrl = urlHelper.Action("CreditTypeGrid", "Admin")
+            };
+            menuPoints.Add(creditTypes);
+
             var currency = new MenuPoint(new List<string>() { "Admin" })
             {
                 Name = "Курсы валют",
@@ -93,6 +109,9 @@ namespace Pl.Web.Portal.Menu
                 PointUrl = urlHelper.Action("RefreshCode", "Admin")
             };
             menuPoints.Add(closecode);
+            
+
+            
         }
     }
 }

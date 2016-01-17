@@ -568,6 +568,9 @@
     <Content Include="Views\Admin\CreateEditUser.cshtml" />
     <Content Include="Views\Admin\Currency.cshtml" />
     <Content Include="Views\Admin\RefreshCode.cshtml" />
+    <Content Include="Views\Admin\CreditTypeGrid.cshtml" />
+    <Content Include="Views\Admin\SaveEditCreditType.cshtml" />
+    <Content Include="Views\Admin\CreditGrids.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

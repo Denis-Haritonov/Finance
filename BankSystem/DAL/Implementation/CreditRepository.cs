@@ -62,6 +62,18 @@ namespace DAL.Implementation
             }
         }
 
+        public List<Credit> GetCredits()
+        {
+            using (var context = new FinanceEntities())
+            {
+                return
+                    context.Credit.Include(item => item.CreditType)
+                        .Include(item => item.UserProfile)
+                        .Include(item => item.CreditPayment)
+                        .ToList();
+            }
+        }
+
         public void Percents()
         {
             using (var context = new FinanceEntities())

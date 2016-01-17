@@ -34,7 +34,7 @@ namespace Common.Grid.RenderTemplates
         {
             var isOn = (bool)Property.GetValue(value);
             var result = new HtmlTableCell();
-            result.InnerHtml = "Нет Сущностей";
+            result.InnerHtml = isOn ? "Да" : "Нет";
             return result;
         }
     }

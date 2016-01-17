@@ -1,0 +1,20 @@
+﻿@using Common.Enum
+@using Pl.Web.Portal
+@model BLL.Models.ViewModel.CreditTypeGridModel
+@{
+    ViewBag.Title = "Кредиты";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <h1>Типы кредитов</h1>
+</div>
+
+<div class="page-content">
+    <div>
+        <a class="btn btn-success" href="@Url.Action("SaveEditCreditType")">Создать</a>
+    </div>
+    <div style="margin-top:15px">
+        @Html.Gridd(Model.CreditTypes, TemplateMode.Display)
+    </div>
+</div>

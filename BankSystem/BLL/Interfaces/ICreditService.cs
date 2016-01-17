@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BLL.Models;
+using BLL.Models.GridModels.Credit;
 
 namespace BLL.Interfaces
 {
@@ -11,6 +12,8 @@ namespace BLL.Interfaces
         CreditModel FindByRequestId(int requestId);
 
         CreditModel GetCreditById(int depositId);
+
+        List<CreditRowModel> GetCreditGrid();
 
         List<CreditModel> GetClientCredits(int clientId);
 

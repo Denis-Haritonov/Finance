@@ -1,5 +1,9 @@
-﻿using BankSystem.Models;
+﻿using System;
+using BankSystem.Models;
+using BLL.Models;
 using BLL.Models.GridModels;
+using BLL.Models.GridModels.Credit;
+using BLL.Models.GridModels.CreditType;
 using BLL.Models.ViewModel;
 using DAL;
 
@@ -24,6 +28,26 @@ namespace BusinesLogicLayer.Entities
             Mapper.CreateMap<RegisterModel, UserProfile>();
             Mapper.CreateMap<UserGridRowViewModel, UserProfile>();
             Mapper.CreateMap<UserProfile, UserGridRowViewModel>();
+            Mapper.CreateMap<CreditType, CreditTypeRowViewModel>()
+                .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent * 100))
+                .ForMember(ct => ct.OverduePercent, opt => opt.MapFrom(ct => ct.OverduePercent * 100))
+                .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm).Days));
+            Mapper.CreateMap<CreditTypeRowViewModel, CreditType>()
+                .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent / 100))
+                .ForMember(ct => ct.OverduePercent, opt => opt.MapFrom(ct => ct.OverduePercent / 100))
+                .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm,0,0,0).Ticks));
+            Mapper.CreateMap<CreditType, CreditTypeEditModel>()
+               .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent * 100))
+               .ForMember(ct => ct.OverduePercent, opt => opt.MapFrom(ct => ct.OverduePercent * 100))
+               .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm).Days));
+            Mapper.CreateMap<CreditTypeEditModel, CreditType>()
+                .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent / 100))
+                .ForMember(ct => ct.OverduePercent, opt => opt.MapFrom(ct => ct.OverduePercent / 100))
+                .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm, 0, 0, 0).Ticks));
+            Mapper.CreateMap<Credit, CreditRowModel>()
+                .ForMember(ct => ct.ClientName, opt => opt.MapFrom(ct => ct.UserProfile.UserName + " " + ct.UserProfile.UserSurname + " " + ct.UserProfile.UserLastName + " "))
+                .ForMember(ct => ct.CreditTypeName, opt => opt.MapFrom(ct => ct.CreditType.Name));
+           
         }
     }
 }

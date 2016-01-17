@@ -9,6 +9,20 @@ namespace BLL.Models.ViewModel
 {
     public class CurrencyModel
     {
+
+        public CurrencyModel()
+        {
+            MinDollarPrice = 20050;
+            AvrDollarPrice = 20225;
+            MaxDollarPrice = 20500;
+            MinEuroPrice = 21880;
+            MaxEuroPrice = 22380;
+            AvrEuroPrice = 22130;
+            MinRublePrice = 251;
+            MaxRublePrice = 266;
+            AvrRublePrice = 258;
+        }
+        
         [Required(ErrorMessage = "Поле {0} нужно заполнить")]
         [Display(Name = "Курс покупки доллара")]
         public int MinDollarPrice { get; set; }

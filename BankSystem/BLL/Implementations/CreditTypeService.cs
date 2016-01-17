@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
+using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Models.GridModels.CreditType;
+using BLL.Models.ViewModel;
+using DAL;
 using DAL.Interfaces;
 
 namespace BLL.Implementations
@@ -28,6 +33,30 @@ namespace BLL.Implementations
                 return new CreditTypeModel(creditType);
             }
             return null;
+        }
+
+        public List<CreditTypeRowViewModel> GetGridCreditTypes()
+        {
+            return
+                this.creditTypeReporsitory.GetCreditTypes()
+                    .Select(ct => Mapper.Map<CreditTypeRowViewModel>(ct))
+                    .ToList();
+        }
+
+        public CreditTypeEditModel GetCreditTypeEditModelById(int creditTypeId)
+        {
+            return Mapper.Map<CreditTypeEditModel>(creditTypeReporsitory.GetCreditTypeById(creditTypeId));
+        }
+
+        public void SaveEditCreditType(CreditTypeEditModel model)
+        {
+            var dalCreditType = Mapper.Map<CreditType>(model);
+            creditTypeReporsitory.SaveUpdateCreditType(dalCreditType);
+        }
+
+        public void DeleteCreditType(int creditTypeId)
+        {
+            this.creditTypeReporsitory.DeleteCreditType(creditTypeId);
         }
     }
 }

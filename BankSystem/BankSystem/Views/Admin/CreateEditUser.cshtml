@@ -1,5 +1,5 @@
 ﻿@using Pl.Web.Portal
-@model BankSystem.Models.RegisterModel
+@model BankSystem.Models.CutRegisterModel
 @{
     ViewBag.Title = "Редактировать пользователя";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -16,27 +16,106 @@
     }
 </div>
 
-@using (Html.BeginForm("SaveUser","Admin"))
+@using (Html.BeginForm("SaveUser", "Admin"))
 {
-    <div class="page-content">
-        @{
-            Html.RenderPartial("_UserEditForm");
+    @Html.HiddenFor(m => m.UserId)
+    <div>
+        <fieldset class="col-lg-6 span6">
+            <ul>
+                @if (User.IsInRole("Admin") && (Model.UserId != null && !Roles.IsUserInRole(Model.Login, "Admin")))
+                {
+                    <li>
+                        <div>@Html.LabelFor(m => m.UserRole)</div>
+                        <div>@Html.DropDownListFor(model => model.UserRole, Enum.GetNames(typeof(Common.Enum.Roles)).Select(e => new SelectListItem { Text = e }))</div>
+                    </li>
+                }
+                <li>
+                    <div>@Html.LabelFor(m => m.Login)</div>
+                    <div>@Html.TextBoxFor(m => m.Login, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.Login)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.UserName)</div>
+                    <div>@Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.UserName)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.UserSurName)</div>
+                    <div>@Html.TextBoxFor(m => m.UserSurName, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.UserSurName)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.UserLastName)</div>
+                    <div>@Html.TextBoxFor(m => m.UserLastName, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.UserLastName)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.UserBirthDate)</div>
+                    <div>@Html.TextBoxFor(m => m.UserBirthDate, new { @class = "birthdate form-control", autocomplete = "off", @readonly = "readonly" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.UserBirthDate)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.RegistrationAddress)</div>
+                    <div>@Html.TextBoxFor(m => m.RegistrationAddress, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.RegistrationAddress)</div>
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset class="col-lg-6 span6">
+            <ul>
+                <li>
+                    <div>@Html.LabelFor(m => m.UserPassportSerialNumber)</div>
+                    <div>@Html.TextBoxFor(m => m.UserPassportSerialNumber, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.UserPassportSerialNumber)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.PassportIdentificationNumber)</div>
+                    <div>@Html.TextBoxFor(m => m.PassportIdentificationNumber, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.PassportIdentificationNumber)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.Email)</div>
+                    <div>@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.Email)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.MobilePhone)</div>
+                    <div>@Html.TextBoxFor(m => m.MobilePhone, new { placeholder = "+375xx-xxx-xx-xx", @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.MobilePhone)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.SecretPhrase)</div>
+                    <div>@Html.TextBoxFor(m => m.SecretPhrase, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.SecretPhrase)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.PassportApprovel)</div>
+                    <div>@Html.TextBoxFor(m => m.PassportApprovel, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.PassportApprovel)</div>
+                </li>
+                <li>
+                    <div>@Html.LabelFor(m => m.PassportEndDate)</div>
+                    <div>@Html.TextBoxFor(m => m.PassportEndDate, new { @class = "passport-date form-control", autocomplete = "off", @readonly = "readonly" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.PassportEndDate)</div>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div style="margin-top: 20px">
+        @if (Model.UserId == null)
+        {
+            <div class="span12">
+                <button class="btn btn-success">Создать</button>
+            </div>
         }
-        <div style="margin-top: 20px">
-            @if (Model.UserId == 0)
-            {
-                <div class="span12">
-                    <button class="btn btn-success">Создать</button>
-                </div>
-            }
-            
-            @if (Model.UserId != null && !Roles.IsUserInRole(Model.Login, Common.Enum.Roles.Admin.ToString()))
-            {
-                <div class="span12">
-                    <button type="submit" class="btn btn-success">Сохранить</button>
-                    <a class="btn btn-danger" href="@Url.Action("DeleteUser", new {userId = Model.UserId})">Удалить</a>
-                </div>
-            }
-        </div>
+
+        @if (Model.UserId != null && !Roles.IsUserInRole(Model.Login, Common.Enum.Roles.Admin.ToString()))
+        {
+            <div class="span12">
+                <button type="submit" class="btn btn-success">Сохранить</button>
+                <a class="btn btn-danger" href="@Url.Action("DeleteUser", new {userId = Model.UserId})">Удалить</a>
+            </div>
+        }
     </div>
 }

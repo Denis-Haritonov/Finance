@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models;
 using BLL.Models.Enums;
+using BLL.Models.GridModels.Credit;
 using DAL;
 using DAL.Interfaces;
 
@@ -81,6 +83,11 @@ namespace BLL.Implementations
         public void Percents()
         {
             creditRepository.Percents();
+        }
+
+        public List<CreditRowModel> GetCreditGrid()
+        {
+            return creditRepository.GetCredits().Select( ct => Mapper.Map<CreditRowModel>(ct)).ToList();
         }
     }
 }

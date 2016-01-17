@@ -3115,3 +3115,7 @@ td .lbl:only-child {
     height: 28px;
     line-height: 20px;
 }
+
+.main-menu li {
+    border-bottom: solid 1px #00bfff
+}

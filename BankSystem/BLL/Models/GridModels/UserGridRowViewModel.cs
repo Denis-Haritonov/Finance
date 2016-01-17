@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserGridRowViewModel.cs" company="ZigZag">
-//   Copyright © ZigZag 2015
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-using Common.Enum;
+﻿using Common.Enum;
 using Common.Grid.Attributes;
 
 namespace BLL.Models.GridModels

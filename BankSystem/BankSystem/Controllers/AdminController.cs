@@ -3,7 +3,9 @@ using System.Runtime.Caching;
 using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
+using BLL.Models;
 using BLL.Models.ViewModel;
+using Common.Common;
 
 namespace BankSystem.Controllers
 {
@@ -15,10 +17,19 @@ namespace BankSystem.Controllers
 
         private IUserService userService;
 
-        public AdminController(IUserService userService)
+        private ICreditTypeService creditTypeService;
+
+        private ICreditService creditService;
+
+        public AdminController(IUserService userService, ICreditTypeService creditTypeService,
+            ICreditService creditService)
         {
             this.userService = userService;
+            this.creditTypeService = creditTypeService;
+            this.creditService = creditService;
         }
+
+        #region users
 
         public ActionResult Index(int page = 1, string columnName = "UserId")
         {
@@ -30,7 +41,7 @@ namespace BankSystem.Controllers
 
         public ActionResult CreateEditUser(int userId = 0)
         {
-            RegisterModel model = userService.GetRegisterModelUserById(userId);
+            CutRegisterModel model = userService.GetRegisterModelUserById(userId);
             return View(model);
         }
 
@@ -40,11 +51,23 @@ namespace BankSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult SaveUser(RegisterModel model)
+        public ActionResult SaveUser(CutRegisterModel model)
         {
-            this.userService.AdminSaveUser(model);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                RegisterModel regModel = (RegisterModel)model;
+                this.userService.AdminSaveUser(regModel);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("CreateEditUser", model);
+            }          
         }
+
+        #endregion
+
+        #region Currency
 
         [HttpGet]
         public ActionResult Currency()
@@ -53,7 +76,8 @@ namespace BankSystem.Controllers
             var currencyModel = cache.Get("Currency");
             if (currencyModel == null)
             {
-                currencyModel = new CurrencyModel(); ;
+                currencyModel = new CurrencyModel();
+                ;
             }
             return View(currencyModel);
         }
@@ -70,6 +94,9 @@ namespace BankSystem.Controllers
             return View(model);
         }
 
+        #endregion
+
+        #region refreshCode
 
         [HttpGet]
         public ActionResult RefreshCode()
@@ -78,7 +105,8 @@ namespace BankSystem.Controllers
             var currencyModel = cache.Get("RefreshCode");
             if (currencyModel == null)
             {
-                currencyModel = new RefreshCodeModel(); ;
+                currencyModel = new RefreshCodeModel();
+                ;
             }
             return View(currencyModel);
         }
@@ -94,6 +122,86 @@ namespace BankSystem.Controllers
             }
             return View(model);
         }
+
+        #endregion
+
+        #region crediType
+
+        public ActionResult CreditTypeGrid(int page = 1)
+        {
+            var creditTypes = creditTypeService.GetGridCreditTypes();
+            foreach (var creditType in creditTypes)
+            {
+                if (creditType.IsActive)
+                {
+                    creditType.Name = "<a href='" + Url.Action("SaveEditCreditType", new { creditTypeId = creditType.Id }) + "'>" + creditType.Name + "</a>";
+                }
+            }
+            var model = new CreditTypeGridModel
+            {
+                CreditTypes = new PagingCollection<object>(creditTypes, creditTypes.Count, creditTypes.Count)
+            };
+
+            return View(model);          
+        }
+
+        [HttpGet]
+        public ActionResult SaveEditCreditType(int creditTypeId = 0)
+        {
+            var model = creditTypeService.GetCreditTypeEditModelById(creditTypeId);
+            if(model == null)
+            { model = new CreditTypeEditModel();}
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SaveCreditType(CreditTypeEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                creditTypeService.SaveEditCreditType(model);
+                return RedirectToAction("CreditTypeGrid");
+            }
+            else
+            {
+                return RedirectToAction("SaveCreditType");
+
+            }
+        }
+
+        [HttpGet]
+        public ActionResult DeleteCreditType(int creditTypeId)
+        {
+            creditTypeService.DeleteCreditType(creditTypeId);
+            return RedirectToAction("CreditTypeGrid");
+        }
+        #endregion
+
+#region credits
+
+        public ActionResult CreditGrids()
+        {
+            var creditTypes = creditService.GetCreditGrid();
+            foreach (var credit in creditTypes)
+            {
+                    credit.Id = "<a href='" + Url.Action("SaveEditCredit", new { creditTypeId = credit.Id }) + "'>" + credit.Id + "</a>";
+            }
+            var model = new CreditGridModel
+            {
+                CreditTypes = new PagingCollection<object>(creditTypes, creditTypes.Count, creditTypes.Count)
+            };
+
+            return View(model);
+        }
+
+        public ActionResult SaveEditCredit(int creditId = 0)
+        {
+            return null;
+        }
+
+        #endregion
+
     }
 }
 

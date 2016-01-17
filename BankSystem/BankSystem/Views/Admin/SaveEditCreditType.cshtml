@@ -1,0 +1,85 @@
+﻿@using Pl.Web.Portal
+@model BLL.Models.CreditTypeEditModel
+@{
+    ViewBag.Title = "Редактировать пользователя";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    @if (Model.Id == 0)
+    {
+        <h1>Cоздать тип кредита</h1>
+    }
+    else
+    {
+        <h1>Редактировать тип кредита</h1>
+    }
+</div>
+<div class="page-content">
+    @using (Html.BeginForm("SaveCreditType", "Admin"))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <div>
+            <fieldset class="col-lg-6 span6">
+                <ul>
+                    <li>
+                        <div>@Html.LabelFor(m => m.Name)</div>
+                        <div>@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })</div>
+                        <div>@Html.ValidationMessageFor(m => m.Name)</div>
+                    </li>
+                    <li>
+                        <div>@Html.LabelFor(m => m.CurrencyShort)</div>
+                        <div>@Html.TextBoxFor(m => m.CurrencyShort, new { @class = "form-control" })</div>
+                        <div>@Html.ValidationMessageFor(m => m.CurrencyShort)</div>
+                    </li>
+                    <li>
+                        <div>@Html.LabelFor(m => m.Percent)</div>
+                        <div>@Html.TextBoxFor(m => m.Percent, new { @class = "form-control", type="number", min ="0",step ="1",max ="100"})</div>
+                        <div>@Html.ValidationMessageFor(m => m.Percent)</div>
+                    </li>
+                    <li>
+                        <div>@Html.LabelFor(m => m.OverduePercent)</div>
+                        <div>@Html.TextBoxFor(m => m.OverduePercent, new { @class = "form-control", type = "number", min = "0", step = "1", max = "100" })</div>
+                        <div>@Html.ValidationMessageFor(m => m.OverduePercent)</div>
+                    </li>
+                    <li>
+                        <div>@Html.LabelFor(m => m.ReturnTerm)</div>
+                        <div>@Html.TextBoxFor(m => m.ReturnTerm, new { @class = "form-control", type = "number", min = "0", step = "1"})</div>
+                        <div>@Html.ValidationMessageFor(m => m.ReturnTerm)</div>
+                    </li>
+
+                </ul>
+            </fieldset>
+            <fieldset class="col-lg-6 span6">
+                <ul>
+                    <li>
+                        <div>@Html.LabelFor(m => m.IsActive)@Html.CheckBoxFor(m => m.IsActive)</div>
+                        <div>@Html.ValidationMessageFor(m => m.IsActive)</div>
+                    </li>
+                    <li>
+                        <div>@Html.LabelFor(m => m.Description)</div>
+                        <div>@Html.TextAreaFor(m => m.Description,new { style =" width: 447px; height: 225px;"})</div>
+                        <div>@Html.ValidationMessageFor(m => m.Description)</div>
+                    </li>
+                </ul>
+            </fieldset>
+        </div>
+
+        <div style="margin-top: 20px">
+            @if (Model.Id == 0)
+            {
+                <div class="span12">
+                    <button class="btn btn-success">Создать</button>
+                </div>
+            }
+
+            @if (Model.Id != 0)
+            {
+                <div class="span12">
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteUser", new {userId = Model.Id})">Удалить</a>
+                </div>
+            }
+        </div>
+    }
+</div>
