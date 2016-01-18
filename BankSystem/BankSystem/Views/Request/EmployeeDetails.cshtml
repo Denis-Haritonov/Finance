@@ -57,7 +57,7 @@
     <div>
         Заявленная сумма: @Model.RequestModel.Amount.ToString("N")
     </div>
-    @if (User.IsInRole("Operator") && Model.IsAssignedToCurrent)
+    @if (User.IsInRole("Operator") && Model.IsAssignedToCurrent && Model.RequestModel.State != RequestState.Approved && Model.RequestModel.State != RequestState.Rejected)
     {
         @Html.ActionLink("Обновить сумму денег", "UpdateRequestAmount", new {requestId = Model.RequestModel.Id})
     }

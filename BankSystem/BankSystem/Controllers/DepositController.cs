@@ -211,11 +211,12 @@ namespace BankSystem.Controllers
             {
                 return new HttpNotFoundResult();
             }
-            if (ModelState.IsValidField("Amount") && paymentModel.Amount > 0 && paymentModel.Amount <= 1000000000)
+            if (ModelState.IsValidField("Amount") && paymentModel.Amount > 0 && paymentModel.Amount <= 1000000000 &&
+                paymentModel.Amount <= deposit.Balance)
             {
                 paymentModel.Type = DepositPaymentType.Outcome;
                 depositPaymentService.AddPayment(paymentModel);
-                return RedirectToAction("EmployeeDetails", new { depositId = depositId });
+                return RedirectToAction("EmployeeDetails", new {depositId = depositId});
             }
             paymentModel.DepositModel = deposit;
             ModelState.Clear();
