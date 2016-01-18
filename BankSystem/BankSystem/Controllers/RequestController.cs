@@ -102,7 +102,7 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDepositRequest(DepositRequestVM model)
         {
-            if (ModelState.IsValid && !(model.RequestModel.Amount <= 1 || model.RequestModel.Amount >= 1000000000))
+            if (ModelState.IsValid && model.RequestModel.Amount >= 1 && model.RequestModel.Amount <= 1000000000)
             {
                 model.RequestModel.ClientId = CurrentUser.UserId;
                 model.RequestModel.State = RequestState.Pending;
