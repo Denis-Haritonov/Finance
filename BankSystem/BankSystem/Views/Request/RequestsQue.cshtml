@@ -64,4 +64,4 @@
         .Encoded(false)
         .Sanitized(false)
         .RenderValueAs(item => RenderRequestDetailsAction(item.Id));
-}).EmptyText("Записей не найдено")
+}).EmptyText("Записей не найдено").WithPaging(15)
