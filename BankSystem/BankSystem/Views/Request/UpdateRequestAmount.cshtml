@@ -1,0 +1,20 @@
+﻿@model BLL.Models.RequestModel
+
+@{
+    ViewBag.Title = "Заявка";
+}
+
+<h2>Заявка</h2>
+<div>
+    @Html.ActionLink("К заявке", "EmployeeDetails", new {requestId = Model.Id})
+</div>
+@using (Html.BeginForm(new {requestId = Model.Id}))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label>Сумма денег</label>
+        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
+    </div>
+    @Html.ValidationSummary()
+    <button class="btn btn-success">Обновить заявку</button>
+}

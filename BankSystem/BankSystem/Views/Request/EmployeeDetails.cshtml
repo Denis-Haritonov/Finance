@@ -57,6 +57,16 @@
     <div>
         Заявленная сумма: @Model.RequestModel.Amount.ToString("N")
     </div>
+    @if (User.IsInRole("Operator") && Model.IsAssignedToCurrent)
+    {
+        @Html.ActionLink("Обновить сумму денег", "UpdateRequestAmount", new {requestId = Model.RequestModel.Id})
+    }
+    @if (Model.RequestModel.Type == RequestType.Credit)
+    {
+        <div>
+            Среднемесячный доход: @Model.RequestModel.MonthIncome
+        </div>
+    }
     @if (Model.IsAssignedToCurrent)
     {
         if (Model.RequestModel.Type == RequestType.Credit)

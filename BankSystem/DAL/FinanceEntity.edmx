@@ -116,6 +116,7 @@
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="AssignedOperatorId" Type="int" />
           <Property Name="AssignedSecurityWorkerId" Type="int" />
+          <Property Name="MonthIncome" Type="int" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -677,6 +678,7 @@
           <NavigationProperty Name="UserProfile" Relationship="FinanceModel.FK_Request_Client" FromRole="Request" ToRole="UserProfile" />
           <NavigationProperty Name="UserProfile1" Relationship="FinanceModel.FK_Request_Employee" FromRole="Request" ToRole="UserProfile" />
           <NavigationProperty Name="UserProfile2" Relationship="FinanceModel.FK_Request_SecuriryWorker" FromRole="Request" ToRole="UserProfile" />
+          <Property Name="MonthIncome" Type="Int32" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -1035,6 +1037,7 @@
           <EntitySetMapping Name="Request">
             <EntityTypeMapping TypeName="FinanceModel.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="MonthIncome" ColumnName="MonthIncome" />
                 <ScalarProperty Name="AssignedSecurityWorkerId" ColumnName="AssignedSecurityWorkerId" />
                 <ScalarProperty Name="AssignedOperatorId" ColumnName="AssignedOperatorId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />

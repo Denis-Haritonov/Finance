@@ -31,6 +31,7 @@ namespace DAL
         public System.DateTime Date { get; set; }
         public Nullable<int> AssignedOperatorId { get; set; }
         public Nullable<int> AssignedSecurityWorkerId { get; set; }
+        public Nullable<int> MonthIncome { get; set; }
     
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Credit> Credit { get; set; }

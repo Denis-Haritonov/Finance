@@ -29,6 +29,7 @@ namespace BLL.Implementations
                 Type = (int) requestModel.Type,
                 State = (int) requestModel.State,
                 Amount = requestModel.Amount,
+                MonthIncome = requestModel.MonthIncome,
                 CreditTypeId = requestModel.CreditTypeId,
                 DepositTypeId = requestModel.DepositTypeId,
                 Date = date
@@ -89,6 +90,16 @@ namespace BLL.Implementations
         {
             var request = requestRepository.GetRequestById(requsetId);
             request.State = (int)state;
+            requestRepository.UpdateRequest(request);
+        }
+
+        public void UpdateAmount(int requestId, int amount)
+        {
+            var request = requestRepository.GetRequestById(requestId);
+            if (request != null)
+            {
+                request.Amount = amount;
+            }
             requestRepository.UpdateRequest(request);
         }
     }

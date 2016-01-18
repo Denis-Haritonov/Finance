@@ -23,5 +23,7 @@ namespace BLL.Interfaces
         List<RequestModel> GetRequestsQueForSecurityWorker(int employeeId);
 
         List<RequestModel> GetCheckedRequestQueForEmployee(int employeeId);
+
+        void UpdateAmount(int requestId, int amount);
     }
 }

@@ -508,6 +508,7 @@
     <Content Include="Views\SecurityWorker\ApproveQue.cshtml" />
     <Content Include="Views\Request\ToApprove.cshtml" />
     <Content Include="Views\SecurityWorker\OverdueCredits.cshtml" />
+    <Content Include="Views\Request\UpdateRequestAmount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

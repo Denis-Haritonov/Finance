@@ -17,6 +17,10 @@
         <label>Сумма кредита</label>
         @Html.TextBoxFor(m => m.RequestModel.Amount, new {@class = "form-control"})
     </div>
+    <div class="form-group">
+        <label>Среднемесячный доход за последние 3 месяца</label>
+        @Html.TextBoxFor(m => m.RequestModel.MonthIncome, new {@class = "form-control"})
+    </div>
     @Html.ValidationSummary()
     <button class="btn btn-success">Отправить заявку</button>
 }

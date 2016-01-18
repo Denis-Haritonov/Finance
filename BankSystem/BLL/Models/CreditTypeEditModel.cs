@@ -26,7 +26,7 @@ namespace BLL.Models
         public double OverduePercent { get; set; }
 
         [Required]
-        [Display(Name ="Срок возврвта в днях")]
+        [Display(Name ="Срок возврата в днях")]
         public int ReturnTerm { get; set; }
 
         [Display(Name = "Активен?")]

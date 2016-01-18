@@ -44,6 +44,7 @@ namespace BankSystem.Controllers
             {
                 firstCreditType.Selected = true;
             }
+            creditRequestModel.RequestModel.MonthIncome = 0;
             return View(creditRequestModel);
         }
 
@@ -52,12 +53,24 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCreditRequest(CreditRequestVM model)
         {
-            model.CreditTypes = GetCreditTypesListItems();
-            if (!ModelState.IsValidField("Amount") || model.RequestModel.Amount <= 1 ||
-                model.RequestModel.Amount >= 1000000000)
+            var validModel = true;
+            ModelState.Clear();
+            if (!ModelState.IsValidField("Amount") || model.RequestModel.Amount < 1 ||
+                model.RequestModel.Amount > 1000000000)
             {
-                ModelState.Clear();
+                validModel = false;
                 ModelState.AddModelError("", "Некорректное значение суммы");
+            }
+            if (!ModelState.IsValidField("MonthIncome") || model.RequestModel.MonthIncome < 1 ||
+                model.RequestModel.MonthIncome > 1000000000)
+            {
+                validModel = false;
+                ModelState.AddModelError("", "Некорректное значение дохода");
+            }
+            model.CreditTypes = GetCreditTypesListItems();
+            if (!validModel)
+            {
+                model.RequestModel.MonthIncome = 0;
                 return View(model);
             }
             model.RequestModel.ClientId = CurrentUser.UserId;
@@ -89,7 +102,7 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDepositRequest(DepositRequestVM model)
         {
-            if (ModelState.IsValid && !(model.RequestModel.Amount <= 1 || model.RequestModel.Amount >= 1000000000))
+            if (ModelState.IsValid && model.RequestModel.Amount >= 1 && model.RequestModel.Amount <= 1000000000)
             {
                 model.RequestModel.ClientId = CurrentUser.UserId;
                 model.RequestModel.State = RequestState.Pending;
@@ -213,9 +226,31 @@ namespace BankSystem.Controllers
         [Authorize(Roles = "Operator")]
         public ActionResult ToSecurityWorker(int requestId)
         {
-            var request = requestService.GetRequestDetails(requestId);
             requestService.ChangeRequestState(requestId, RequestState.SecurityCheck);
             return RedirectToAction("RequestsQue", "Request");
+        }
+
+        [Authorize(Roles = "Operator")]
+        public ActionResult UpdateRequestAmount(int requestId)
+        {
+            var request = requestService.GetRequestDetails(requestId);
+            return View(request);
+        }
+
+        [Authorize(Roles = "Operator")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateRequestAmount(int requestId, RequestModel model)
+        {
+            if (model.Amount >= 1 && model.Amount <= 1000000000)
+            {
+                requestService.UpdateAmount(requestId, model.Amount);
+                return RedirectToAction("EmployeeDetails", new {requestId = requestId});
+            }
+            var request = requestService.GetRequestDetails(requestId);
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
+            return View(request);
         }
 
         private List<SelectListItem> GetDepositTypesListItems()
