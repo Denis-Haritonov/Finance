@@ -96,6 +96,7 @@
     <Compile Include="Models\CreditTypeModel.cs" />
     <Compile Include="Models\DepositModel.cs" />
     <Compile Include="Models\DepositPaymentModel.cs" />
+    <Compile Include="Models\DepositTypeEditModel.cs" />
     <Compile Include="Models\DepositTypeModel.cs" />
     <Compile Include="Models\Enums\CreditPaymentType.cs" />
     <Compile Include="Models\Enums\DepositPaymentType.cs" />
@@ -103,6 +104,8 @@
     <Compile Include="Models\Enums\RequestType.cs" />
     <Compile Include="Models\GridModels\CreditType\CreditTypeRowViewModel.cs" />
     <Compile Include="Models\GridModels\Credit\CreditRowModel.cs" />
+    <Compile Include="Models\GridModels\DepositType\DepositGridModel.cs" />
+    <Compile Include="Models\GridModels\DepositType\DepositTypeRowModel.cs" />
     <Compile Include="Models\GridModels\UserGridRowViewModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\ViewModel\CreditTypeGridModel .cs" />
@@ -128,6 +131,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -87,6 +87,13 @@ namespace Pl.Web.Portal.Menu
             };
             menuPoints.Add(creditTypes);
 
+            var depositTypes = new MenuPoint(new List<string>() { "Admin" })
+            {
+                Name = "Типы депозитов",
+                PointUrl = urlHelper.Action("DepositTypeGrid", "Admin")
+            };
+            menuPoints.Add(depositTypes);
+
             var currency = new MenuPoint(new List<string>() { "Admin" })
             {
                 Name = "Курсы валют",

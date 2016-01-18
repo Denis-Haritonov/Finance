@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using BankSystem.Models;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Models.GridModels.DepositType;
 using BLL.Models.ViewModel;
 using Common.Common;
 
@@ -21,12 +22,15 @@ namespace BankSystem.Controllers
 
         private ICreditService creditService;
 
+        private IDepositTypeService depositTypeService;
+
         public AdminController(IUserService userService, ICreditTypeService creditTypeService,
-            ICreditService creditService)
+            ICreditService creditService, IDepositTypeService depositTypeService)
         {
             this.userService = userService;
             this.creditTypeService = creditTypeService;
             this.creditService = creditService;
+            this.depositTypeService = depositTypeService;
         }
 
         #region users
@@ -200,7 +204,52 @@ namespace BankSystem.Controllers
         }
 
         #endregion
+#region deposits
 
+        public ActionResult DepositTypeGrid(int page = 1)
+        {
+            var depositTypes = depositTypeService.GetDepositRows();
+            foreach (var depositType in depositTypes)
+            {
+                if (depositType.IsActive)
+                {
+                    depositType.Name = "<a href='" + Url.Action("SaveEditDepositType", new { depositTypeId = depositType.Id }) + "'>" + depositType.Name + "</a>";
+                }
+            }
+            var model = new DepositGridModel()
+            {
+                DepositsTypes = new PagingCollection<object>(depositTypes, depositTypes.Count, depositTypes.Count)
+            };
+
+            return View(model);
+        }
+
+
+        public ActionResult SaveEditDepositType(int depositTypeId = 0)
+        {
+            var depositEditModel = depositTypeService.GetDepositTypeEditModel(depositTypeId);
+            if (depositEditModel == null)
+            {
+                depositEditModel = new DepositTypeEditModel();
+            }
+
+            return View(depositEditModel);
+        }
+
+        public ActionResult SaveDepositType(DepositTypeEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                depositTypeService.SaveOrUpdate(model);
+                return RedirectToAction("DepositTypeGrid");
+            }
+            else
+            {
+                return View("SaveEditDepositType", model);
+            }
+            
+        }
+#endregion
     }
 }
 

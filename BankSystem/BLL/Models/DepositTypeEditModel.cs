@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,25 +7,21 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class CreditTypeEditModel
+    public class DepositTypeEditModel
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Название типа кредита")]
+        [Display(Name = "Название типа депозита")]
         public string Name { get; set; }
-        
+
         [Required]
-        [Display(Name = "Процент кредита")]
+        [Display(Name = "Процент по депозиту")]
         public double Percent { get; set; }
 
         [Required]
-        [Display(Name = "Штрафной процент")]
-        public double OverduePercent { get; set; }
-
-        [Required]
-        [Display(Name ="Срок возврата в днях")]
+        [Display(Name = "Срок вклада в днях")]
         public int ReturnTerm { get; set; }
 
         [Display(Name = "Активен?")]

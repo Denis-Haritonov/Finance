@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using DAL.Interfaces;
 
@@ -19,6 +20,33 @@ namespace DAL.Implementation
             using (var context = new FinanceEntities())
             {
                 return context.DepositType.FirstOrDefault(item => item.Id == depositTypeId);
+            }
+        }
+
+
+        public List<DepositType> GetDepositRows()
+        {
+            using (var context = new FinanceEntities())
+            {
+                return context.DepositType
+                    .ToList();
+            }
+        }
+
+        public void SaveOrUpdate(DepositType model)
+        {
+            using (var context = new FinanceEntities())
+            {
+                if (model.Id == 0)
+                {
+                    context.DepositType.Add(model);
+                }
+                else
+                {
+                    context.Entry(model).State = EntityState.Modified;
+                }
+
+                context.SaveChanges();
             }
         }
     }

@@ -1,22 +1,22 @@
 ﻿@using Pl.Web.Portal
-@model BLL.Models.CreditTypeEditModel
+@model BLL.Models.DepositTypeEditModel
 @{
-    ViewBag.Title = "Редактировать депозит";
+    ViewBag.Title = "Редактировать Тип Депозита";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="page-header">
     @if (Model.Id == 0)
     {
-        <h1>Cоздать тип кредита</h1>
+        <h1>Cоздать тип депозита</h1>
     }
     else
     {
-        <h1>Редактировать тип кредита</h1>
+        <h1>Редактировать тип депозита</h1>
     }
 </div>
 <div class="page-content">
-    @using (Html.BeginForm("SaveCreditType", "Admin"))
+    @using (Html.BeginForm("SaveDepositType", "Admin"))
     {
         @Html.HiddenFor(m => m.Id)
         <div>
@@ -34,17 +34,12 @@
                     </li>
                     <li>
                         <div>@Html.LabelFor(m => m.Percent)</div>
-                        <div>@Html.TextBoxFor(m => m.Percent, new { @class = "form-control", type="number", min ="0",step ="1",max ="100"})</div>
+                        <div>@Html.TextBoxFor(m => m.Percent, new { @class = "form-control", type = "number", min = "0", step = "1", max = "100" })</div>
                         <div>@Html.ValidationMessageFor(m => m.Percent)</div>
                     </li>
                     <li>
-                        <div>@Html.LabelFor(m => m.OverduePercent)</div>
-                        <div>@Html.TextBoxFor(m => m.OverduePercent, new { @class = "form-control", type = "number", min = "0", step = "1", max = "100" })</div>
-                        <div>@Html.ValidationMessageFor(m => m.OverduePercent)</div>
-                    </li>
-                    <li>
                         <div>@Html.LabelFor(m => m.ReturnTerm)</div>
-                        <div>@Html.TextBoxFor(m => m.ReturnTerm, new { @class = "form-control", type = "number", min = "0", step = "1"})</div>
+                        <div>@Html.TextBoxFor(m => m.ReturnTerm, new { @class = "form-control", type = "number", min = "0", step = "1" })</div>
                         <div>@Html.ValidationMessageFor(m => m.ReturnTerm)</div>
                     </li>
 
@@ -58,7 +53,7 @@
                     </li>
                     <li>
                         <div>@Html.LabelFor(m => m.Description)</div>
-                        <div>@Html.TextAreaFor(m => m.Description,new { style =" width: 447px; height: 225px;"})</div>
+                        <div>@Html.TextAreaFor(m => m.Description, new { style = " width: 447px; height: 200px;" })</div>
                         <div>@Html.ValidationMessageFor(m => m.Description)</div>
                     </li>
                 </ul>
