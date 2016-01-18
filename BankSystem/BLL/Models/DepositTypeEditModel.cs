@@ -21,7 +21,7 @@ namespace BLL.Models
         public double Percent { get; set; }
 
         [Required]
-        [Display(Name = "Срок вклада в днях")]
+        [Display(Name = "Срок вклада в годах")]
         public int ReturnTerm { get; set; }
 
         [Display(Name = "Активен?")]
