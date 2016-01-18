@@ -573,6 +573,8 @@
     <Content Include="Views\Admin\CreditTypeGrid.cshtml" />
     <Content Include="Views\Admin\SaveEditCreditType.cshtml" />
     <Content Include="Views\Admin\CreditGrids.cshtml" />
+    <Content Include="Views\Admin\DepositTypeGrid.cshtml" />
+    <Content Include="Views\Admin\SaveEditDepositType.cshtml" />
     <None Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Request\CreateDepositRequest.cshtml" />
     <Content Include="Views\Request\CreateCreditRequest.cshtml" />

@@ -1,0 +1,20 @@
+﻿@using Common.Enum
+@using Pl.Web.Portal
+@model BLL.Models.GridModels.DepositType.DepositGridModel
+@{
+    ViewBag.Title = "Типы депозитов";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <h1>Типы депозитов</h1>
+</div>
+
+<div class="page-content">
+    <div>
+        <a class="btn btn-success" href="@Url.Action("SaveEditDepositType")">Создать</a>
+    </div>
+    <div style="margin-top:15px">
+        @Html.Gridd(Model.DepositsTypes, TemplateMode.Display)
+    </div>
+</div>

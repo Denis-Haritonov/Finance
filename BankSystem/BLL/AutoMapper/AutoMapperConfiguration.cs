@@ -4,6 +4,7 @@ using BLL.Models;
 using BLL.Models.GridModels;
 using BLL.Models.GridModels.Credit;
 using BLL.Models.GridModels.CreditType;
+using BLL.Models.GridModels.DepositType;
 using BLL.Models.ViewModel;
 using DAL;
 
@@ -47,6 +48,18 @@ namespace BusinesLogicLayer.Entities
             Mapper.CreateMap<Credit, CreditRowModel>()
                 .ForMember(ct => ct.ClientName, opt => opt.MapFrom(ct => ct.UserProfile.UserName + " " + ct.UserProfile.UserSurname + " " + ct.UserProfile.UserLastName + " "))
                 .ForMember(ct => ct.CreditTypeName, opt => opt.MapFrom(ct => ct.CreditType.Name));
+            Mapper.CreateMap<DepositType, DepositTypeRowModel>()
+                .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent * 100))
+                .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm).Days));
+            Mapper.CreateMap<DepositTypeRowModel, DepositType>()
+                .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent / 100))
+                .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm, 0, 0, 0).Ticks));
+            Mapper.CreateMap<DepositTypeEditModel, DepositType>()
+                .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent / 100))
+                .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm, 0, 0, 0).Ticks));
+            Mapper.CreateMap<DepositType, DepositTypeEditModel>()
+                .ForMember(ct => ct.Percent, opt => opt.MapFrom(ct => ct.Percent * 100))
+                .ForMember(ct => ct.ReturnTerm, opt => opt.MapFrom(ct => new TimeSpan(ct.ReturnTerm).Days));
            
         }
     }

@@ -7,5 +7,9 @@ namespace DAL.Interfaces
         List<DepositType> GetActiveDepositTypes();
 
         DepositType GetDepositTypeById(int depositTypeId);
+
+        List<DepositType> GetDepositRows();
+
+        void SaveOrUpdate(DepositType model);
     }
 }
