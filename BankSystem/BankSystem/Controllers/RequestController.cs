@@ -226,9 +226,31 @@ namespace BankSystem.Controllers
         [Authorize(Roles = "Operator")]
         public ActionResult ToSecurityWorker(int requestId)
         {
-            var request = requestService.GetRequestDetails(requestId);
             requestService.ChangeRequestState(requestId, RequestState.SecurityCheck);
             return RedirectToAction("RequestsQue", "Request");
+        }
+
+        [Authorize(Roles = "Operator")]
+        public ActionResult UpdateRequestAmount(int requestId)
+        {
+            var request = requestService.GetRequestDetails(requestId);
+            return View(request);
+        }
+
+        [Authorize(Roles = "Operator")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateRequestAmount(int requestId, RequestModel model)
+        {
+            if (model.Amount >= 1 && model.Amount <= 1000000000)
+            {
+                requestService.UpdateAmount(requestId, model.Amount);
+                return RedirectToAction("EmployeeDetails", new {requestId = requestId});
+            }
+            var request = requestService.GetRequestDetails(requestId);
+            ModelState.Clear();
+            ModelState.AddModelError("", "Некорректное значение суммы");
+            return View(request);
         }
 
         private List<SelectListItem> GetDepositTypesListItems()

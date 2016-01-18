@@ -92,5 +92,15 @@ namespace BLL.Implementations
             request.State = (int)state;
             requestRepository.UpdateRequest(request);
         }
+
+        public void UpdateAmount(int requestId, int amount)
+        {
+            var request = requestRepository.GetRequestById(requestId);
+            if (request != null)
+            {
+                request.Amount = amount;
+            }
+            requestRepository.UpdateRequest(request);
+        }
     }
 }
